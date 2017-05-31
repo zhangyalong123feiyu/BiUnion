@@ -9,6 +9,7 @@ import android.widget.RelativeLayout;
 import com.bibinet.biunion.R;
 import com.bibinet.biunion.project.application.BaseActivity;
 import com.bibinet.biunion.project.ui.fragment.Fragment_Ask;
+import com.bibinet.biunion.project.ui.fragment.Fragment_Focus;
 import com.bibinet.biunion.project.ui.fragment.Fragment_Home;
 import com.bibinet.biunion.project.ui.fragment.Fragment_My;
 
@@ -19,14 +20,18 @@ import butterknife.OnClick;
 public class MainActivity extends BaseActivity {
     @BindView(R.id.bottomhome)
     RelativeLayout bottomhome;
+    @BindView(R.id.bottomFoucs)
+    RelativeLayout bottomFoucs;
     @BindView(R.id.bottomask)
     RelativeLayout bottomask;
     @BindView(R.id.bottomy)
     RelativeLayout bottomy;
     private Fragment_Home framentHome;
-    private Fragment[] fragments = new Fragment[3];
+    private Fragment[] fragments = new Fragment[4];
     private Fragment_Ask fragment_Ask;
     private Fragment_My fragment_My;
+    private Fragment_Focus fragment_Focus;
+
     private RelativeLayout[] mTabs;
     private int index;
     private int currentTabIndex=0;
@@ -43,25 +48,30 @@ public class MainActivity extends BaseActivity {
         framentHome = new Fragment_Home();
         fragment_Ask = new Fragment_Ask();
         fragment_My = new Fragment_My();
-        fragments = new Fragment[]{framentHome, fragment_Ask, fragment_My};
-        mTabs = new RelativeLayout[]{bottomhome, bottomask, bottomy};
+        fragment_Focus = new Fragment_Focus();
+        fragments = new Fragment[]{framentHome,fragment_Focus,fragment_Ask, fragment_My};
+        mTabs = new RelativeLayout[]{bottomhome, bottomFoucs,bottomask, bottomy};
         mTabs[0].setSelected(true);
         getSupportFragmentManager().beginTransaction().add(R.id.fragementcontainer, framentHome).show(framentHome).
+                add(R.id.fragementcontainer, fragment_Focus).hide(fragment_Focus).
                 add(R.id.fragementcontainer, fragment_Ask).hide(fragment_Ask).add(R.id.fragementcontainer, fragment_My).hide(fragment_My)
                 .commit();
     }
 
-    @OnClick({R.id.bottomhome, R.id.bottomask, R.id.bottomy})
+    @OnClick({R.id.bottomhome, R.id.bottomask, R.id.bottomy,R.id.bottomFoucs})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.bottomhome:
                 index = 0;
                 break;
-            case R.id.bottomask:
+            case R.id.bottomFoucs:
                 index = 1;
                 break;
-            case R.id.bottomy:
+            case R.id.bottomask:
                 index = 2;
+                break;
+            case R.id.bottomy:
+                index = 3;
                 break;
         }
         if (currentTabIndex != index) {

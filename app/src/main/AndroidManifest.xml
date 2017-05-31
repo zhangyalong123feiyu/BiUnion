@@ -32,12 +32,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
-        <activity android:name=".project.ui.activity.MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+        <activity android:name=".project.ui.activity.MainActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".project.ui.activity.GuideActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".project.ui.activity.SplashActivity" android:screenOrientation="portrait">
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
         </activity>
         <!--定位service-->
         <service android:name="com.amap.api.location.APSService"></service>

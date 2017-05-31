@@ -4,6 +4,15 @@
     <string name="bottom_ask">咨询</string>
     <string name="bottom_my">我的</string>
 
+    <string name="companyInfo">企业资料</string>
+    <string name="privateOdering">私人订制</string>
+    <string name="openMember">开通会员</string>
+    <string name="adService">广告服务</string>
+    <string name="aboutOur">关于我们</string>
+    <string name="serviceTerm">服务条款</string>
+    <string name="legalStatement">法律声明</string>
+    <string name="setting">设置</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
