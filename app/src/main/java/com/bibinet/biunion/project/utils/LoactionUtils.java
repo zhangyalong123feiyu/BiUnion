@@ -81,7 +81,7 @@ public class LoactionUtils {
 
 //                    sb.append("国    家    : " + location.getCountry() + "\n");
 //                    sb.append("省            : " + location.getProvince() + "\n");
-                    sb.append("市            : " + location.getCity() + "\n");
+                    sb.append( location.getCity());
 
                     //定位完成的时间
                     //  sb.append("定位时间: " + Utils.formatUTC(location.getTime(), "yyyy-MM-dd HH:mm:ss") + "\n");
@@ -92,7 +92,7 @@ public class LoactionUtils {
                 String result = sb.toString();
                 textView.setText(result);
             } else {
-                textView.setText("定位失败，loc is null");
+                textView.setText("太原市，loc is null");
                 Toast.makeText(context,"获取定位失败",Toast.LENGTH_SHORT).show();
             }
         }

@@ -12,6 +12,12 @@
     <string name="serviceTerm">服务条款</string>
     <string name="legalStatement">法律声明</string>
     <string name="setting">设置</string>
+    <string name="projectInfo">项目信息</string>
+    <string name="searchhint">请输入您想查询的信息</string>
+    <string name="projecNameOne">拟在建项目</string>
+    <string name="projecNameTwo">业主委托项目</string>
+    <string name="projecNameThree">PPP项目</string>
+    <string name="projecLocation">位置</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
