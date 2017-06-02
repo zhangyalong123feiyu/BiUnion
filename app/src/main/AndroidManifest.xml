@@ -32,10 +32,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
-        <activity android:name=".project.ui.activity.MainActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".project.ui.activity.MainActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustPan|stateHidden"/>
         <activity android:name=".project.ui.activity.GuideActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".project.ui.activity.SplashActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".project.ui.activity.PrivatePersonDesignActivity" android:screenOrientation="portrait">
+        <activity android:name=".project.ui.activity.PrivatePersonDesignActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".project.ui.activity.SplashActivity" android:screenOrientation="portrait">
         <intent-filter>
             <action android:name="android.intent.action.MAIN" />
 

@@ -14,7 +14,9 @@ import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
+import com.andview.refreshview.XRefreshView;
 import com.bibinet.biunion.R;
+import com.bibinet.biunion.mvp.presenter.FragmentHomePresenter;
 import com.bibinet.biunion.mvp.view.FragmentHomeView;
 import com.bibinet.biunion.project.adapter.ProjectInfoAdapter;
 import com.bibinet.biunion.project.application.Constants;
@@ -23,6 +25,7 @@ import com.bibinet.biunion.project.builder.MyViewPager;
 import com.bibinet.biunion.project.ui.activity.PrivatePersonDesignActivity;
 import com.bibinet.biunion.project.utils.BannerUtils;
 import com.bibinet.biunion.project.utils.LoactionUtils;
+import com.bibinet.biunion.project.utils.PopWindowUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -31,7 +34,6 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import butterknife.OnFocusChange;
 import butterknife.Unbinder;
 
 /**
@@ -63,6 +65,8 @@ public class Fragment_Home extends Fragment implements FragmentHomeView {
     RadioButton projectNameThree;
     @BindView(R.id.moreProject)
     ImageView moreProject;
+    @BindView(R.id.xRereshView)
+    XRefreshView xRereshView;
     private View view;
     private LoactionUtils loactionUtils;
     private List<ProjectInfoBean> projectList = new ArrayList<>();
@@ -78,10 +82,17 @@ public class Fragment_Home extends Fragment implements FragmentHomeView {
         view = inflater.inflate(R.layout.fragment_home, container, false);
         unbinder = ButterKnife.bind(this, view);
         initView();
+        loadData();
         return view;
     }
 
+    private void loadData() {
+        FragmentHomePresenter presenter = new FragmentHomePresenter(this);
+        presenter.LoadHomeData();
+    }
+
     private void initView() {
+        xRereshView.setPullRefreshEnable(true);
         loactionUtils = new LoactionUtils(getActivity(), location);
         loactionUtils.startLoaction();
         BannerUtils bannerUtils = new BannerUtils(getActivity(), viewpager, groupContain, Arrays.asList(Constants.ImageUrls));
@@ -95,36 +106,33 @@ public class Fragment_Home extends Fragment implements FragmentHomeView {
         unbinder.unbind();
         loactionUtils.destroyLocation();
     }
+
     @OnClick({R.id.location, R.id.projectInfo, R.id.projectNameOne, R.id.projectNameTwo, R.id.projectNameThree, R.id.moreProject})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.location:
                 break;
             case R.id.projectInfo:
+                selectProjectType();
                 break;
             case R.id.projectNameOne:
-                projectNameOne.setChecked(true);
-//                projectNameOne.setSelected(false);
-//                projectNameTwo.setSelected(true);
-//                projectNameThree.setSelected(false);
                 initData();
                 break;
             case R.id.projectNameTwo:
-//                projectNameOne.setSelected(true);
-//                projectNameTwo.setSelected(false);
-//                projectNameThree.setSelected(false);
                 initData();
                 break;
             case R.id.projectNameThree:
-//                projectNameOne.setSelected(false);
-//                projectNameTwo.setSelected(false);
-//                projectNameThree.setSelected(true);
                 initData();
                 break;
             case R.id.moreProject:
                 startActivity(new Intent(getActivity(), PrivatePersonDesignActivity.class));
                 break;
         }
+    }
+
+    private void selectProjectType() {
+        PopWindowUtils popWindowUtils = new PopWindowUtils(getActivity(), projectInfo, projectNameOne, projectNameTwo, projectNameThree);
+        popWindowUtils.showPopWindow();
     }
 
     private void initData() {

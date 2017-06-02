@@ -18,6 +18,9 @@
     <string name="projecNameTwo">业主委托项目</string>
     <string name="projecNameThree">PPP项目</string>
     <string name="projecLocation">位置</string>
+    <string name="tenderInfo">招标信息</string>
+    <string name="buyProjectInfo">采购信息</string>
+    <string name="provideProjectInfo">供应商信息</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

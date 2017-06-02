@@ -29,8 +29,8 @@
                 android:layout_marginLeft="10dp"
                 android:gravity="center"
                 android:text="@string/projectInfo"
-                android:textColor="@drawable/bottomtext_selector"
-                android:textSize="15sp" />
+                android:textColor="@drawable/radiotext_selector"
+                android:textSize="13sp" />
 
             <ImageView
                 android:layout_width="20dp"
@@ -39,77 +39,82 @@
                 android:layout_marginLeft="5dp"
                 android:src="@mipmap/ic_launcher" />
         </LinearLayout>
-        <RadioGroup
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:layout_weight="3">
-            <RadioButton
-                android:id="@+id/projectNameOne"
+            <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:button="@null"
-                android:text="@string/projecNameOne"
-                android:checked="true"
-                android:gravity="center"
-                android:textColor="@drawable/bottomtext_selector"
-                android:textSize="11sp"
-                />
-            <RadioButton
-                android:id="@+id/projectNameTwo"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:button="@null"
-                android:text="@string/projecNameTwo"
-                android:gravity="center"
-                android:textColor="@drawable/bottomtext_selector"
-                android:textSize="11sp"
-                />
-            <RadioButton
-                android:id="@+id/projectNameThree"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:button="@null"
-                android:text="@string/projecNameThree"
-                android:gravity="center"
-                android:textColor="@drawable/bottomtext_selector"
-                android:textSize="11sp"
-                />
-        </RadioGroup>
+                android:layout_weight="3"
+                android:orientation="vertical">
+                <RadioGroup
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:orientation="horizontal"
+                    android:layout_weight="1">
 
-       <!-- <TextView
-            android:id="@+id/projectNameOne"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="@string/projecNameOne"
-            android:textColor="@drawable/bottomtext_selector"
-            android:textSize="11sp" />
+                    <RadioButton
+                        android:id="@+id/projectNameOne"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:button="@null"
+                        android:checked="true"
+                        android:gravity="center"
+                        android:text="@string/projecNameOne"
+                        android:textColor="@drawable/radiotext_selector"
+                        android:textSize="11sp" />
 
-        <TextView
-            android:id="@+id/projectNameTwo"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="@string/projecNameTwo"
-            android:textColor="@drawable/bottomtext_selector"
-            android:textSize="11sp" />
-
-        <TextView
-            android:id="@+id/projectNameThree"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="@string/projecNameThree"
-            android:textColor="@drawable/bottomtext_selector"
-            android:textSize="11sp" />
--->
+                    <RadioButton
+                        android:id="@+id/projectNameTwo"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:button="@null"
+                        android:text="@string/projecNameTwo"
+                        android:gravity="center"
+                        android:textColor="@drawable/radiotext_selector"
+                        android:textSize="11sp"
+                        />
+                    <RadioButton
+                        android:id="@+id/projectNameThree"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:button="@null"
+                        android:text="@string/projecNameThree"
+                        android:gravity="center"
+                        android:textColor="@drawable/radiotext_selector"
+                        android:textSize="11sp"
+                        />
+                </RadioGroup>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:orientation="horizontal">
+                <View
+                    android:id="@+id/projectNameOneBottomLine"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@color/yellow"
+                    android:visibility="gone"
+                    />
+                <View
+                    android:id="@+id/projectNameTwoBottomLine"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@color/yellow"
+                    android:visibility="gone"
+                    />
+                <View
+                    android:id="@+id/projectNameThreeBottomLine"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@color/yellow"
+                    android:visibility="gone"
+                    />
+            </LinearLayout>
+            </LinearLayout>
         <ImageView
             android:id="@+id/moreProject"
             android:layout_width="0dp"
@@ -119,36 +124,46 @@
             android:src="@mipmap/ic_launcher"
            />
     </LinearLayout>
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
 
-        <com.bibinet.biunion.project.builder.MyViewPager
-            android:id="@+id/viewpager"
-            android:layout_width="match_parent"
-            android:layout_height="200dp" />
-
-        <LinearLayout
-            android:id="@+id/group_contain"
-            android:layout_width="match_parent"
-            android:layout_height="20dp"
-            android:layout_alignBottom="@id/viewpager"
-            android:background="#33000000"
-            android:gravity="end|center_vertical"
-            android:orientation="horizontal" />
-    </RelativeLayout>
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/projectInfoRecycler"
+    <com.andview.refreshview.XRefreshView
+        android:id="@+id/xRereshView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
-    </LinearLayout>
-</ScrollView>
+        android:layout_height="match_parent">
+
+        <com.andview.refreshview.XScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <com.bibinet.biunion.project.builder.MyViewPager
+                            android:id="@+id/viewpager"
+                            android:layout_width="match_parent"
+                            android:layout_height="156dp" />
+
+                        <LinearLayout
+                            android:id="@+id/group_contain"
+                            android:layout_width="match_parent"
+                            android:layout_height="20dp"
+                            android:layout_alignBottom="@id/viewpager"
+                            android:background="#33000000"
+                            android:gravity="center"
+                            android:orientation="horizontal" />
+                    </RelativeLayout>
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/projectInfoRecycler"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+                </LinearLayout>
+        </com.andview.refreshview.XScrollView>
+    </com.andview.refreshview.XRefreshView>
 </LinearLayout>
+

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+ <TextView
+    android:id="@+id/tenderInfo"
+    android:layout_width="match_parent"
+    android:layout_height="31dp"
+    android:gravity="center_vertical"
+    android:layout_marginLeft="12dp"
+     android:textSize="12sp"
+    android:text="@string/tenderInfo"
+    />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="#D6D7DC"
+        />
+<TextView
+    android:id="@+id/projectInfo"
+    android:layout_width="match_parent"
+    android:layout_height="31dp"
+    android:layout_marginLeft="12dp"
+    android:textSize="12sp"
+    android:gravity="center_vertical"
+    android:text="@string/projectInfo"
+    />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="#D6D7DC"
+        />
+<TextView
+    android:id="@+id/buyprojectInfo"
+    android:layout_width="match_parent"
+    android:layout_height="31dp"
+    android:layout_marginLeft="12dp"
+    android:gravity="center_vertical"
+    android:textSize="12sp"
+    android:text="@string/buyProjectInfo"
+    />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="#D6D7DC"
+        />
+<TextView
+    android:id="@+id/provideProjectInfo"
+    android:layout_width="match_parent"
+    android:layout_height="31dp"
+    android:textSize="12sp"
+    android:gravity="center_vertical"
+    android:layout_marginLeft="12dp"
+    android:text="@string/provideProjectInfo"
+    />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="#D6D7DC"
+        />
+</LinearLayout>
+</LinearLayout>
