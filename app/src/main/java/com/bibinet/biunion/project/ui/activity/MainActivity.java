@@ -1,13 +1,17 @@
 package com.bibinet.biunion.project.ui.activity;
 
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.LocalBroadcastManager;
 import android.view.View;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.bibinet.biunion.R;
 import com.bibinet.biunion.project.application.BaseActivity;
+import com.bibinet.biunion.project.builder.JPushReciver;
 import com.bibinet.biunion.project.ui.fragment.Fragment_Ask;
 import com.bibinet.biunion.project.ui.fragment.Fragment_Focus;
 import com.bibinet.biunion.project.ui.fragment.Fragment_Home;
@@ -16,6 +20,8 @@ import com.bibinet.biunion.project.ui.fragment.Fragment_My;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+
+import static com.bibinet.biunion.project.builder.JPushReciver.MESSAGE_RECEIVED_ACTION;
 
 public class MainActivity extends BaseActivity {
     @BindView(R.id.bottomhome)
@@ -26,6 +32,8 @@ public class MainActivity extends BaseActivity {
     RelativeLayout bottomask;
     @BindView(R.id.bottomy)
     RelativeLayout bottomy;
+    @BindView(R.id.texthome)
+    TextView texthome;
     private Fragment_Home framentHome;
     private Fragment[] fragments = new Fragment[4];
     private Fragment_Ask fragment_Ask;
@@ -36,13 +44,19 @@ public class MainActivity extends BaseActivity {
     private int index;
     private int currentTabIndex=0;
 
+    private JPushReciver mMessageReceiver;
+    public static final String MESSAGE_RECEIVED_ACTION = "com.example.jpushdemo.MESSAGE_RECEIVED_ACTION";
+    public static final String KEY_TITLE = "title";
+    public static final String KEY_MESSAGE = "message";
+    public static final String KEY_EXTRAS = "extras";
+    public static boolean isForeground = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         initView();
-
+        registerMessageReceiver();
     }
     private void initView() {
         framentHome = new Fragment_Home();
@@ -57,7 +71,13 @@ public class MainActivity extends BaseActivity {
                 add(R.id.fragementcontainer, fragment_Ask).hide(fragment_Ask).add(R.id.fragementcontainer, fragment_My).hide(fragment_My)
                 .commit();
     }
-
+    public void registerMessageReceiver() {
+        JPushReciver jPushReciver = new JPushReciver(texthome);
+        IntentFilter filter = new IntentFilter();
+        filter.setPriority(IntentFilter.SYSTEM_HIGH_PRIORITY);
+        filter.addAction(MESSAGE_RECEIVED_ACTION);
+        LocalBroadcastManager.getInstance(this).registerReceiver(jPushReciver, filter);
+    }
     @OnClick({R.id.bottomhome, R.id.bottomask, R.id.bottomy,R.id.bottomFoucs})
     public void onViewClicked(View view) {
         switch (view.getId()) {

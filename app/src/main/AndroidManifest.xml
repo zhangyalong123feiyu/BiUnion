@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.bibinet.biunion">
+    package="com.bibinet.biunion"
+    android:versionCode="306"
+    android:versionName="3.0.6"
+    >
 
     <!--用于进行网络定位-->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"></uses-permission>
@@ -23,6 +26,31 @@
     <!--用于申请获取蓝牙信息进行室内定位-->
     <uses-permission android:name="android.permission.BLUETOOTH"></uses-permission>
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"></uses-permission>
+    <!--激光推送-->
+    <permission
+        android:name="com.bibinet.biunion.permission.JPUSH_MESSAGE"
+        android:protectionLevel="signature" />
+
+    <!-- Required  一些系统要求的权限，如访问网络等-->
+    <uses-permission android:name="com.bibinet.biunion.permission.JPUSH_MESSAGE" />
+    <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <!-- Optional for location -->
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" /> <!-- 用于开启 debug 版本的应用在6.0 系统上 层叠窗口权限 -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.GET_TASKS" />
+
+<!--激光推送结束-->
+
 
     <application
         android:name=".project.application.MyApplication"
@@ -32,9 +60,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
-        <activity android:name=".project.ui.activity.MainActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustPan|stateHidden"/>
-        <activity android:name=".project.ui.activity.GuideActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".project.ui.activity.PrivatePersonDesignActivity" android:screenOrientation="portrait"/>
         <activity android:name=".project.ui.activity.SplashActivity" android:screenOrientation="portrait">
         <intent-filter>
             <action android:name="android.intent.action.MAIN" />
@@ -42,11 +67,123 @@
             <category android:name="android.intent.category.LAUNCHER" />
         </intent-filter>
         </activity>
+        <activity android:name=".project.ui.activity.MainActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustPan|stateHidden"/>
+        <activity android:name=".project.ui.activity.GuideActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".project.ui.activity.PrivatePersonDesignActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".project.ui.activity.CompanyInfoActivity" android:screenOrientation="portrait"/>
         <!--定位service-->
         <service android:name="com.amap.api.location.APSService"></service>
         <!--高德地图所使用的key-->
         <meta-data android:name="com.amap.api.v2.apikey" android:value="6171ea140f5de3d42bdd1cbe84667ec6">
         </meta-data>
+        <!--激光推送-->
+     <!--   <activity
+            android:name="com.example.jpushdemo.MainActivity"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>-->
+
+        <activity android:name=".project.ui.activity.JPushActivity" android:exported="false">
+            <intent-filter>
+                <action android:name="jpush.testAction" />
+                <category android:name="jpush.testCategory" />
+            </intent-filter>
+        </activity>
+
+        <!-- Rich push 核心功能 since 2.0.6-->
+        <activity
+            android:name="cn.jpush.android.ui.PopWinActivity"
+            android:theme="@style/MyDialogStyle"
+            android:exported="false">
+        </activity>
+
+        <!-- Required SDK核心功能-->
+        <activity
+            android:name="cn.jpush.android.ui.PushActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:theme="@android:style/Theme.NoTitleBar"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="cn.jpush.android.ui.PushActivity" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="com.bibinet.biunion" />
+            </intent-filter>
+        </activity>
+
+        <!-- Required SDK 核心功能-->
+        <!-- 可配置android:process参数将PushService放在其他进程中 -->
+        <service
+            android:name="cn.jpush.android.service.PushService"
+            android:process=":mult"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="cn.jpush.android.intent.REGISTER" />
+                <action android:name="cn.jpush.android.intent.REPORT" />
+                <action android:name="cn.jpush.android.intent.PushService" />
+                <action android:name="cn.jpush.android.intent.PUSH_TIME" />
+            </intent-filter>
+        </service>
+
+        <!-- since 1.8.0 option 可选项。用于同一设备中不同应用的JPush服务相互拉起的功能。 -->
+        <!-- 若不启用该功能可删除该组件，将不拉起其他应用也不能被其他应用拉起 -->
+        <service
+            android:name="cn.jpush.android.service.DaemonService"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="cn.jpush.android.intent.DaemonService" />
+                <category android:name="com.bibinet.biunion" />
+            </intent-filter>
+
+        </service>
+
+        <!-- Required SDK核心功能-->
+        <receiver
+            android:name="cn.jpush.android.service.PushReceiver"
+            android:enabled="true"
+            android:exported="false">
+            <intent-filter android:priority="1000">
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED_PROXY" />   <!--Required  显示通知栏 -->
+                <category android:name="com.bibinet.biunion" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.USER_PRESENT" />
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+            </intent-filter>
+            <!-- Optional -->
+            <intent-filter>
+                <action android:name="android.intent.action.PACKAGE_ADDED" />
+                <action android:name="android.intent.action.PACKAGE_REMOVED" />
+
+                <data android:scheme="package" />
+            </intent-filter>
+        </receiver>
+
+        <!-- Required SDK核心功能-->
+        <receiver android:name="cn.jpush.android.service.AlarmReceiver" android:exported="false"/>
+
+        <!-- User defined.  For test only  用户自定义的广播接收器-->
+        <receiver
+            android:name=".project.builder.MyReceiver"
+            android:exported="false"
+            android:enabled="true">
+            <intent-filter>
+                <action android:name="cn.jpush.android.intent.REGISTRATION" /> <!--Required  用户注册SDK的intent-->
+                <action android:name="cn.jpush.android.intent.MESSAGE_RECEIVED" /> <!--Required  用户接收SDK消息的intent-->
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED" /> <!--Required  用户接收SDK通知栏信息的intent-->
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_OPENED" /> <!--Required  用户打开自定义通知栏的intent-->
+                <action android:name="cn.jpush.android.intent.CONNECTION" /><!-- 接收网络变化 连接/断开 since 1.6.3 -->
+                <category android:name="com.bibinet.biunion" />
+            </intent-filter>
+        </receiver>
+
+        <!-- Required  . Enable it you can get statistics data with channel -->
+        <meta-data android:name="JPUSH_CHANNEL" android:value="developer-default"/>
+        <meta-data android:name="JPUSH_APPKEY" android:value="c4bc1e0a4999e0d503d86868" /> <!--  </>值来自开发者平台取得的AppKey-->
+
     </application>
 
 </manifest>
