@@ -23,6 +23,7 @@
     <string name="provideProjectInfo">供应商信息</string>
     <string name="coustmerService">客户服务</string>
     <string name="askLink">问答环节</string>
+    <string name="cancel">取消</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

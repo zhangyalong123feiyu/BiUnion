@@ -18,11 +18,12 @@ import com.andview.refreshview.XRefreshView;
 import com.bibinet.biunion.R;
 import com.bibinet.biunion.mvp.presenter.FragmentHomePresenter;
 import com.bibinet.biunion.mvp.view.FragmentHomeView;
-import com.bibinet.biunion.project.adapter.ProjectInfoAdapter;
+import com.bibinet.biunion.project.adapter.ProjectInfoAdapterx;
 import com.bibinet.biunion.project.application.Constants;
 import com.bibinet.biunion.project.bean.ProjectInfoBean;
 import com.bibinet.biunion.project.builder.MyViewPager;
 import com.bibinet.biunion.project.ui.activity.PrivatePersonDesignActivity;
+import com.bibinet.biunion.project.ui.activity.SearchActivity;
 import com.bibinet.biunion.project.utils.BannerUtils;
 import com.bibinet.biunion.project.utils.LoactionUtils;
 import com.bibinet.biunion.project.utils.PopWindowUtils;
@@ -45,12 +46,6 @@ public class Fragment_Home extends Fragment implements FragmentHomeView {
     TextView location;
     @BindView(R.id.projectInfo)
     TextView projectInfo;
-    //    @BindView(R.id.projectNameOne)
-//    TextView projectNameOne;
-//    @BindView(R.id.projectNameTwo)
-//    TextView projectNameTwo;
-//    @BindView(R.id.projectNameThree)
-//    TextView projectNameThree;
     @BindView(R.id.viewpager)
     MyViewPager viewpager;
     @BindView(R.id.group_contain)
@@ -67,9 +62,12 @@ public class Fragment_Home extends Fragment implements FragmentHomeView {
     ImageView moreProject;
     @BindView(R.id.xRereshView)
     XRefreshView xRereshView;
+    @BindView(R.id.homeSearch)
+    LinearLayout homeSearch;
     private View view;
     private LoactionUtils loactionUtils;
     private List<ProjectInfoBean> projectList = new ArrayList<>();
+    private ProjectInfoAdapterx adapter;
 
     public Fragment_Home() {
         // Required empty public constructor
@@ -92,22 +90,42 @@ public class Fragment_Home extends Fragment implements FragmentHomeView {
     }
 
     private void initView() {
-        xRereshView.setPullRefreshEnable(true);
+        projectInfoRecycler.setHasFixedSize(true);
+        initData();
+        adapter = new ProjectInfoAdapterx(getActivity(), projectList);
+        // 设置静默加载模式
+//        xRefreshView1.setSilenceLoadMore();
+        // 静默加载模式不能设置footerview
+        projectInfoRecycler.setAdapter(adapter);
+        //设置刷新完成以后，headerview固定的时间
+//        xRereshView.setPinnedTime(1000);
+//        xRereshView.setMoveForHorizontal(true);
+//        xRereshView.setPullLoadEnable(true);
+//        xRereshView.setAutoLoadMore(false);
+//       // adapter.setCustomLoadMoreView(new XRefreshViewFooter(getActivity()));
+//        xRereshView.enableReleaseToLoadMore(false);
+//        xRereshView.enableRecyclerViewPullUp(true);
+//        xRereshView.enablePullUpWhenLoadCompleted(true);
+        xRereshView.setPullLoadEnable(true);
+        xRereshView.setAutoLoadMore(false);
+        xRereshView.setXRefreshViewListener(new XRefreshView.SimpleXRefreshListener() {
+            @Override
+            public void onRefresh(boolean isPullDown) {
+                super.onRefresh(isPullDown);
+            }
+
+            @Override
+            public void onLoadMore(boolean isSilence) {
+                super.onLoadMore(isSilence);
+            }
+        });
         loactionUtils = new LoactionUtils(getActivity(), location);
         loactionUtils.startLoaction();
         BannerUtils bannerUtils = new BannerUtils(getActivity(), viewpager, groupContain, Arrays.asList(Constants.ImageUrls));
         bannerUtils.startPlayBanner();
-        initData();
     }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        unbinder.unbind();
-        loactionUtils.destroyLocation();
-    }
-
-    @OnClick({R.id.location, R.id.projectInfo, R.id.projectNameOne, R.id.projectNameTwo, R.id.projectNameThree, R.id.moreProject})
+    @OnClick({R.id.location, R.id.projectInfo, R.id.projectNameOne, R.id.projectNameTwo, R.id.projectNameThree, R.id.moreProject,R.id.homeSearch})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.location:
@@ -127,6 +145,9 @@ public class Fragment_Home extends Fragment implements FragmentHomeView {
             case R.id.moreProject:
                 startActivity(new Intent(getActivity(), PrivatePersonDesignActivity.class));
                 break;
+            case R.id.homeSearch:
+                startActivity(new Intent(getActivity(), SearchActivity.class));
+                break;
         }
     }
 
@@ -136,19 +157,19 @@ public class Fragment_Home extends Fragment implements FragmentHomeView {
     }
 
     private void initData() {
-        projectList.add(new ProjectInfoBean("山西比比", "非常非常好", "太原", "还有3天"));
-        projectList.add(new ProjectInfoBean("山西比比", "非常非常好", "太原", "还有3天"));
-        projectList.add(new ProjectInfoBean("山西比比", "非常非常好", "太原", "还有3天"));
-        projectList.add(new ProjectInfoBean("山西比比", "非常非常好", "太原", "还有3天"));
-        projectList.add(new ProjectInfoBean("山西比比", "非常非常好", "太原", "还有3天"));
+        projectList.add(new ProjectInfoBean("山西比比", "非常非常好", "太原", "还有3天", ""));
+        projectList.add(new ProjectInfoBean("山西比比", "非常非常好", "太原", "还有3天", ""));
+        projectList.add(new ProjectInfoBean("山西比比", "非常非常好", "太原", "还有3天", ""));
+        projectList.add(new ProjectInfoBean("山西比比", "非常非常好", "太原", "还有3天", ""));
+        projectList.add(new ProjectInfoBean("山西比比", "非常非常好", "太原", "还有3天", ""));
         projectInfoRecycler.setLayoutManager(new LinearLayoutManager(getActivity()) {
             @Override
             public boolean canScrollVertically() {
                 return false;
             }
         });
-        ProjectInfoAdapter adapter = new ProjectInfoAdapter(getActivity(), projectList);
-        projectInfoRecycler.setAdapter(adapter);
+//        ProjectInfoAdapter adapter = new ProjectInfoAdapter(getActivity(), projectList);
+//        projectInfoRecycler.setAdapter(adapter);
     }
 
 
@@ -171,4 +192,12 @@ public class Fragment_Home extends Fragment implements FragmentHomeView {
     public void onLoadFaield(String msg) {
 
     }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
+        loactionUtils.destroyLocation();
+    }
+
 }

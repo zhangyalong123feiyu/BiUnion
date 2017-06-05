@@ -11,12 +11,13 @@ public class ProjectInfoBean implements Serializable {
     private String CompanyDescrp;
     private String Loaction;
     private String time;
-
-    public ProjectInfoBean(String companyName, String companyDescrp, String loaction, String time) {
+    private String picUrl;
+    public ProjectInfoBean(String companyName, String companyDescrp, String loaction, String time,String picUrl) {
         CompanyName = companyName;
         CompanyDescrp = companyDescrp;
         Loaction = loaction;
         this.time = time;
+        this.picUrl=picUrl;
     }
 
     public String getCompanyName() {
@@ -49,5 +50,12 @@ public class ProjectInfoBean implements Serializable {
 
     public void setTime(String time) {
         this.time = time;
+    }
+    public String getPicUrl() {
+        return picUrl;
+    }
+
+    public void setPicUrl(String picUrl) {
+        this.picUrl = picUrl;
     }
 }

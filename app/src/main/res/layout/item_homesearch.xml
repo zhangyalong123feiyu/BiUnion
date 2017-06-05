@@ -37,6 +37,7 @@
                 />
         </LinearLayout>
         <LinearLayout
+            android:id="@+id/homeSearch"
             android:layout_width="0dp"
             android:layout_height="26dp"
             android:layout_weight="1"
@@ -49,12 +50,13 @@
                 android:layout_height="20dp"
                 android:src="@mipmap/ic_launcher"
                 android:layout_gravity="center_vertical"
-                android:layout_marginLeft="10dp"
+                android:layout_marginLeft="20dp"
                 />
-            <EditText
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:hint="@string/searchhint"
+                android:gravity="center"
                 android:textColor="#999999"
                 android:textSize="12sp"
                 android:background="@null"/>
