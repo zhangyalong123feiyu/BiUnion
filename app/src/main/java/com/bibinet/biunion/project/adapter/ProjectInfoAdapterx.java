@@ -51,7 +51,10 @@ public class ProjectInfoAdapterx extends BaseRecyclerAdapter<ProjectInfoAdapterx
         MyProjectViewHolder myProjectViewHolder=new MyProjectViewHolder(view, true);
         return myProjectViewHolder;
     }
-
+    @Override
+    public int getAdapterItemViewType(int position) {
+        return 0;
+    }
     @Override
     public void onBindViewHolder(MyProjectViewHolder holder, int position, boolean isItem) {
             holder.companyName.setText(projectInfoBeen.get(position).getCompanyName());

@@ -1,6 +1,7 @@
 package com.bibinet.biunion.project.ui.activity;
 
 import android.content.IntentFilter;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -8,6 +9,7 @@ import android.support.v4.content.LocalBroadcastManager;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bibinet.biunion.R;
 import com.bibinet.biunion.project.application.BaseActivity;
@@ -16,6 +18,7 @@ import com.bibinet.biunion.project.ui.fragment.Fragment_Ask;
 import com.bibinet.biunion.project.ui.fragment.Fragment_Focus;
 import com.bibinet.biunion.project.ui.fragment.Fragment_Home;
 import com.bibinet.biunion.project.ui.fragment.Fragment_My;
+import com.jaeger.library.StatusBarUtil;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -50,12 +53,15 @@ public class MainActivity extends BaseActivity {
     public static final String KEY_MESSAGE = "message";
     public static final String KEY_EXTRAS = "extras";
     public static boolean isForeground = false;
+    private long mPressedTime=0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         initView();
+        StatusBarUtil.setColor(this, Color.argb(255,240,196,51),0);
         registerMessageReceiver();
     }
     private void initView() {
@@ -106,5 +112,17 @@ public class MainActivity extends BaseActivity {
         // 把当前tab设为选中状态
         mTabs[index].setSelected(true);
         currentTabIndex = index;
+    }
+    //双击退出程序
+    @Override
+    public void onBackPressed() {
+        long mNowTime = System.currentTimeMillis();//获取第一次按键时间
+        if ((mNowTime - mPressedTime) > 2000) {//比较两次按键时间差
+            Toast.makeText(this, "再按一次退出程序", Toast.LENGTH_SHORT).show();
+            mPressedTime = mNowTime;
+        } else {//退出程序
+            this.finish();
+            android.os.Process.killProcess(android.os.Process.myPid());
+        }
     }
 }

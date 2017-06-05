@@ -44,7 +44,7 @@ public class GuideActivity extends BaseActivity {
 
     private void setViewPager() {
         guideViewpager.setAdapter(new GuideAdapter());
-        guideViewpager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+        guideViewpager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             private int pos;
             @Override
             public void onPageSelected(int position) {
@@ -71,6 +71,7 @@ public class GuideActivity extends BaseActivity {
 
             }
         });
+
     }
 
     @OnClick(R.id.btn_start)

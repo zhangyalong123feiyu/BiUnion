@@ -61,7 +61,7 @@ public class BannerUtils {
            }
            @Override
            public void onPageSelected(int position) {
-               position = position % (3);
+               position = position % (urls.size());
                groupContain.getChildAt(position).setEnabled(true);
                groupContain.getChildAt(lastPosition).setEnabled(false);
                lastPosition = position;
@@ -81,7 +81,7 @@ public class BannerUtils {
     };
     private void addPoint() {
         groupContain.removeAllViews();
-        for(int i=0;i<3;i++){
+        for(int i=0;i<urls.size();i++){
             ImageView iv=new ImageView(context);
             iv.setBackgroundResource(R.drawable.point_bg);
             if (i==0) {

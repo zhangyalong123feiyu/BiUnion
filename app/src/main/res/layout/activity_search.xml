@@ -34,6 +34,7 @@
                 android:background="@null"/>
         </LinearLayout>
         <TextView
+            android:id="@+id/cancel_search"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"

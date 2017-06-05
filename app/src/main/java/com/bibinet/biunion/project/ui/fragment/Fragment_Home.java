@@ -15,6 +15,7 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.andview.refreshview.XRefreshView;
+import com.andview.refreshview.XRefreshViewFooter;
 import com.bibinet.biunion.R;
 import com.bibinet.biunion.mvp.presenter.FragmentHomePresenter;
 import com.bibinet.biunion.mvp.view.FragmentHomeView;
@@ -98,25 +99,30 @@ public class Fragment_Home extends Fragment implements FragmentHomeView {
         // 静默加载模式不能设置footerview
         projectInfoRecycler.setAdapter(adapter);
         //设置刷新完成以后，headerview固定的时间
-//        xRereshView.setPinnedTime(1000);
-//        xRereshView.setMoveForHorizontal(true);
-//        xRereshView.setPullLoadEnable(true);
-//        xRereshView.setAutoLoadMore(false);
-//       // adapter.setCustomLoadMoreView(new XRefreshViewFooter(getActivity()));
-//        xRereshView.enableReleaseToLoadMore(false);
-//        xRereshView.enableRecyclerViewPullUp(true);
-//        xRereshView.enablePullUpWhenLoadCompleted(true);
+        xRereshView.setPinnedTime(1000);
+        xRereshView.setMoveForHorizontal(true);
         xRereshView.setPullLoadEnable(true);
         xRereshView.setAutoLoadMore(false);
+        xRereshView.enableReleaseToLoadMore(true);
+        xRereshView.enableRecyclerViewPullUp(true);
+        xRereshView.enablePullUpWhenLoadCompleted(true);
         xRereshView.setXRefreshViewListener(new XRefreshView.SimpleXRefreshListener() {
             @Override
             public void onRefresh(boolean isPullDown) {
                 super.onRefresh(isPullDown);
+                initData();
+                projectInfoRecycler.setAdapter(adapter);
+                xRereshView.stopRefresh();
             }
-
             @Override
             public void onLoadMore(boolean isSilence) {
                 super.onLoadMore(isSilence);
+                projectList.add(new ProjectInfoBean("山西比比", "非常非常好", "太原", "还有3天", ""));
+                projectList.add(new ProjectInfoBean("山西比比", "非常非常好", "太原", "还有3天", ""));
+                projectList.add(new ProjectInfoBean("山西比比", "非常非常好", "太原", "还有3天", ""));
+                projectList.add(new ProjectInfoBean("山西比比", "非常非常好", "太原", "还有3天", ""));
+                adapter.notifyDataSetChanged();
+                xRereshView.stopLoadMore();
             }
         });
         loactionUtils = new LoactionUtils(getActivity(), location);

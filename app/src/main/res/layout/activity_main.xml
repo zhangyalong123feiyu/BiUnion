@@ -53,7 +53,7 @@
                 android:layout_marginTop="2dp"
                 android:textColor="@drawable/bottomtext_selector"
                 android:layout_height="wrap_content"
-                android:text="@string/bottom_ask"/>
+                android:text="@string/bottom_foucs"/>
         </RelativeLayout>
         <RelativeLayout
             android:id="@+id/bottomask"

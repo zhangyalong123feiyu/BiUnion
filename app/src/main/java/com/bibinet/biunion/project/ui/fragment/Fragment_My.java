@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.bibinet.biunion.R;
 import com.bibinet.biunion.project.ui.activity.CompanyInfoActivity;
+import com.bibinet.biunion.project.ui.activity.SettingActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -94,6 +95,7 @@ public class Fragment_My extends Fragment {
             case R.id.legalStatement:
                 break;
             case R.id.setting:
+                startActivity(new Intent(getActivity(),SettingActivity.class));
                 break;
         }
 

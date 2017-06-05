@@ -63,7 +63,6 @@ public class PopWindowUtils implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tenderInfo:
-                Toast.makeText(context,"招标点击",Toast.LENGTH_SHORT).show();
                 projectInfoText.setText(R.string.tenderInfo);
                 projectNameOne.setText("招标公告");
                 projectNameTwo.setText("中标候选人公示");

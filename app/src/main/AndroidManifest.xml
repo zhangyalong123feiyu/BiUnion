@@ -72,6 +72,7 @@
         <activity android:name=".project.ui.activity.PrivatePersonDesignActivity" android:screenOrientation="portrait"/>
         <activity android:name=".project.ui.activity.CompanyInfoActivity" android:screenOrientation="portrait"/>
         <activity android:name=".project.ui.activity.SearchActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".project.ui.activity.SettingActivity" android:screenOrientation="portrait"/>
         <!--定位service-->
         <service android:name="com.amap.api.location.APSService"></service>
         <!--高德地图所使用的key-->
