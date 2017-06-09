@@ -15,7 +15,6 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.andview.refreshview.XRefreshView;
-import com.andview.refreshview.XRefreshViewFooter;
 import com.bibinet.biunion.R;
 import com.bibinet.biunion.mvp.presenter.FragmentHomePresenter;
 import com.bibinet.biunion.mvp.view.FragmentHomeView;
@@ -23,11 +22,13 @@ import com.bibinet.biunion.project.adapter.ProjectInfoAdapterx;
 import com.bibinet.biunion.project.application.Constants;
 import com.bibinet.biunion.project.bean.ProjectInfoBean;
 import com.bibinet.biunion.project.builder.MyViewPager;
+import com.bibinet.biunion.project.ui.activity.MoreProjectActivity;
 import com.bibinet.biunion.project.ui.activity.PrivatePersonDesignActivity;
 import com.bibinet.biunion.project.ui.activity.SearchActivity;
+import com.bibinet.biunion.project.ui.activity.SelectCityActivity;
 import com.bibinet.biunion.project.utils.BannerUtils;
 import com.bibinet.biunion.project.utils.LoactionUtils;
-import com.bibinet.biunion.project.utils.PopWindowUtils;
+import com.bibinet.biunion.project.utils.HomePopWindowUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -65,9 +66,17 @@ public class Fragment_Home extends Fragment implements FragmentHomeView {
     XRefreshView xRereshView;
     @BindView(R.id.homeSearch)
     LinearLayout homeSearch;
+    @BindView(R.id.privateOderingImage)
+    ImageView privateOderingImage;
+    @BindView(R.id.projectNameOneBottomLine)
+    View projectNameOneBottomLine;
+    @BindView(R.id.projectNameTwoBottomLine)
+    View projectNameTwoBottomLine;
+    @BindView(R.id.projectNameThreeBottomLine)
+    View projectNameThreeBottomLine;
     private View view;
     private LoactionUtils loactionUtils;
-    private List<ProjectInfoBean> projectList = new ArrayList<>();
+    private List<ProjectInfoBean.ItemsBean> projectList = new ArrayList<>();
     private ProjectInfoAdapterx adapter;
 
     public Fragment_Home() {
@@ -114,13 +123,10 @@ public class Fragment_Home extends Fragment implements FragmentHomeView {
                 projectInfoRecycler.setAdapter(adapter);
                 xRereshView.stopRefresh();
             }
+
             @Override
             public void onLoadMore(boolean isSilence) {
                 super.onLoadMore(isSilence);
-                projectList.add(new ProjectInfoBean("山西比比", "非常非常好", "太原", "还有3天", ""));
-                projectList.add(new ProjectInfoBean("山西比比", "非常非常好", "太原", "还有3天", ""));
-                projectList.add(new ProjectInfoBean("山西比比", "非常非常好", "太原", "还有3天", ""));
-                projectList.add(new ProjectInfoBean("山西比比", "非常非常好", "太原", "还有3天", ""));
                 adapter.notifyDataSetChanged();
                 xRereshView.stopLoadMore();
             }
@@ -131,10 +137,14 @@ public class Fragment_Home extends Fragment implements FragmentHomeView {
         bannerUtils.startPlayBanner();
     }
 
-    @OnClick({R.id.location, R.id.projectInfo, R.id.projectNameOne, R.id.projectNameTwo, R.id.projectNameThree, R.id.moreProject,R.id.homeSearch})
+    @OnClick({R.id.location, R.id.projectInfo, R.id.projectNameOne, R.id.projectNameTwo, R.id.projectNameThree, R.id.moreProject, R.id.homeSearch,R.id.privateOderingImage})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.location:
+                startActivity(new Intent(getActivity(), SelectCityActivity.class));
+                break;
+            case R.id.privateOderingImage:
+                startActivity(new Intent(getActivity(), PrivatePersonDesignActivity.class));
                 break;
             case R.id.projectInfo:
                 selectProjectType();
@@ -149,7 +159,7 @@ public class Fragment_Home extends Fragment implements FragmentHomeView {
                 initData();
                 break;
             case R.id.moreProject:
-                startActivity(new Intent(getActivity(), PrivatePersonDesignActivity.class));
+                startActivity(new Intent(getActivity(), MoreProjectActivity.class));
                 break;
             case R.id.homeSearch:
                 startActivity(new Intent(getActivity(), SearchActivity.class));
@@ -158,24 +168,17 @@ public class Fragment_Home extends Fragment implements FragmentHomeView {
     }
 
     private void selectProjectType() {
-        PopWindowUtils popWindowUtils = new PopWindowUtils(getActivity(), projectInfo, projectNameOne, projectNameTwo, projectNameThree);
+        HomePopWindowUtils popWindowUtils = new HomePopWindowUtils(getActivity(), projectInfo, projectNameOne, projectNameTwo, projectNameThree);
         popWindowUtils.showPopWindow();
     }
 
     private void initData() {
-        projectList.add(new ProjectInfoBean("山西比比", "非常非常好", "太原", "还有3天", ""));
-        projectList.add(new ProjectInfoBean("山西比比", "非常非常好", "太原", "还有3天", ""));
-        projectList.add(new ProjectInfoBean("山西比比", "非常非常好", "太原", "还有3天", ""));
-        projectList.add(new ProjectInfoBean("山西比比", "非常非常好", "太原", "还有3天", ""));
-        projectList.add(new ProjectInfoBean("山西比比", "非常非常好", "太原", "还有3天", ""));
         projectInfoRecycler.setLayoutManager(new LinearLayoutManager(getActivity()) {
             @Override
             public boolean canScrollVertically() {
                 return false;
             }
         });
-//        ProjectInfoAdapter adapter = new ProjectInfoAdapter(getActivity(), projectList);
-//        projectInfoRecycler.setAdapter(adapter);
     }
 
 
@@ -190,7 +193,8 @@ public class Fragment_Home extends Fragment implements FragmentHomeView {
     }
 
     @Override
-    public void onLoadSucess() {
+    public void onLoadSucess(List<ProjectInfoBean.ItemsBean> projectinfoList) {
+        projectList=projectinfoList;
 
     }
 

@@ -16,7 +16,6 @@ import org.xutils.image.ImageOptions;
 import org.xutils.x;
 
 import java.util.List;
-import java.util.TreeMap;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -28,9 +27,9 @@ import butterknife.ButterKnife;
 public class ProjectInfoAdapterx extends BaseRecyclerAdapter<ProjectInfoAdapterx.MyProjectViewHolder> {
 
     private Context context;
-    private List<ProjectInfoBean> projectInfoBeen;
+    private List<ProjectInfoBean.ItemsBean> projectInfoBeen;
 
-    public ProjectInfoAdapterx(Context context, List<ProjectInfoBean> projectInfoBeen) {
+    public ProjectInfoAdapterx(Context context, List<ProjectInfoBean.ItemsBean> projectInfoBeen) {
         this.context = context;
         this.projectInfoBeen = projectInfoBeen;
     }
@@ -40,7 +39,7 @@ public class ProjectInfoAdapterx extends BaseRecyclerAdapter<ProjectInfoAdapterx
         return new MyProjectViewHolder(view,false);
     }
 
-    public void setData(List<ProjectInfoBean> projectInfoBeen) {
+    public void setData(List<ProjectInfoBean.ItemsBean> projectInfoBeen) {
         this.projectInfoBeen = projectInfoBeen;
         notifyDataSetChanged();
     }
@@ -57,19 +56,19 @@ public class ProjectInfoAdapterx extends BaseRecyclerAdapter<ProjectInfoAdapterx
     }
     @Override
     public void onBindViewHolder(MyProjectViewHolder holder, int position, boolean isItem) {
-            holder.companyName.setText(projectInfoBeen.get(position).getCompanyName());
-            holder.projectDescrp.setText(projectInfoBeen.get(position).getCompanyDescrp());
-            holder.projectLoaction.setText(projectInfoBeen.get(position).getLoaction());
-            holder.projectTime.setText(projectInfoBeen.get(position).getTime());
+            holder.companyName.setText(projectInfoBeen.get(position).getProjectName());
+            holder.projectDescrp.setText(projectInfoBeen.get(position).getProjectDescrp());
+            holder.projectLoaction.setText(projectInfoBeen.get(position).getProjectLocation());
+            holder.projectTime.setText(projectInfoBeen.get(position).getProjectTime());
             ImageOptions imageOptions=new ImageOptions.Builder().setCircular(true).setFailureDrawableId(R.mipmap.ic_launcher).build();
-            x.image().bind(holder.projectTypeImage,projectInfoBeen.get(position).getPicUrl(),imageOptions);
+            x.image().bind(holder.projectTypeImage,"",imageOptions);
     }
 
     @Override
     public int getAdapterItemCount() {
         return projectInfoBeen.size();
     }
-    public void insert(ProjectInfoBean projectInfo, int position) {
+    public void insert(ProjectInfoBean.ItemsBean projectInfo, int position) {
         insert(projectInfoBeen, projectInfo, position);
     }
 

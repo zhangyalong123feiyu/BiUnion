@@ -5,340 +5,406 @@
     android:orientation="vertical"
     tools:context="com.bibinet.biunion.project.ui.fragment.Fragment_My">
     <include layout="@layout/titlebar"/>
-<ScrollView
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <LinearLayout
+
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="120dp">
-        <ImageView
-            android:id="@+id/headPhoto"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="30dp" />
-
-        <TextView
-            android:id="@+id/companyName"
-            android:layout_width="wrap_content"
-            android:layout_height="60dp"
-            android:layout_marginLeft="30dp"
-            android:text="zhangsan"
-            android:gravity="center"
-            android:layout_toRightOf="@id/headPhoto" />
-
-        <TextView
-            android:id="@+id/userName"
-            android:layout_width="wrap_content"
-            android:layout_height="60dp"
-            android:layout_below="@id/companyName"
-            android:layout_marginLeft="30dp"
-            android:gravity="center"
-            android:text="zhangsan"
-            android:layout_toRightOf="@id/headPhoto" />
-
-    </RelativeLayout>
-
-    <LinearLayout
-        android:id="@+id/companyInfo"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/fragmentmy_item_hight"
-        android:background="@color/white"
-        android:orientation="horizontal">
-
-        <ImageView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="20dp"
-            android:src="@mipmap/ic_launcher" />
-
-        <TextView
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="center_vertical"
-            android:paddingLeft="40dp"
-            android:text="@string/companyInfo" />
+            android:orientation="vertical">
 
-        <View
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1" />
+            <RelativeLayout
+                android:id="@+id/logined"
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:visibility="gone">
 
-        <ImageView
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_gravity="center_vertical"
-            android:layout_marginRight="20dp"
-            android:src="@mipmap/ic_launcher" />
-    </LinearLayout>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#d9d9d9" />
-    <LinearLayout
-        android:id="@+id/privateOdering"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/fragmentmy_item_hight"
-        android:background="@color/white"
-        android:orientation="horizontal">
+                <ImageView
+                    android:id="@+id/userPhoto_login"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="30dp" />
 
-        <ImageView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="20dp"
-            android:src="@mipmap/ic_launcher" />
+                <TextView
+                    android:id="@+id/companyName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="60dp"
+                    android:layout_marginLeft="30dp"
+                    android:layout_toRightOf="@id/userPhoto_login"
+                    android:gravity="center"
+                    android:text="zhangsan" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical"
-            android:paddingLeft="40dp"
-            android:text="@string/privateOdering" />
+                <TextView
+                    android:id="@+id/userName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="60dp"
+                    android:layout_below="@id/companyName"
+                    android:layout_marginLeft="30dp"
+                    android:layout_toRightOf="@id/userPhoto_login"
+                    android:gravity="center"
+                    android:text="zhangsan" />
 
-        <View
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1" />
+            </RelativeLayout>
 
-        <ImageView
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_gravity="center_vertical"
-            android:layout_marginRight="20dp"
-            android:src="@mipmap/ic_launcher" />
-    </LinearLayout>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#d9d9d9" />
-    <LinearLayout
-        android:id="@+id/adverService"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/fragmentmy_item_hight"
-        android:background="@color/white"
-        android:orientation="horizontal">
+            <RelativeLayout
+                android:id="@+id/noLogin"
+                android:layout_width="match_parent"
+                android:layout_height="117dp"
+                android:background="#F9C432">
 
-        <ImageView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="20dp"
-            android:src="@mipmap/ic_launcher" />
+                <ImageView
+                    android:id="@+id/uerPhoto_noLogin"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="17dp"
+                    android:layout_marginTop="20dp"
+                    android:src="@mipmap/wode_toux" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical"
-            android:paddingLeft="40dp"
-            android:text="@string/openMember" />
+                <Button
+                    android:id="@+id/loginBtn"
+                    android:layout_width="60dp"
+                    android:layout_height="45dp"
+                    android:layout_centerInParent="true"
+                    android:layout_marginLeft="14dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_toRightOf="@id/uerPhoto_noLogin"
+                    android:text="登录" />
 
-        <View
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1" />
+                <Button
+                    android:id="@+id/rigestBtn"
+                    android:layout_width="60dp"
+                    android:layout_height="45dp"
+                    android:layout_centerInParent="true"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_toRightOf="@id/loginBtn"
+                    android:text="登录" />
+            </RelativeLayout>
 
-        <ImageView
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_gravity="center_vertical"
-            android:layout_marginRight="20dp"
-            android:src="@mipmap/ic_launcher" />
-    </LinearLayout>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#d9d9d9" />
-    <LinearLayout
-        android:id="@+id/product"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/fragmentmy_item_hight"
-        android:background="@color/white"
-        android:orientation="horizontal">
+            <LinearLayout
+                android:id="@+id/companyInfo"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/fragmentmy_item_hight"
+                android:background="@color/white"
+                android:orientation="horizontal">
 
-        <ImageView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="20dp"
-            android:src="@mipmap/ic_launcher" />
+                <ImageView
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="20dp"
+                    android:src="@mipmap/wode_zl" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical"
-            android:paddingLeft="40dp"
-            android:text="@string/adService" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="18dp"
+                    android:text="@string/companyInfo" />
 
-        <View
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1" />
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" />
 
-        <ImageView
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_gravity="center_vertical"
-            android:layout_marginRight="20dp"
-            android:src="@mipmap/ic_launcher" />
-    </LinearLayout>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#d9d9d9" />
-    <LinearLayout
-        android:id="@+id/aboutOur"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/fragmentmy_item_hight"
-        android:background="@color/white"
-        android:layout_marginTop="20dp"
-        android:orientation="horizontal">
+                <ImageView
+                    android:layout_width="7dp"
+                    android:layout_height="13dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginRight="12dp"
+                    android:src="@mipmap/wode_qianjin" />
+            </LinearLayout>
 
-        <ImageView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="20dp"
-            android:src="@mipmap/ic_launcher" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#d9d9d9" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical"
-            android:paddingLeft="40dp"
-            android:text="@string/privateOdering" />
+            <LinearLayout
+                android:id="@+id/privateOdering"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/fragmentmy_item_hight"
+                android:background="@color/white"
+                android:orientation="horizontal">
 
-        <View
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1" />
+                <ImageView
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="20dp"
+                    android:src="@mipmap/wode_sr" />
 
-        <ImageView
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_gravity="center_vertical"
-            android:layout_marginRight="20dp"
-            android:src="@mipmap/ic_launcher" />
-    </LinearLayout>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#d9d9d9" />
-    <LinearLayout
-        android:id="@+id/serviceTerm"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/fragmentmy_item_hight"
-        android:background="@color/white"
-        android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="18dp"
+                    android:text="@string/privateOdering" />
 
-        <ImageView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="20dp"
-            android:src="@mipmap/ic_launcher" />
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical"
-            android:paddingLeft="40dp"
-            android:text="@string/serviceTerm" />
+                <ImageView
+                    android:layout_width="7dp"
+                    android:layout_height="13dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginRight="12dp"
+                    android:src="@mipmap/wode_qianjin" />
+            </LinearLayout>
 
-        <View
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#d9d9d9" />
 
-        <ImageView
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_gravity="center_vertical"
-            android:layout_marginRight="20dp"
-            android:src="@mipmap/ic_launcher" />
-    </LinearLayout>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#d9d9d9" />
-    <LinearLayout
-        android:id="@+id/legalStatement"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/fragmentmy_item_hight"
-        android:background="@color/white"
-        android:orientation="horizontal">
+            <LinearLayout
+                android:id="@+id/adverService"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/fragmentmy_item_hight"
+                android:background="@color/white"
+                android:orientation="horizontal">
 
-        <ImageView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="20dp"
-            android:src="@mipmap/ic_launcher" />
+                <ImageView
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="20dp"
+                    android:src="@mipmap/wode_gzi" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical"
-            android:paddingLeft="40dp"
-            android:text="@string/legalStatement" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="18dp"
+                    android:text="我的关注"
+                    android:textColor="#333333"
+                    android:textSize="14sp" />
 
-        <View
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1" />
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" />
 
-        <ImageView
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_gravity="center_vertical"
-            android:layout_marginRight="20dp"
-            android:src="@mipmap/ic_launcher" />
-    </LinearLayout>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginTop="20dp"
-        android:background="#d9d9d9" />
-    <LinearLayout
-        android:id="@+id/setting"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/fragmentmy_item_hight"
-        android:background="@color/white"
-        android:orientation="horizontal">
+                <ImageView
+                    android:layout_width="7dp"
+                    android:layout_height="13dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginRight="12dp"
+                    android:src="@mipmap/wode_qianjin" />
+            </LinearLayout>
 
-        <ImageView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="20dp"
-            android:src="@mipmap/ic_launcher" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="11dp"
+                android:background="#f4f4f4" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical"
-            android:paddingLeft="40dp"
-            android:text="@string/setting" />
+            <LinearLayout
+                android:id="@+id/product"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/fragmentmy_item_hight"
+                android:background="@color/white"
+                android:orientation="horizontal">
 
-        <View
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1" />
+                <ImageView
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="20dp"
+                    android:src="@mipmap/wode_gy" />
 
-        <ImageView
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_gravity="center_vertical"
-            android:layout_marginRight="20dp"
-            android:src="@mipmap/ic_launcher" />
-    </LinearLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="18dp"
+                    android:text="@string/aboutOur"
+                    android:textColor="#333333"
+                    android:textSize="14sp" />
 
-    </LinearLayout>
-</ScrollView>
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" />
+
+                <ImageView
+                    android:layout_width="7dp"
+                    android:layout_height="13dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginRight="12dp"
+                    android:src="@mipmap/wode_qianjin" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#d9d9d9" />
+
+            <LinearLayout
+                android:id="@+id/aboutOur"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/fragmentmy_item_hight"
+                android:background="@color/white"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="20dp"
+                    android:src="@mipmap/wode_fw1" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="18dp"
+                    android:text="@string/serviceTerm"
+                    android:textColor="#333333"
+                    android:textSize="14sp" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" />
+
+                <ImageView
+                    android:layout_width="7dp"
+                    android:layout_height="13dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginRight="12dp"
+                    android:src="@mipmap/wode_qianjin" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#d9d9d9" />
+
+            <LinearLayout
+                android:id="@+id/serviceTerm"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/fragmentmy_item_hight"
+                android:background="@color/white"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="20dp"
+                    android:src="@mipmap/ic_launcher" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="18dp"
+                    android:text="@string/legalStatement"
+                    android:textColor="#333333"
+                    android:textSize="14sp" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" />
+
+                <ImageView
+                    android:layout_width="7dp"
+                    android:layout_height="13dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginRight="12dp"
+                    android:src="@mipmap/wode_qianjin" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#d9d9d9" />
+
+            <LinearLayout
+                android:id="@+id/legalStatement"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/fragmentmy_item_hight"
+                android:background="@color/white"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="20dp"
+                    android:src="@mipmap/ic_launcher" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="18dp"
+                    android:text="@string/legalStatement"
+                    android:textColor="#333333"
+                    android:textSize="14sp" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" />
+
+                <ImageView
+                    android:layout_width="7dp"
+                    android:layout_height="13dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginRight="12dp"
+                    android:src="@mipmap/wode_qianjin" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="20dp"
+                android:background="#d9d9d9" />
+
+            <LinearLayout
+                android:id="@+id/setting"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/fragmentmy_item_hight"
+                android:background="@color/white"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="20dp"
+                    android:src="@mipmap/ic_launcher" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="18dp"
+                    android:text="@string/setting"
+                    android:textColor="#333333"
+                    android:textSize="14sp" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" />
+
+                <ImageView
+                    android:layout_width="7dp"
+                    android:layout_height="13dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginRight="12dp"
+                    android:src="@mipmap/wode_qianjin" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
 </LinearLayout>

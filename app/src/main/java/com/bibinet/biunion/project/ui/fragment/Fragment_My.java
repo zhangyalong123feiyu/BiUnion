@@ -7,12 +7,15 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bibinet.biunion.R;
 import com.bibinet.biunion.project.ui.activity.CompanyInfoActivity;
+import com.bibinet.biunion.project.ui.activity.LoginActivity;
 import com.bibinet.biunion.project.ui.activity.SettingActivity;
 
 import butterknife.BindView;
@@ -24,16 +27,12 @@ import butterknife.Unbinder;
  * A simple {@link Fragment} subclass.
  */
 public class Fragment_My extends Fragment {
-
-
     @BindView(R.id.title)
     TextView title;
     @BindView(R.id.title_imageright)
     ImageView titleImageright;
     @BindView(R.id.title_imageleft)
     ImageView titleImageleft;
-    @BindView(R.id.headPhoto)
-    ImageView headPhoto;
     @BindView(R.id.companyName)
     TextView companyName;
     @BindView(R.id.userName)
@@ -55,6 +54,16 @@ public class Fragment_My extends Fragment {
     @BindView(R.id.setting)
     LinearLayout setting;
     Unbinder unbinder;
+    @BindView(R.id.userPhoto_login)
+    ImageView userPhotoLogin;
+    @BindView(R.id.logined)
+    RelativeLayout logined;
+    @BindView(R.id.uerPhoto_noLogin)
+    ImageView uerPhotoNoLogin;
+    @BindView(R.id.loginBtn)
+    Button loginBtn;
+    @BindView(R.id.noLogin)
+    RelativeLayout noLogin;
     private View view;
 
     public Fragment_My() {
@@ -76,9 +85,17 @@ public class Fragment_My extends Fragment {
         title.setText("个人中心");
     }
 
-    @OnClick({R.id.companyInfo, R.id.privateOdering, R.id.adverService, R.id.product, R.id.aboutOur, R.id.serviceTerm, R.id.legalStatement, R.id.setting})
+    @OnClick({R.id.companyInfo, R.id.privateOdering, R.id.adverService, R.id.product, R.id.aboutOur, R.id.serviceTerm, R.id.legalStatement, R.id.setting,R.id.userPhoto_login, R.id.logined, R.id.loginBtn})
     public void onViewClicked(View view) {
         switch (view.getId()) {
+            case R.id.userPhoto_login:
+                break;
+            case R.id.logined:
+
+                break;
+            case R.id.loginBtn:
+                startActivity(new Intent(getActivity(), LoginActivity.class));
+                break;
             case R.id.companyInfo:
                 startActivity(new Intent(getActivity(), CompanyInfoActivity.class));
                 break;
@@ -95,15 +112,15 @@ public class Fragment_My extends Fragment {
             case R.id.legalStatement:
                 break;
             case R.id.setting:
-                startActivity(new Intent(getActivity(),SettingActivity.class));
+                startActivity(new Intent(getActivity(), SettingActivity.class));
                 break;
         }
 
     }
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
     }
-
 }

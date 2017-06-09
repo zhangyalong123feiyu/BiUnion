@@ -1,3 +1,4 @@
+/*
 package com.bibinet.biunion.project.adapter;
 
 import android.content.Context;
@@ -9,16 +10,17 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bibinet.biunion.R;
-import com.bibinet.biunion.project.bean.ProjectInfoBean;
 
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+*/
 /**
  * Created by bibinet on 2017-6-1.
- */
+ *//*
+
 
 public class ProjectInfoAdapter extends RecyclerView.Adapter<ProjectInfoAdapter.MyProjectAdapter> {
 
@@ -68,3 +70,4 @@ public class ProjectInfoAdapter extends RecyclerView.Adapter<ProjectInfoAdapter.
         }
     }
 }
+*/

@@ -1,191 +1,86 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ll_search"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="40dp"
+    android:orientation="horizontal"
+    android:background="#d9d9d9"
+    >
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="4dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/search_box_bg"
+        android:gravity="center_vertical"
         android:orientation="horizontal">
-        <LinearLayout
-            android:id="@+id/homeSearch"
-            android:layout_width="0dp"
-            android:layout_height="26dp"
-            android:layout_weight="5"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
-            android:orientation="horizontal"
-            android:layout_marginLeft="25dp"
-            android:background="@drawable/search_shape"
-            android:layout_gravity="center_vertical">
-            <ImageView
-                android:layout_width="11dp"
-                android:layout_height="11dp"
-                android:src="@mipmap/ic_launcher"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="20dp"
-                />
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:hint="@string/searchhint"
-                android:gravity="center"
-                android:textColor="#999999"
-                android:textSize="13sp"
-                android:background="@null"/>
-        </LinearLayout>
-        <TextView
-            android:id="@+id/cancel_search"
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:scaleType="center"
+            android:src="@mipmap/ic_launcher"
+            tools:ignore="ContentDescription" />
+
+        <EditText
+            android:id="@+id/et_search"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:hint="@string/cancel"
-            android:gravity="center"
-            android:textColor="#999999"
-            android:textSize="12sp"
-            android:background="@null"/>
-    </LinearLayout>
-<View
-    android:layout_width="match_parent"
-    android:layout_height="1dp"
-    android:background="#D6D7DC"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:textColor="#f99e32"
-        android:textSize="13sp"
-        android:layout_marginLeft="12dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="9dp"
-        android:text="热门搜索"
-        android:background="@null"/>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="20dp">
-        <CheckBox
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:text="招标公告"
-            android:button="@null"
-            android:gravity="center"
-            android:layout_marginLeft="14dp"
-            android:layout_height="match_parent" />
-        <CheckBox
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:text="招标公告"
-            android:gravity="center"
-            android:button="@null"
-            android:layout_height="match_parent" />
-        <CheckBox
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="招标公告"
-            android:button="@null"
-            android:layout_height="match_parent" />
-        <CheckBox
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="公告"
-            android:button="@null"
-            android:layout_height="match_parent" />
-        <CheckBox
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="招标"
-            android:button="@null"
-            android:paddingLeft="14dp"
-            android:layout_height="match_parent" />
-        <CheckBox
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:text="招标公告"
-            android:gravity="center"
-            android:button="@null"
-            android:layout_marginRight="23dp"
-            android:layout_height="match_parent" />
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="20dp">
-        <CheckBox
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:text="招标公告"
-            android:button="@null"
-            android:gravity="center"
-            android:layout_marginLeft="14dp"
-            android:layout_height="match_parent" />
-        <CheckBox
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:text="招标公告"
-            android:gravity="center"
-            android:button="@null"
-            android:layout_height="match_parent" />
-        <CheckBox
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="招标公告"
-            android:button="@null"
-            android:layout_height="match_parent" />
-        <CheckBox
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="公告"
-            android:button="@null"
-            android:layout_height="match_parent" />
-        <CheckBox
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="招标"
-            android:button="@null"
-            android:paddingLeft="14dp"
-            android:layout_height="match_parent" />
+            android:background="@null"
+            android:gravity="center_vertical"
+            android:hint="搜索"
+            android:inputType="text"
+            android:singleLine="true"
+            android:textColor="@color/gray"
+            android:textColorHint="@color/gray"
+            android:textSize="14sp"
+            tools:ignore="RtlHardcoded" />
 
+        <ImageView
+            android:id="@+id/iv_search_clear"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:src="@mipmap/ic_launcher"
+            android:visibility="gone"
+            tools:ignore="ContentDescription" />
     </LinearLayout>
-    <View
-        android:layout_width="match_parent"
-        android:layout_marginTop="10dp"
-        android:layout_height="11dp"
-        android:background="#F4F4F4"/>
-    <TextView
-        android:layout_width="wrap_content"
+
+    <Button
+        android:layout_width="40dp"
         android:layout_height="wrap_content"
-        android:text="历史搜索"
-        android:textColor="#333333"
-        android:textSize="13sp"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="12dp"
-        android:layout_marginBottom="8dp"/>
+        android:text="取消"
+        android:layout_gravity="right|center_vertical"
+        android:id="@+id/btn_back"
+        android:background="@null"
+        android:textColor="@color/black"
+        />
+
+</LinearLayout>
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="#D6D7DC"/>
+        android:background="#d9d9d9" />
 
-    <RelativeLayout
+    <include layout="@layout/view_no_search_result" />
+
+    <ListView
+        android:id="@+id/lv_search"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/histroyRecrodRecycler"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:visibility="gone" />
+    </ListView>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="9dp"
-            android:text="暂无历史记录"
-            android:textColor="#666666"
-            android:textSize="12sp" />
-    </RelativeLayout>
+
 </LinearLayout>

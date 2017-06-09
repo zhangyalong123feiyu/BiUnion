@@ -17,8 +17,9 @@ public class FragmentHomeModel {
     private String cacheName="ProjectInfoCache";
     private File cacheFile=new File(Environment.getExternalStorageDirectory(),"cachefile");
     public void LoadHomeData(MyCacheCallBack myCacheCallBack){
-        RequestParams requestParams=new RequestParams("");
-        requestParams.addBodyParameter("","");
+        RequestParams requestParams=new RequestParams("http://192.168.1.74:8080/pis/biddingInfos/selectPage.json?");
+        requestParams.addBodyParameter("pageNum","1");
+        requestParams.addBodyParameter("_type","1");
         requestParams.setCacheMaxAge(60*60*24*15);
         requestParams.setCacheDirName(cacheName);
         requestParams.setCacheSize(1024*1024*30);

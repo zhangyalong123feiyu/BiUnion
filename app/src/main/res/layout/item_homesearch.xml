@@ -14,7 +14,7 @@
         android:background="#F9C432"
         android:orientation="horizontal">
         <LinearLayout
-            android:layout_width="120dp"
+            android:layout_width="wrap_content"
             android:layout_height="30dp"
             android:layout_gravity="center"
             android:orientation="horizontal">
@@ -29,11 +29,11 @@
             android:text="@string/projecLocation"
             />
             <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:src="@mipmap/ic_launcher"
+                android:layout_width="8dp"
+                android:layout_height="5dp"
+                android:src="@mipmap/down_location"
                 android:layout_gravity="center_vertical"
-                android:layout_marginLeft="10dp"
+                android:layout_marginLeft="6dp"
                 />
         </LinearLayout>
         <LinearLayout
@@ -46,9 +46,9 @@
             android:background="@drawable/search_shape"
             android:layout_gravity="center_vertical">
             <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:src="@mipmap/ic_launcher"
+                android:layout_width="11dp"
+                android:layout_height="11dp"
+                android:src="@mipmap/search"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="20dp"
                 />
@@ -64,9 +64,10 @@
 
 
         <ImageView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:src="@mipmap/ic_launcher"
+            android:id="@+id/privateOderingImage"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@mipmap/privatedesing"
             android:layout_gravity="center_vertical"
             android:layout_marginRight="15dp"
             android:layout_marginLeft="10dp"

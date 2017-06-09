@@ -89,8 +89,4 @@ public class SettingActivity extends BaseActivity {
             e.printStackTrace();
         }
     }
-
-    @OnClick(R.id.title_imageleft)
-    public void onViewClicked() {
-    }
 }
