@@ -75,6 +75,8 @@
         <activity android:name=".project.ui.activity.FastLoginActivity" android:screenOrientation="portrait"/>
         <activity android:name=".project.ui.activity.LoginActivity" android:screenOrientation="portrait"/>
         <activity android:name=".project.ui.activity.SelectCityActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".project.ui.activity.H5Activity" android:screenOrientation="portrait"/>
+        <activity android:name=".project.ui.activity.FoucsMyActivity" android:screenOrientation="portrait"/>
         <!--定位service-->
         <service android:name="com.amap.api.location.APSService"></service>
         <!--高德地图所使用的key-->

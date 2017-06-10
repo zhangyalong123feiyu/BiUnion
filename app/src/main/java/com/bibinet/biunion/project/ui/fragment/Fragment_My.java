@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.bibinet.biunion.R;
 import com.bibinet.biunion.project.ui.activity.CompanyInfoActivity;
+import com.bibinet.biunion.project.ui.activity.FoucsMyActivity;
 import com.bibinet.biunion.project.ui.activity.LoginActivity;
 import com.bibinet.biunion.project.ui.activity.SettingActivity;
 
@@ -41,8 +42,8 @@ public class Fragment_My extends Fragment {
     LinearLayout companyInfo;
     @BindView(R.id.privateOdering)
     LinearLayout privateOdering;
-    @BindView(R.id.adverService)
-    LinearLayout adverService;
+    @BindView(R.id.foucsMy)
+    LinearLayout foucsMy;
     @BindView(R.id.product)
     LinearLayout product;
     @BindView(R.id.aboutOur)
@@ -85,7 +86,7 @@ public class Fragment_My extends Fragment {
         title.setText("个人中心");
     }
 
-    @OnClick({R.id.companyInfo, R.id.privateOdering, R.id.adverService, R.id.product, R.id.aboutOur, R.id.serviceTerm, R.id.legalStatement, R.id.setting,R.id.userPhoto_login, R.id.logined, R.id.loginBtn})
+    @OnClick({R.id.companyInfo, R.id.privateOdering, R.id.foucsMy, R.id.product, R.id.aboutOur, R.id.serviceTerm, R.id.legalStatement, R.id.setting,R.id.userPhoto_login, R.id.logined, R.id.loginBtn})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.userPhoto_login:
@@ -101,7 +102,8 @@ public class Fragment_My extends Fragment {
                 break;
             case R.id.privateOdering:
                 break;
-            case R.id.adverService:
+            case R.id.foucsMy:
+                startActivity(new Intent(getActivity(), FoucsMyActivity.class));
                 break;
             case R.id.product:
                 break;
