@@ -1,5 +1,6 @@
 package com.bibinet.biunion.project.ui.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.KeyEvent;
@@ -45,6 +46,9 @@ public class H5Activity extends BaseActivity {
     }
 
     private void initView() {
+        Intent intent=getIntent();
+        String detailUrl = intent.getStringExtra("detailUrl");
+        webview.loadUrl("http://192.168.1.74:8080/"+detailUrl);
         title.setText("详情");
         titleImageleft.setVisibility(View.VISIBLE);
         webview.setWebViewClient(new WebViewClient(){

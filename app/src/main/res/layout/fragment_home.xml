@@ -175,7 +175,7 @@
                         <ImageView
                             android:layout_width="60dp"
                             android:layout_height="60dp"
-                            android:src="@mipmap/ic_launcher" />
+                            android:src="@mipmap/shouye_bibi" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -190,7 +190,7 @@
                             android:id="@+id/imageView3"
                             android:layout_width="60dp"
                             android:layout_height="60dp"
-                            android:src="@mipmap/ic_launcher" />
+                            android:src="@mipmap/shouye_fwzx" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -204,7 +204,7 @@
                         <ImageView
                             android:layout_width="60dp"
                             android:layout_height="60dp"
-                            android:src="@mipmap/ic_launcher" />
+                            android:src="@mipmap/shouye_jr" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -219,7 +219,7 @@
                             android:id="@+id/imageView"
                             android:layout_width="60dp"
                             android:layout_height="60dp"
-                            android:src="@mipmap/ic_launcher" />
+                            android:src="@mipmap/shouye_qy" />
                     </LinearLayout>
                 </LinearLayout>
 

@@ -1,6 +1,7 @@
 package com.bibinet.biunion.project.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 import com.andview.refreshview.recyclerview.BaseRecyclerAdapter;
 import com.bibinet.biunion.R;
 import com.bibinet.biunion.project.bean.ProjectInfoBean;
+import com.bibinet.biunion.project.ui.activity.H5Activity;
 
 import org.xutils.image.ImageOptions;
 import org.xutils.x;
@@ -55,13 +57,26 @@ public class ProjectInfoAdapterx extends BaseRecyclerAdapter<ProjectInfoAdapterx
         return 0;
     }
     @Override
-    public void onBindViewHolder(MyProjectViewHolder holder, int position, boolean isItem) {
+    public void onBindViewHolder(MyProjectViewHolder holder, final int position, boolean isItem) {
             holder.companyName.setText(projectInfoBeen.get(position).getProjectName());
             holder.projectDescrp.setText(projectInfoBeen.get(position).getProjectDescrp());
             holder.projectLoaction.setText(projectInfoBeen.get(position).getProjectLocation());
             holder.projectTime.setText(projectInfoBeen.get(position).getProjectTime());
-            ImageOptions imageOptions=new ImageOptions.Builder().setCircular(true).setFailureDrawableId(R.mipmap.ic_launcher).build();
-            x.image().bind(holder.projectTypeImage,"",imageOptions);
+        	if (projectInfoBeen.get(position).getProjectType().equals("A")) {
+                holder.projectTypeImage.setImageResource(R.mipmap.shouye_gongcheng);
+        			} else if(projectInfoBeen.get(position).getProjectType().equals("B")){
+                holder.projectTypeImage.setImageResource(R.mipmap.shouye_fuw);
+        			}else {
+                holder.projectTypeImage.setImageResource(R.mipmap.shouye_huowu);
+            }
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent=new Intent(context, H5Activity.class);
+                    intent.putExtra("detailUrl",projectInfoBeen.get(position).getProjectUrl());
+                    context.startActivity(intent);
+                }
+            });
     }
 
     @Override

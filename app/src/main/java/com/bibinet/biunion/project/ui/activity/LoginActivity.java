@@ -8,9 +8,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bibinet.biunion.R;
+import com.bibinet.biunion.mvp.presenter.LoginPresenter;
+import com.bibinet.biunion.mvp.view.LoginView;
 import com.bibinet.biunion.project.application.BaseActivity;
+import com.bibinet.biunion.project.bean.LoginResultBean;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -20,7 +24,7 @@ import butterknife.OnClick;
  * Created by bibinet on 2017-6-7.
  */
 
-public class LoginActivity extends BaseActivity {
+public class LoginActivity extends BaseActivity implements LoginView{
     @BindView(R.id.title)
     TextView title;
     @BindView(R.id.title_imageright)
@@ -59,10 +63,39 @@ public class LoginActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.btn_login:
+                doLogin();
                 break;
             case R.id.fastLogin:
                 startActivity(new Intent(LoginActivity.this, FastLoginActivity.class));
                 break;
         }
+    }
+
+    private void doLogin() {
+        Toast.makeText(this,"登录",Toast.LENGTH_SHORT).show();
+        LoginPresenter presenter=new LoginPresenter(this);
+        String phoneNumber = inputPhoneNumber.getText().toString().trim();
+        String phonePassword = inputPassword.getText().toString().trim();
+        presenter.getLoginInfo(phoneNumber,phonePassword);
+    }
+
+    @Override
+    public void showProgress() {
+
+    }
+
+    @Override
+    public void hideProgress() {
+
+    }
+
+    @Override
+    public void onLoadSucess(LoginResultBean.UserBean userInfo) {
+        startActivity(new Intent(this,MainActivity.class));
+    }
+
+    @Override
+    public void onLoadFaield(String msg) {
+
     }
 }
