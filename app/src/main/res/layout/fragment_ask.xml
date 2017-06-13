@@ -6,100 +6,118 @@
     tools:context="com.bibinet.biunion.project.ui.fragment.Fragment_Ask">
 
     <include layout="@layout/titlebar"/>
-<ImageView
-    android:layout_width="match_parent"
-    android:layout_height="161dp"
-    android:scaleType="fitXY"
-    android:src="@mipmap/banner"
-    />
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal">
-    <LinearLayout
-        android:id="@+id/customService"
-        android:layout_width="0dp"
-        android:layout_height="130dp"
-        android:gravity="center"
-        android:layout_weight="1">
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:src="@mipmap/bibiyizhan_kefu"
-            />
-    </LinearLayout>
-    <LinearLayout
-        android:id="@+id/experts"
-        android:layout_width="0dp"
-        android:layout_height="130dp"
-        android:gravity="center"
-        android:layout_weight="1">
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:src="@mipmap/bibiyizhan_zhuanjia"
-            />
-    </LinearLayout>
-</LinearLayout>
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal">
-    <LinearLayout
-        android:id="@+id/hotelSure"
-        android:layout_width="0dp"
-        android:layout_height="130dp"
-        android:gravity="center"
-        android:layout_weight="1">
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:src="@mipmap/bibiyizhan_jiudian"
-            />
-    </LinearLayout>
-    <LinearLayout
-        android:id="@+id/carSure"
-        android:layout_width="0dp"
-        android:layout_height="130dp"
-        android:gravity="center"
-        android:layout_weight="1">
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:src="@mipmap/bibiyizhan_chelian"
-            />
-    </LinearLayout>
-</LinearLayout>
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_height="match_parent">
 
         <LinearLayout
-            android:id="@+id/tenderBook"
-            android:layout_width="0dp"
-            android:layout_height="130dp"
-            android:layout_weight="1"
-            android:gravity="center">
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
 
             <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:src="@mipmap/bibiyizhan_biaoshu" />
-        </LinearLayout>
+                android:layout_height="161dp"
+                android:scaleType="fitXY"
+                android:src="@mipmap/banner" />
 
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="130dp"
-            android:layout_weight="1"
-            android:gravity="center">
-
-            <ImageView
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:src="@mipmap/ic_launcher"
-                android:visibility="gone" />
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:id="@+id/customService"
+                    android:layout_width="0dp"
+                    android:layout_height="130dp"
+                    android:layout_weight="1"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@mipmap/bibiyizhan_kefu" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/experts"
+                    android:layout_width="0dp"
+                    android:layout_height="130dp"
+                    android:layout_weight="1"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@mipmap/bibiyizhan_zhuanjia" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:id="@+id/hotelSure"
+                    android:layout_width="0dp"
+                    android:layout_height="130dp"
+                    android:layout_weight="1"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@mipmap/bibiyizhan_jiudian" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/carSure"
+                    android:layout_width="0dp"
+                    android:layout_height="130dp"
+                    android:layout_weight="1"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@mipmap/bibiyizhan_chelian" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:id="@+id/tenderBook"
+                    android:layout_width="0dp"
+                    android:layout_height="130dp"
+                    android:layout_weight="1"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@mipmap/bibiyizhan_biaoshu" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/tenderHelp"
+                    android:layout_width="0dp"
+                    android:layout_height="130dp"
+                    android:layout_weight="1"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@mipmap/bibiyizhan_toubiaoxiezhu" />
+                </LinearLayout>
+            </LinearLayout>
         </LinearLayout>
-    </LinearLayout>
+    </ScrollView>
 </LinearLayout>

@@ -14,7 +14,11 @@ import com.bibinet.biunion.R;
 import com.bibinet.biunion.mvp.presenter.LoginPresenter;
 import com.bibinet.biunion.mvp.view.LoginView;
 import com.bibinet.biunion.project.application.BaseActivity;
+import com.bibinet.biunion.project.application.Constants;
 import com.bibinet.biunion.project.bean.LoginResultBean;
+import com.bibinet.biunion.project.utils.DialogUtils;
+import com.bibinet.biunion.project.utils.SharedPresUtils;
+import com.google.gson.Gson;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -43,6 +47,7 @@ public class LoginActivity extends BaseActivity implements LoginView{
     Button btnLogin;
     @BindView(R.id.fastLogin)
     Button fastLogin;
+    private DialogUtils dialogUtils;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -54,6 +59,7 @@ public class LoginActivity extends BaseActivity implements LoginView{
 
     private void initView() {
         title.setText("登录");
+        dialogUtils=new DialogUtils();
     }
 
     @OnClick({R.id.title_imageleft, R.id.btn_login, R.id.fastLogin})
@@ -72,7 +78,6 @@ public class LoginActivity extends BaseActivity implements LoginView{
     }
 
     private void doLogin() {
-        Toast.makeText(this,"登录",Toast.LENGTH_SHORT).show();
         LoginPresenter presenter=new LoginPresenter(this);
         String phoneNumber = inputPhoneNumber.getText().toString().trim();
         String phonePassword = inputPassword.getText().toString().trim();
@@ -81,21 +86,34 @@ public class LoginActivity extends BaseActivity implements LoginView{
 
     @Override
     public void showProgress() {
-
+        dialogUtils.showLoginDialog(this);
     }
 
     @Override
     public void hideProgress() {
-
+        dialogUtils.disLoginDialog();
     }
 
     @Override
-    public void onLoadSucess(LoginResultBean.UserBean userInfo) {
-        startActivity(new Intent(this,MainActivity.class));
+    public void onLoadSucess(String loginString) {
+        Gson gson=new Gson();
+        LoginResultBean loginResultInfo = gson.fromJson(loginString, LoginResultBean.class);
+        String reslutCode = loginResultInfo.getResCode();
+        	switch (Integer.parseInt(reslutCode)) {
+        			case 0000:
+                        Constants.loginresultInfo=loginResultInfo;
+                        SharedPresUtils sharedPresUtils=SharedPresUtils.getsSharedPresUtils(this);
+                        sharedPresUtils.putString("loginResultData",loginString);
+                        finish();
+        				break;
+        			default:
+        				break;
+        			}
+
     }
 
     @Override
     public void onLoadFaield(String msg) {
-
+    dialogUtils.disLoginDialog();
     }
 }

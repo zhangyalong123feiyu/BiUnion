@@ -34,7 +34,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/bottom_home"/>
         </RelativeLayout>
-        <RelativeLayout
+  <!--      <RelativeLayout
             android:id="@+id/bottomFoucs"
             android:clickable="true"
             android:layout_width="0dp"
@@ -54,7 +54,7 @@
                 android:textColor="@drawable/bottomtext_selector"
                 android:layout_height="wrap_content"
                 android:text="@string/bottom_foucs"/>
-        </RelativeLayout>
+        </RelativeLayout>-->
         <RelativeLayout
             android:id="@+id/bottomask"
             android:clickable="true"

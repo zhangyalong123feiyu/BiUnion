@@ -125,9 +125,14 @@
             android:src="@mipmap/more"
            />
     </LinearLayout>
-
-
-
+<android.support.v4.widget.SwipeRefreshLayout
+    android:id="@+id/swipeReresh"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
 
             <LinearLayout
@@ -218,21 +223,17 @@
                     </LinearLayout>
                 </LinearLayout>
 
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/projectInfoRecycler"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="10dp"
                     android:background="#F4F4F4" />
-                <com.andview.refreshview.XRefreshView
-                    android:id="@+id/xRereshView"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/projectInfoRecycler"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:fillViewport="true" />
-                </com.andview.refreshview.XRefreshView>
             </LinearLayout>
-
+</LinearLayout>
+</android.support.v4.widget.SwipeRefreshLayout>
 </LinearLayout>
 

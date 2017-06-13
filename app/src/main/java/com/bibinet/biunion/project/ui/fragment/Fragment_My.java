@@ -4,6 +4,7 @@ package com.bibinet.biunion.project.ui.fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,8 +13,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bibinet.biunion.R;
+import com.bibinet.biunion.project.application.Constants;
 import com.bibinet.biunion.project.ui.activity.CompanyInfoActivity;
 import com.bibinet.biunion.project.ui.activity.FoucsMyActivity;
 import com.bibinet.biunion.project.ui.activity.LoginActivity;
@@ -84,6 +87,27 @@ public class Fragment_My extends Fragment {
 
     private void initView() {
         title.setText("个人中心");
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        if (Constants.loginresultInfo==null) {
+            logined.setVisibility(View.GONE);
+            noLogin.setVisibility(View.VISIBLE);
+        }else {
+            Toast.makeText(getActivity(),"不为空",Toast.LENGTH_SHORT).show();
+            logined.setVisibility(View.VISIBLE);
+            noLogin.setVisibility(View.GONE);
+            userPhotoLogin.setImageResource(R.mipmap.ic_launcher);
+            Log.i("TAG","name________________________"+Constants.loginresultInfo.getUser().getEnterprise().getName());
+           companyName.setText(Constants.loginresultInfo.getUser().getName());
+        }
     }
 
     @OnClick({R.id.companyInfo, R.id.privateOdering, R.id.foucsMy, R.id.product, R.id.aboutOur, R.id.serviceTerm, R.id.legalStatement, R.id.setting,R.id.userPhoto_login, R.id.logined, R.id.loginBtn})

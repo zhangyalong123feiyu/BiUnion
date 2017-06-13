@@ -8,6 +8,8 @@ import com.bibinet.biunion.mvp.view.LoginView;
 import com.bibinet.biunion.project.bean.LoginResultBean;
 import com.bibinet.biunion.project.builder.MyCacheCallBack;
 import com.bibinet.biunion.project.builder.MyCallBack;
+import com.bibinet.biunion.project.utils.DialogUtils;
+import com.bibinet.biunion.project.utils.SharedPresUtils;
 import com.google.gson.Gson;
 
 /**
@@ -23,18 +25,19 @@ public class LoginPresenter {
         loginModel=new LoginModel();
     }
     public void getLoginInfo(String account,String password){
+        loginView.showProgress();
         loginModel.LoadUserInfo(account,password,new MyCallBack(){
             @Override
             public void onSuccess(String s) {
                 super.onSuccess(s);
-                Gson gson=new Gson();
-                LoginResultBean loginResultInfo = gson.fromJson(s, LoginResultBean.class);
-                loginView.onLoadSucess(loginResultInfo.getUser());
+                loginView.hideProgress();
+                loginView.onLoadSucess(s);
             }
 
             @Override
             public void onError(Throwable throwable, boolean b) {
                 super.onError(throwable, b);
+                loginView.hideProgress();
                 loginView.onLoadFaield(throwable.getMessage());
             }
         });

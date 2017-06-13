@@ -10,6 +10,6 @@ import java.util.List;
  */
 
 public interface LoginView extends BaseView{
-    void onLoadSucess(LoginResultBean.UserBean userInfo);
+    void onLoadSucess(String loginString);
     void onLoadFaield(String msg);
 }

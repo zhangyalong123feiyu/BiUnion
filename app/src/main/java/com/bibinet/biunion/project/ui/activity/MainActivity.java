@@ -13,32 +13,35 @@ import android.widget.Toast;
 
 import com.bibinet.biunion.R;
 import com.bibinet.biunion.project.application.BaseActivity;
+import com.bibinet.biunion.project.application.Constants;
+import com.bibinet.biunion.project.bean.LoginResultBean;
 import com.bibinet.biunion.project.builder.JPushReciver;
 import com.bibinet.biunion.project.ui.fragment.Fragment_Ask;
 import com.bibinet.biunion.project.ui.fragment.Fragment_Focus;
 import com.bibinet.biunion.project.ui.fragment.Fragment_Home;
+import com.bibinet.biunion.project.ui.fragment.Fragment_Homex;
 import com.bibinet.biunion.project.ui.fragment.Fragment_My;
+import com.bibinet.biunion.project.utils.SharedPresUtils;
+import com.google.gson.Gson;
 import com.jaeger.library.StatusBarUtil;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-import static com.bibinet.biunion.project.builder.JPushReciver.MESSAGE_RECEIVED_ACTION;
-
 public class MainActivity extends BaseActivity {
     @BindView(R.id.bottomhome)
     RelativeLayout bottomhome;
-    @BindView(R.id.bottomFoucs)
-    RelativeLayout bottomFoucs;
+//    @BindView(R.id.bottomFoucs)
+//    RelativeLayout bottomFoucs;
     @BindView(R.id.bottomask)
     RelativeLayout bottomask;
     @BindView(R.id.bottomy)
     RelativeLayout bottomy;
     @BindView(R.id.texthome)
     TextView texthome;
-    private Fragment_Home framentHome;
-    private Fragment[] fragments = new Fragment[4];
+    private Fragment_Homex framentHome;
+    private Fragment[] fragments = new Fragment[3];
     private Fragment_Ask fragment_Ask;
     private Fragment_My fragment_My;
     private Fragment_Focus fragment_Focus;
@@ -65,15 +68,19 @@ public class MainActivity extends BaseActivity {
         registerMessageReceiver();
     }
     private void initView() {
-        framentHome = new Fragment_Home();
+        SharedPresUtils sharedPresUtils=SharedPresUtils.getsSharedPresUtils(this);
+        String loginString = sharedPresUtils.getString("loginResultData", null);
+        Gson gson=new Gson();
+        Constants.loginresultInfo=gson.fromJson(loginString, LoginResultBean.class);
+        framentHome = new Fragment_Homex();
         fragment_Ask = new Fragment_Ask();
         fragment_My = new Fragment_My();
         fragment_Focus = new Fragment_Focus();
-        fragments = new Fragment[]{framentHome,fragment_Focus,fragment_Ask, fragment_My};
-        mTabs = new RelativeLayout[]{bottomhome, bottomFoucs,bottomask, bottomy};
+        fragments = new Fragment[]{framentHome,fragment_Ask, fragment_My};
+        mTabs = new RelativeLayout[]{bottomhome,bottomask, bottomy};
         mTabs[0].setSelected(true);
         getSupportFragmentManager().beginTransaction().add(R.id.fragementcontainer, framentHome).show(framentHome).
-                add(R.id.fragementcontainer, fragment_Focus).hide(fragment_Focus).
+//                add(R.id.fragementcontainer, fragment_Focus).hide(fragment_Focus).
                 add(R.id.fragementcontainer, fragment_Ask).hide(fragment_Ask).add(R.id.fragementcontainer, fragment_My).hide(fragment_My)
                 .commit();
     }
@@ -84,20 +91,20 @@ public class MainActivity extends BaseActivity {
         filter.addAction(MESSAGE_RECEIVED_ACTION);
         LocalBroadcastManager.getInstance(this).registerReceiver(jPushReciver, filter);
     }
-    @OnClick({R.id.bottomhome, R.id.bottomask, R.id.bottomy,R.id.bottomFoucs})
+    @OnClick({R.id.bottomhome, R.id.bottomask, R.id.bottomy/*,R.id.bottomFoucs*/})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.bottomhome:
                 index = 0;
                 break;
-            case R.id.bottomFoucs:
+//            case R.id.bottomFoucs:
+//                index = 1;
+//                break;
+            case R.id.bottomask:
                 index = 1;
                 break;
-            case R.id.bottomask:
-                index = 2;
-                break;
             case R.id.bottomy:
-                index = 3;
+                index = 2;
                 break;
         }
         if (currentTabIndex != index) {

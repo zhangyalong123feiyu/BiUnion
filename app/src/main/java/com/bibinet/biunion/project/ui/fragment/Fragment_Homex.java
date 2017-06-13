@@ -4,6 +4,7 @@ package com.bibinet.biunion.project.ui.fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -15,12 +16,11 @@ import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
-import com.andview.refreshview.XRefreshView;
-import com.andview.refreshview.XRefreshViewFooter;
 import com.bibinet.biunion.R;
 import com.bibinet.biunion.mvp.presenter.FragmentHomePresenter;
 import com.bibinet.biunion.mvp.view.FragmentHomeView;
 import com.bibinet.biunion.project.adapter.ProjectInfoAdapterx;
+import com.bibinet.biunion.project.adapter.SocailFooterAdapter;
 import com.bibinet.biunion.project.application.Constants;
 import com.bibinet.biunion.project.bean.ProjectInfoBean;
 import com.bibinet.biunion.project.builder.MyViewPager;
@@ -29,8 +29,8 @@ import com.bibinet.biunion.project.ui.activity.PrivatePersonDesignActivity;
 import com.bibinet.biunion.project.ui.activity.SearchActivity;
 import com.bibinet.biunion.project.ui.activity.SelectCityActivity;
 import com.bibinet.biunion.project.utils.BannerUtils;
-import com.bibinet.biunion.project.utils.LoactionUtils;
 import com.bibinet.biunion.project.utils.HomePopWindowUtils;
+import com.bibinet.biunion.project.utils.LoactionUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -44,7 +44,7 @@ import butterknife.Unbinder;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class Fragment_Home extends Fragment implements FragmentHomeView,View.OnClickListener {
+public class Fragment_Homex extends Fragment implements FragmentHomeView, View.OnClickListener {
     Unbinder unbinder;
     @BindView(R.id.location)
     TextView location;
@@ -64,8 +64,6 @@ public class Fragment_Home extends Fragment implements FragmentHomeView,View.OnC
     RadioButton projectNameThree;
     @BindView(R.id.moreProject)
     ImageView moreProject;
-    @BindView(R.id.xRereshView)
-    XRefreshView xRereshView;
     @BindView(R.id.homeSearch)
     LinearLayout homeSearch;
     @BindView(R.id.privateOderingImage)
@@ -76,23 +74,29 @@ public class Fragment_Home extends Fragment implements FragmentHomeView,View.OnC
     View projectNameTwoBottomLine;
     @BindView(R.id.projectNameThreeBottomLine)
     View projectNameThreeBottomLine;
+    @BindView(R.id.swipeReresh)
+    SwipeRefreshLayout swipeReresh;
     private View view;
     private LoactionUtils loactionUtils;
     private List<ProjectInfoBean.ItemsBean> projectList = new ArrayList<>();
-    private ProjectInfoAdapterx adapter;
-    private int pageNum=1;
-    private int detailType=1;
+//    private ProjectInfoAdapterx adapter;
+    private int pageNum = 1;
+    private int detailType = 1;
     private FragmentHomePresenter presenter;
 
-    private final int projectInfoType=5;
-    private final int tenderProjectInfoType=6;
-    private final int buyProjectInfoType=7;
-    private final int pProjectInfoType=8;
-    private final int applayProjectInfoType=9;
-    private int selectType=5;
+    private final int projectInfoType = 5;
+    private final int tenderProjectInfoType = 6;
+    private final int buyProjectInfoType = 7;
+    private final int pProjectInfoType = 8;
+    private final int applayProjectInfoType = 9;
+    private int selectType = 5;
     private ProjectInfoAdapterx adapterx;
+    private int lastvisibleitem;
+    private LinearLayoutManager linearLayoutManager;
+    private boolean isLoadMore;
+    private SocailFooterAdapter adapter;
 
-    public Fragment_Home() {
+    public Fragment_Homex() {
         // Required empty public constructor
     }
 
@@ -100,80 +104,61 @@ public class Fragment_Home extends Fragment implements FragmentHomeView,View.OnC
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        view = inflater.inflate(R.layout.fragment_home, container, false);
+        view = inflater.inflate(R.layout.fragment_homex, container, false);
         unbinder = ButterKnife.bind(this, view);
         initView();
-        loadData();
+        loadData(false);
         return view;
     }
-
-    private void loadData() {
-        presenter = new FragmentHomePresenter(this);
-        presenter.LoadHomeDataProjcetInfo(pageNum,detailType);
-    }
-
     private void initView() {
-        projectInfoRecycler.setHasFixedSize(true);
+        presenter = new FragmentHomePresenter(this);
         initData();
-        adapter = new ProjectInfoAdapterx(getActivity(), projectList);
-        // 设置静默加载模式
-//        xRefreshView1.setSilenceLoadMore();
-        // 静默加载模式不能设置footerview
-        projectInfoRecycler.setAdapter(adapter);
-        //设置刷新完成以后，headerview固定的时间
-        xRereshView.setPinnedTime(1000);
-//        xRereshView.setMoveForHorizontal(true);
-        xRereshView.setPullLoadEnable(true);
-//        xRereshView.setAutoLoadMore(false);
-//        xRereshView.setCustomFooterView(new XRefreshViewFooter(getActivity()));
-//        xRereshView.enableReleaseToLoadMore(true);
-//        xRereshView.enableRecyclerViewPullUp(true);
-//        xRereshView.enablePullUpWhenLoadCompleted(true);
-        xRereshView.setXRefreshViewListener(new XRefreshView.SimpleXRefreshListener() {
-            @Override
-            public void onRefresh(boolean isPullDown) {
-                super.onRefresh(isPullDown);
-             //   projectInfoRecycler.setAdapter(adapter);
-            //    xRereshView.stopRefresh();
-                selectDataSource();
-            }
 
-            @Override
-            public void onLoadMore(boolean isSilence) {
-                super.onLoadMore(isSilence);
-                pageNum++;
-                selectDataSource();
-            }
-        });
+        adapter = new SocailFooterAdapter(getActivity(), projectList);
+        projectInfoRecycler.setAdapter(adapter);
+
         loactionUtils = new LoactionUtils(getActivity(), location);
         loactionUtils.startLoaction();
         BannerUtils bannerUtils = new BannerUtils(getActivity(), viewpager, groupContain, Arrays.asList(Constants.ImageUrls));
         bannerUtils.startPlayBanner();
     }
+    private void loadData(boolean isLoadMore) {
+        if (isLoadMore) {
+            swipeReresh.setEnabled(false);
+            adapter.changeMoreStatus(SocailFooterAdapter.LOADING_MORE);
+            pageNum++;
+        } else {
+            pageNum = 1;
+        }
+        selectDataSource();
+//        presenter.LoadHomeDataProjcetInfo(pageNum, detailType);
+    }
+
+
+
     private void selectDataSource() {
         switch (selectType) {
             case projectInfoType:
-                presenter.LoadHomeDataProjcetInfo(pageNum,detailType);
+                presenter.LoadHomeDataProjcetInfo(pageNum, detailType);
                 break;
             case tenderProjectInfoType:
-                presenter.LoadHomeDataTenderInfo(pageNum,detailType);
+                presenter.LoadHomeDataTenderInfo(pageNum, detailType);
                 break;
             case buyProjectInfoType:
-                presenter.LoadHomeDataBuyInfo(pageNum,detailType);
+                presenter.LoadHomeDataBuyInfo(pageNum, detailType);
                 break;
             case pProjectInfoType:
-                presenter.LoadHomeDataPProjectInfo(pageNum,detailType);
+                presenter.LoadHomeDataPProjectInfo(pageNum, detailType);
                 break;
             case applayProjectInfoType:
-                presenter.LoadHomeDataApplayProjectInfo(pageNum,detailType);
+                presenter.LoadHomeDataApplayProjectInfo(pageNum, detailType);
                 break;
             default:
                 break;
         }
-        xRereshView.stopLoadMore(false);
     }
 
-    @OnClick({R.id.location, R.id.projectInfo, R.id.projectNameOne, R.id.projectNameTwo, R.id.projectNameThree, R.id.moreProject, R.id.homeSearch,R.id.privateOderingImage})
+    @OnClick({R.id.location, R.id.projectInfo, R.id.projectNameOne, R.id.projectNameTwo, R.id.projectNameThree, R.id.moreProject, R.id.homeSearch, R.id.privateOderingImage})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.location:
@@ -186,16 +171,15 @@ public class Fragment_Home extends Fragment implements FragmentHomeView,View.OnC
                 selectProjectType();
                 break;
             case R.id.projectNameOne:
-                detailType=1;
+                detailType = 1;
                 selectDataSource();
-
                 break;
             case R.id.projectNameTwo:
-                detailType=2;
+                detailType = 2;
                 selectDataSource();
                 break;
             case R.id.projectNameThree:
-                detailType=3;
+                detailType = 3;
                 selectDataSource();
                 break;
             case R.id.moreProject:
@@ -223,41 +207,61 @@ public class Fragment_Home extends Fragment implements FragmentHomeView,View.OnC
 
 
     private void initData() {
-        projectInfoRecycler.setLayoutManager(new LinearLayoutManager(getActivity()));
+        projectInfoRecycler.setHasFixedSize(true);
+        linearLayoutManager=new LinearLayoutManager(getActivity());
+        projectInfoRecycler.setLayoutManager(linearLayoutManager);
+        projectInfoRecycler.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                if (newState == RecyclerView.SCROLL_STATE_IDLE && lastvisibleitem + 1 == adapter.getItemCount()) {
+                    loadData(true);
+                }
+            }
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                lastvisibleitem = linearLayoutManager.findLastVisibleItemPosition();
+            }
+        });
     }
 
 
     @Override
     public void showProgress() {
-
+        swipeReresh.setRefreshing(true);
     }
 
     @Override
     public void hideProgress() {
-
+    swipeReresh.setRefreshing(false);
     }
+
     @Override
     public void onLoadSucess(List<ProjectInfoBean.ItemsBean> projectinfoList) {
-        xRereshView.stopRefresh();
-        xRereshView.stopLoadMore(false);
-//        if (projectList==null) {
-            projectList=projectinfoList;
-//        		}else {
-//            projectList.addAll(projectinfoList);
-//        }
-        Log.i("TAG","projectinfolist++++++++++++++"+projectinfoList.size());
-        if (adapterx==null) {
-            adapterx=new ProjectInfoAdapterx(getActivity(),projectList);
-        }else {
-            adapterx.setData(projectList);
+         projectList = projectinfoList;
+        if (isLoadMore) {
+            if (projectList.size() == 0) {
+                adapter.changeMoreStatus(SocailFooterAdapter.PULLUP_LOAD_MORE);
+                // infoListView.scrollToPosition(InfoRefreshFootAdapter.Lastposition);
+                projectInfoRecycler.smoothScrollToPosition(adapter.getItemCount() - 1);
+                // infoListView.smoothScrollBy(240,1000);
+            } else {
+                adapter.addMoreItem(projectList);
+                adapter.changeMoreStatus(SocailFooterAdapter.PULLUP_LOAD_MORE);
+            }
+        } else {
+            adapter = new SocailFooterAdapter(getActivity(), projectList);
+            projectInfoRecycler.setAdapter(adapter);
+            swipeReresh.setRefreshing(false);
         }
-        projectInfoRecycler.setAdapter(adapterx);
     }
 
     @Override
     public void onLoadFaield(String msg) {
-        Log.i("TAG","errormsg+++++++++++++++++"+msg);
+        Log.i("TAG", "errormsg+++++++++++++++++" + msg);
     }
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();
@@ -274,7 +278,7 @@ public class Fragment_Home extends Fragment implements FragmentHomeView,View.OnC
                 projectNameTwo.setText("中标候选人公示");
                 projectNameThree.setText("中标公告");
                 selectType=5;
-                presenter.LoadHomeDataTenderInfo(pageNum,detailType);
+                presenter.LoadHomeDataTenderInfo(pageNum, detailType);
                 break;
             case R.id.projectInfo:
                 projectInfo.setText(R.string.projectInfo);
@@ -282,7 +286,7 @@ public class Fragment_Home extends Fragment implements FragmentHomeView,View.OnC
                 projectNameTwo.setText("业主委托项目");
                 projectNameThree.setText("PPP项目");
                 selectType=6;
-                presenter.LoadHomeDataProjcetInfo(pageNum,detailType);
+                presenter.LoadHomeDataProjcetInfo(pageNum, detailType);
                 break;
             case R.id.buyprojectInfo:
                 projectInfo.setText(R.string.buyProjectInfo);
@@ -290,7 +294,7 @@ public class Fragment_Home extends Fragment implements FragmentHomeView,View.OnC
                 projectNameTwo.setText("企业采购");
                 projectNameThree.setText("");
                 selectType=7;
-                presenter.LoadHomeDataBuyInfo(pageNum,detailType);
+                presenter.LoadHomeDataBuyInfo(pageNum, detailType);
                 break;
             case R.id.provideProjectInfo:
                 projectInfo.setText(R.string.provideProjectInfo);
@@ -298,7 +302,7 @@ public class Fragment_Home extends Fragment implements FragmentHomeView,View.OnC
                 projectNameTwo.setText("采购业主");
                 projectNameThree.setText("招标机构");
                 selectType=8;
-                presenter.LoadHomeDataApplayProjectInfo(pageNum,detailType);
+                presenter.LoadHomeDataApplayProjectInfo(pageNum, detailType);
                 break;
         }
     }

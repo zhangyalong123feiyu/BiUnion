@@ -36,7 +36,6 @@ public class FragmentHomePresenter {
                 super.onError(throwable, b);
                 fragmentHomeView.onLoadFaield(throwable.getMessage());
             }
-
             @Override
             public boolean onCache(String s) {
                 Gson gson=new Gson();
