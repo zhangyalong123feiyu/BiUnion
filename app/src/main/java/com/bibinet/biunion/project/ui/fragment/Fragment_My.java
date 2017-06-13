@@ -39,16 +39,14 @@ public class Fragment_My extends Fragment {
     ImageView titleImageleft;
     @BindView(R.id.companyName)
     TextView companyName;
-    @BindView(R.id.userName)
-    TextView userName;
+//    @BindView(R.id.userName)
+//    TextView userName;
     @BindView(R.id.companyInfo)
     LinearLayout companyInfo;
     @BindView(R.id.privateOdering)
     LinearLayout privateOdering;
     @BindView(R.id.foucsMy)
     LinearLayout foucsMy;
-    @BindView(R.id.product)
-    LinearLayout product;
     @BindView(R.id.aboutOur)
     LinearLayout aboutOur;
     @BindView(R.id.serviceTerm)
@@ -110,13 +108,12 @@ public class Fragment_My extends Fragment {
         }
     }
 
-    @OnClick({R.id.companyInfo, R.id.privateOdering, R.id.foucsMy, R.id.product, R.id.aboutOur, R.id.serviceTerm, R.id.legalStatement, R.id.setting,R.id.userPhoto_login, R.id.logined, R.id.loginBtn})
+    @OnClick({R.id.companyInfo, R.id.privateOdering, R.id.foucsMy, R.id.aboutOur, R.id.serviceTerm, R.id.legalStatement, R.id.setting,R.id.userPhoto_login, R.id.logined, R.id.loginBtn})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.userPhoto_login:
                 break;
             case R.id.logined:
-
                 break;
             case R.id.loginBtn:
                 startActivity(new Intent(getActivity(), LoginActivity.class));
@@ -128,8 +125,6 @@ public class Fragment_My extends Fragment {
                 break;
             case R.id.foucsMy:
                 startActivity(new Intent(getActivity(), FoucsMyActivity.class));
-                break;
-            case R.id.product:
                 break;
             case R.id.aboutOur:
                 break;
@@ -143,7 +138,6 @@ public class Fragment_My extends Fragment {
         }
 
     }
-
     @Override
     public void onDestroyView() {
         super.onDestroyView();

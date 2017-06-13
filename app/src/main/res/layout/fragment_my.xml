@@ -19,7 +19,7 @@
                 android:id="@+id/logined"
                 android:layout_width="match_parent"
                 android:layout_height="120dp"
-                android:visibility="gone">
+                android:visibility="visible">
 
                 <ImageView
                     android:id="@+id/userPhoto_login"
@@ -32,16 +32,7 @@
                     android:id="@+id/companyName"
                     android:layout_width="wrap_content"
                     android:layout_height="60dp"
-                    android:layout_marginLeft="30dp"
-                    android:layout_toRightOf="@id/userPhoto_login"
-                    android:gravity="center"
-                    android:text="zhangsan" />
-
-                <TextView
-                    android:id="@+id/userName"
-                    android:layout_width="wrap_content"
-                    android:layout_height="60dp"
-                    android:layout_below="@id/companyName"
+                    android:layout_centerVertical="true"
                     android:layout_marginLeft="30dp"
                     android:layout_toRightOf="@id/userPhoto_login"
                     android:gravity="center"
@@ -53,7 +44,8 @@
                 android:id="@+id/noLogin"
                 android:layout_width="match_parent"
                 android:layout_height="117dp"
-                android:background="#F9C432">
+                android:background="#F9C432"
+                android:visibility="gone">
 
                 <ImageView
                     android:id="@+id/uerPhoto_noLogin"
@@ -205,7 +197,7 @@
                 android:background="#f4f4f4" />
 
             <LinearLayout
-                android:id="@+id/product"
+                android:id="@+id/aboutOur"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/fragmentmy_item_hight"
                 android:background="@color/white"
@@ -246,7 +238,7 @@
                 android:background="#d9d9d9" />
 
             <LinearLayout
-                android:id="@+id/aboutOur"
+                android:id="@+id/serviceTerm"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/fragmentmy_item_hight"
                 android:background="@color/white"
@@ -287,47 +279,6 @@
                 android:background="#d9d9d9" />
 
             <LinearLayout
-                android:id="@+id/serviceTerm"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/fragmentmy_item_hight"
-                android:background="@color/white"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="20dp"
-                    android:src="@mipmap/ic_launcher" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:gravity="center_vertical"
-                    android:paddingLeft="18dp"
-                    android:text="@string/legalStatement"
-                    android:textColor="#333333"
-                    android:textSize="14sp" />
-
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1" />
-
-                <ImageView
-                    android:layout_width="7dp"
-                    android:layout_height="13dp"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginRight="12dp"
-                    android:src="@mipmap/wode_qianjin" />
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="#d9d9d9" />
-
-            <LinearLayout
                 android:id="@+id/legalStatement"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/fragmentmy_item_hight"
@@ -339,7 +290,7 @@
                     android:layout_height="25dp"
                     android:layout_gravity="center_vertical"
                     android:layout_marginLeft="20dp"
-                    android:src="@mipmap/ic_launcher" />
+                    android:src="@mipmap/wode_fl" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -363,10 +314,10 @@
                     android:src="@mipmap/wode_qianjin" />
             </LinearLayout>
 
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:layout_marginTop="20dp"
                 android:background="#d9d9d9" />
 
             <LinearLayout
@@ -381,7 +332,7 @@
                     android:layout_height="25dp"
                     android:layout_gravity="center_vertical"
                     android:layout_marginLeft="20dp"
-                    android:src="@mipmap/ic_launcher" />
+                    android:src="@mipmap/wode_sz" />
 
                 <TextView
                     android:layout_width="wrap_content"

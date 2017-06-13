@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bibinet.biunion.R;
 import com.bibinet.biunion.mvp.presenter.FragmentHomePresenter;
@@ -50,10 +51,10 @@ public class Fragment_Homex extends Fragment implements FragmentHomeView, View.O
     TextView location;
     @BindView(R.id.projectInfo)
     TextView projectInfo;
-    @BindView(R.id.viewpager)
-    MyViewPager viewpager;
-    @BindView(R.id.group_contain)
-    LinearLayout groupContain;
+//    @BindView(R.id.viewpager)
+//    MyViewPager viewpager;
+//    @BindView(R.id.group_contain)
+//    LinearLayout groupContain;
     @BindView(R.id.projectInfoRecycler)
     RecyclerView projectInfoRecycler;
     @BindView(R.id.projectNameOne)
@@ -119,14 +120,15 @@ public class Fragment_Homex extends Fragment implements FragmentHomeView, View.O
 
         loactionUtils = new LoactionUtils(getActivity(), location);
         loactionUtils.startLoaction();
-        BannerUtils bannerUtils = new BannerUtils(getActivity(), viewpager, groupContain, Arrays.asList(Constants.ImageUrls));
-        bannerUtils.startPlayBanner();
+//        BannerUtils bannerUtils = new BannerUtils(getActivity(), viewpager, groupContain, Arrays.asList(Constants.ImageUrls));
+//        bannerUtils.startPlayBanner();
     }
     private void loadData(boolean isLoadMore) {
         if (isLoadMore) {
             swipeReresh.setEnabled(false);
             adapter.changeMoreStatus(SocailFooterAdapter.LOADING_MORE);
             pageNum++;
+            Log.i("pageNum","pagenumber________________________"+pageNum);
         } else {
             pageNum = 1;
         }
@@ -239,22 +241,29 @@ public class Fragment_Homex extends Fragment implements FragmentHomeView, View.O
 
     @Override
     public void onLoadSucess(List<ProjectInfoBean.ItemsBean> projectinfoList) {
-         projectList = projectinfoList;
-        if (isLoadMore) {
-            if (projectList.size() == 0) {
-                adapter.changeMoreStatus(SocailFooterAdapter.PULLUP_LOAD_MORE);
-                // infoListView.scrollToPosition(InfoRefreshFootAdapter.Lastposition);
-                projectInfoRecycler.smoothScrollToPosition(adapter.getItemCount() - 1);
-                // infoListView.smoothScrollBy(240,1000);
+        if(projectinfoList.size()==0){
+            Toast.makeText(getActivity(),"没有更多数据", Toast.LENGTH_SHORT).show();
+            return;
+        }else {
+            projectList = projectinfoList;
+            if (isLoadMore) {
+                if (projectList.size() == 0) {
+                    adapter.changeMoreStatus(SocailFooterAdapter.PULLUP_LOAD_MORE);
+                    // infoListView.scrollToPosition(InfoRefreshFootAdapter.Lastposition);
+                    projectInfoRecycler.smoothScrollToPosition(adapter.getItemCount() - 1);
+                    // infoListView.smoothScrollBy(240,1000);
+                } else {
+                    adapter.addMoreItem(projectList);
+                    adapter.changeMoreStatus(SocailFooterAdapter.PULLUP_LOAD_MORE);
+                }
             } else {
-                adapter.addMoreItem(projectList);
-                adapter.changeMoreStatus(SocailFooterAdapter.PULLUP_LOAD_MORE);
+                adapter = new SocailFooterAdapter(getActivity(), projectList);
+                projectInfoRecycler.setAdapter(adapter);
+                swipeReresh.setRefreshing(false);
             }
-        } else {
-            adapter = new SocailFooterAdapter(getActivity(), projectList);
-            projectInfoRecycler.setAdapter(adapter);
-            swipeReresh.setRefreshing(false);
+
         }
+
     }
 
     @Override

@@ -7,27 +7,33 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.bibinet.biunion.R;
+import com.bibinet.biunion.project.application.Constants;
 import com.bibinet.biunion.project.bean.ProjectInfoBean;
+import com.bibinet.biunion.project.builder.MyViewPager;
 import com.bibinet.biunion.project.ui.activity.H5Activity;
-import com.bumptech.glide.Glide;
+import com.bibinet.biunion.project.utils.BannerUtils;
 
+import java.util.Arrays;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by bibinet on 2017-1-6.
  */
 public class SocailFooterAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private final LayoutInflater inflater;
+
     private Context context;
     private List<ProjectInfoBean.ItemsBean> socailInfos;
-
+    private static final int TYPE_HEADER = 2;
     private static final int TYPE_ITEM = 0;  //普通Item View
     private static final int TYPE_FOOTER = 1;  //底部FootView
     //上拉加载更多状态-默认为0
@@ -49,6 +55,8 @@ public class SocailFooterAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     public int getItemViewType(int position) {
         if (position + 1 == getItemCount()) {
             return TYPE_FOOTER;
+        } else if (position == 0) {
+            return TYPE_HEADER;
         } else {
             return TYPE_ITEM;
         }
@@ -69,6 +77,10 @@ public class SocailFooterAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             //view.setBackgroundColor(Color.RED);
             ProgressViewHolder footViewHolder = new ProgressViewHolder(foot_view);
             return footViewHolder;
+        } else if (viewType == TYPE_HEADER) {
+            View headerView = inflater.inflate(R.layout.item_banner, parent, false);
+            HeaderViewHolder headerViewHolder = new HeaderViewHolder(headerView);
+            return headerViewHolder;
         }
         return null;
     }
@@ -77,22 +89,22 @@ public class SocailFooterAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
 
         if (holder instanceof ItemHolder) {
-            ((ItemHolder) holder).companyName.setText(socailInfos.get(position).getProjectName());
-            ((ItemHolder) holder).projectDescrp.setText(socailInfos.get(position).getProjectDescrp());
-            ((ItemHolder) holder).projectLoaction.setText(socailInfos.get(position).getProjectLocation());
-            ((ItemHolder) holder).projectTime.setText(socailInfos.get(position).getProjectTime());
-            if (socailInfos.get(position).getProjectType().equals("A")) {
+            ((ItemHolder) holder).companyName.setText(socailInfos.get(position-1).getProjectName());
+            ((ItemHolder) holder).projectDescrp.setText(socailInfos.get(position-1).getProjectDescrp());
+            ((ItemHolder) holder).projectLoaction.setText(socailInfos.get(position-1).getProjectLocation());
+            ((ItemHolder) holder).projectTime.setText(socailInfos.get(position-1).getProjectTime());
+            if (socailInfos.get(position-1).getProjectType().equals("A")) {
                 ((ItemHolder) holder).projectTypeImage.setImageResource(R.mipmap.shouye_gongcheng);
-            } else if(socailInfos.get(position).getProjectType().equals("B")){
+            } else if (socailInfos.get(position-1).getProjectType().equals("B")) {
                 ((ItemHolder) holder).projectTypeImage.setImageResource(R.mipmap.shouye_fuw);
-            }else {
+            } else {
                 ((ItemHolder) holder).projectTypeImage.setImageResource(R.mipmap.shouye_huowu);
             }
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent=new Intent(context, H5Activity.class);
-                    intent.putExtra("detailUrl",socailInfos.get(position).getProjectUrl());
+                    Intent intent = new Intent(context, H5Activity.class);
+                    intent.putExtra("detailUrl", socailInfos.get(position).getProjectUrl());
                     context.startActivity(intent);
                 }
             });
@@ -108,6 +120,23 @@ public class SocailFooterAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                     progressHolder.progressBar.setVisibility(View.VISIBLE);
                     break;
             }
+        } else if (holder instanceof HeaderViewHolder) {
+            BannerUtils bannerUtils = new BannerUtils(context, ((HeaderViewHolder)holder).viewpager,((HeaderViewHolder)holder).groupContain, Arrays.asList(Constants.ImageUrls));
+            bannerUtils.startPlayBanner();
+        }
+    }
+
+    @OnClick({R.id.bibiPlatform, R.id.finacePlatform, R.id.tenderPlatform, R.id.servicePlatform})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.bibiPlatform:
+                break;
+            case R.id.finacePlatform:
+                break;
+            case R.id.tenderPlatform:
+                break;
+            case R.id.servicePlatform:
+                break;
         }
     }
 
@@ -148,7 +177,7 @@ public class SocailFooterAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     @Override
     public int getItemCount() {
-        return socailInfos.size() > 0 ? socailInfos.size() + 1 : 1;
+        return socailInfos.size() > 0 ? socailInfos.size() + 2 : 2;
     }
 
     class ProgressViewHolder extends RecyclerView.ViewHolder {
@@ -159,6 +188,25 @@ public class SocailFooterAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             super(itemView);
             progressBar = (ProgressBar) itemView.findViewById(R.id.loadMore);
             textshow = (TextView) itemView.findViewById(R.id.textshow);
+        }
+    }
+
+    class HeaderViewHolder extends RecyclerView.ViewHolder {
+        @BindView(R.id.bibiPlatform)
+        LinearLayout bibiPlatform;
+        @BindView(R.id.finacePlatform)
+        LinearLayout finacePlatform;
+        @BindView(R.id.tenderPlatform)
+        LinearLayout tenderPlatform;
+        @BindView(R.id.servicePlatform)
+        LinearLayout servicePlatform;
+        @BindView(R.id.viewpager)
+        MyViewPager viewpager;
+        @BindView(R.id.group_contain)
+        LinearLayout groupContain;
+        public HeaderViewHolder(View itemView) {
+            super(itemView);
+            ButterKnife.bind(this, itemView);
         }
     }
 
@@ -173,9 +221,10 @@ public class SocailFooterAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         TextView projectLoaction;
         @BindView(R.id.projectTime)
         TextView projectTime;
+
         public ItemHolder(View itemView) {
             super(itemView);
-                ButterKnife.bind(this,itemView);
+            ButterKnife.bind(this, itemView);
         }
     }
 }
