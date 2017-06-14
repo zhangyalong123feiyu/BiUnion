@@ -2,6 +2,7 @@ package com.bibinet.biunion.project.ui.fragment;
 
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -21,6 +22,7 @@ import com.bibinet.biunion.project.ui.activity.CompanyInfoActivity;
 import com.bibinet.biunion.project.ui.activity.FoucsMyActivity;
 import com.bibinet.biunion.project.ui.activity.LoginActivity;
 import com.bibinet.biunion.project.ui.activity.SettingActivity;
+import com.bibinet.biunion.project.utils.cityselectutil.Base64MapUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -88,11 +90,6 @@ public class Fragment_My extends Fragment {
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
-    }
-
-    @Override
     public void onStart() {
         super.onStart();
         if (Constants.loginresultInfo==null) {
@@ -104,7 +101,9 @@ public class Fragment_My extends Fragment {
             noLogin.setVisibility(View.GONE);
             userPhotoLogin.setImageResource(R.mipmap.ic_launcher);
             Log.i("TAG","name________________________"+Constants.loginresultInfo.getUser().getEnterprise().getName());
-           companyName.setText(Constants.loginresultInfo.getUser().getName());
+            companyName.setText(Constants.loginresultInfo.getUser().getName());
+            Bitmap bitmap=Base64MapUtils.stringToBitmap(Constants.loginresultInfo.getUser().getImage());
+            userPhotoLogin.setImageBitmap(bitmap);
         }
     }
 

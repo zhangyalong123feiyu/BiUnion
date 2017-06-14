@@ -2,4 +2,5 @@
 <resources>
     <dimen name="fragmentmy_item_hight">40dp</dimen>
     <dimen name="companyinfo_item_hight">35dp</dimen>
+    <dimen name="writetenderbook_item_hight">31dp</dimen>
 </resources>

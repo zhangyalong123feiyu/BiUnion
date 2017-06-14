@@ -9,6 +9,7 @@ import com.bibinet.biunion.project.bean.LoginResultBean;
 public class Constants {
     public static final int READPHONE_STATE=1;
     public static LoginResultBean loginresultInfo=null;
+    public static String baseUrl="http://192.168.185.185:8080/pis";
     public static String loginData=null;
     public static String[] ImageUrls={"http://www.bibenet.com/iip-portlet/review?filePath=20175/5/9/31b74a24-3bd5-4ebb-974d-1578709bb0da.jpg",
             "http://www.bibenet.com/iip-portlet/review?filePath=20174/25/18/1805b048-792b-4bea-813f-6da23ea61e78.png",

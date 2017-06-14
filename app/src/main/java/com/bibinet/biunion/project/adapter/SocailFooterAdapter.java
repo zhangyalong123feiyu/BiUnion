@@ -43,6 +43,7 @@ public class SocailFooterAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     //正在加载中
     public static final int LOADING_MORE = 1;
     public static int Lastposition;
+    private BannerUtils bannerUtils;
 
     public SocailFooterAdapter(Context context, List<ProjectInfoBean.ItemsBean> socailInfos) {
         this.context = context;
@@ -121,8 +122,13 @@ public class SocailFooterAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                     break;
             }
         } else if (holder instanceof HeaderViewHolder) {
-            BannerUtils bannerUtils = new BannerUtils(context, ((HeaderViewHolder)holder).viewpager,((HeaderViewHolder)holder).groupContain, Arrays.asList(Constants.ImageUrls));
-            bannerUtils.startPlayBanner();
+            if (bannerUtils==null) {
+                bannerUtils = new BannerUtils(context, ((HeaderViewHolder)holder).viewpager,((HeaderViewHolder)holder).groupContain, Arrays.asList(Constants.ImageUrls));
+                bannerUtils.startPlayBanner();
+            		}else {
+                return;
+            }
+
         }
     }
 

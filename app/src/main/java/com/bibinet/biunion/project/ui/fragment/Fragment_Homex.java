@@ -32,6 +32,7 @@ import com.bibinet.biunion.project.ui.activity.SelectCityActivity;
 import com.bibinet.biunion.project.utils.BannerUtils;
 import com.bibinet.biunion.project.utils.HomePopWindowUtils;
 import com.bibinet.biunion.project.utils.LoactionUtils;
+import com.bibinet.biunion.project.utils.Logger;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -185,7 +186,10 @@ public class Fragment_Homex extends Fragment implements FragmentHomeView, View.O
                 selectDataSource();
                 break;
             case R.id.moreProject:
-                startActivity(new Intent(getActivity(), MoreProjectActivity.class));
+                Intent intent=new Intent(getActivity(), MoreProjectActivity.class);
+                intent.putExtra("selectType",String.valueOf(selectType));
+                intent.putExtra("detailType",String.valueOf(detailType));
+                startActivity(intent);
                 break;
             case R.id.homeSearch:
                 startActivity(new Intent(getActivity(), SearchActivity.class));
@@ -243,6 +247,7 @@ public class Fragment_Homex extends Fragment implements FragmentHomeView, View.O
     public void onLoadSucess(List<ProjectInfoBean.ItemsBean> projectinfoList) {
         if(projectinfoList.size()==0){
             Toast.makeText(getActivity(),"没有更多数据", Toast.LENGTH_SHORT).show();
+            adapter.changeMoreStatus(SocailFooterAdapter.PULLUP_LOAD_MORE);
             return;
         }else {
             projectList = projectinfoList;
@@ -253,6 +258,7 @@ public class Fragment_Homex extends Fragment implements FragmentHomeView, View.O
                     projectInfoRecycler.smoothScrollToPosition(adapter.getItemCount() - 1);
                     // infoListView.smoothScrollBy(240,1000);
                 } else {
+                    Logger.i("TAG","还有一些数据ssssssssssssssssssssss");
                     adapter.addMoreItem(projectList);
                     adapter.changeMoreStatus(SocailFooterAdapter.PULLUP_LOAD_MORE);
                 }

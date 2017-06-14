@@ -25,6 +25,7 @@
     <string name="coustmerService">客户服务</string>
     <string name="askLink">问答环节</string>
     <string name="cancel">取消</string>
+    <string name="TenderDescrp">收到后我们会尽快与您联系，标书写好后将尽快发送至您的邮箱。您也可以登录“比比招标采购网”进行咨询服务。</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

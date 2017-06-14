@@ -14,7 +14,7 @@ import org.xutils.x;
 
 public class LoginModel  {
     public void LoadUserInfo(String account,String password,MyCallBack myCacheCallBack){
-        RequestParams requestParams=new RequestParams("http://192.168.1.74:8080/pis/user/login.json");
+        RequestParams requestParams=new RequestParams("http://192.168.185.185:8080/pis/user/login.json");
         requestParams.addBodyParameter("account",account);
         requestParams.addBodyParameter("password",password);
         x.http().post(requestParams,myCacheCallBack);

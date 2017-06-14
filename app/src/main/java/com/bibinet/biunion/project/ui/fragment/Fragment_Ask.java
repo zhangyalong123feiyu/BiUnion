@@ -1,6 +1,7 @@
 package com.bibinet.biunion.project.ui.fragment;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -11,6 +12,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bibinet.biunion.R;
+import com.bibinet.biunion.project.ui.activity.CoustomAskActivity;
+import com.bibinet.biunion.project.ui.activity.TenderHelpActivity;
+import com.bibinet.biunion.project.ui.activity.WriteTenderBook;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -73,6 +77,7 @@ public class Fragment_Ask extends Fragment {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.customService:
+                startActivity(new Intent(getActivity(), CoustomAskActivity.class));
                 break;
             case R.id.experts:
                 break;
@@ -81,8 +86,10 @@ public class Fragment_Ask extends Fragment {
             case R.id.carSure:
                 break;
             case R.id.tenderBook:
+                startActivity(new Intent(getActivity(), WriteTenderBook.class));
                 break;
             case R.id.tenderHelp:
+                startActivity(new Intent(getActivity(), TenderHelpActivity.class));
                 break;
         }
     }
