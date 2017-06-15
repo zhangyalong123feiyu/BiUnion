@@ -9,6 +9,7 @@ import com.bibinet.biunion.project.builder.MyCacheCallBack;
 import com.google.gson.Gson;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by bibinet on 2017-6-14.
@@ -22,8 +23,8 @@ public class MoreProjectPresenter{
         this.moreProjectView = fragmentHomeView;
         this.moreProjectModel=new MoreProjectModel();
     }
-    public void LoadHomeDataMoreProjcetInfo(int pageNum,int type){
-        moreProjectModel.LoadHomeDataMoreProjectInfo(pageNum,type,new MyCacheCallBack(){
+    public void LoadHomeDataMoreProjcetInfo(int pageNum,int type,int dateRange,String trad,int provinceId){
+        moreProjectModel.LoadHomeDataMoreProjectInfo(pageNum,type, dateRange, trad,provinceId,new MyCacheCallBack(){
             @Override
             public void onSuccess(String s) {
                 super.onSuccess(s);
@@ -47,36 +48,8 @@ public class MoreProjectPresenter{
             }
         });
     }
-    public void LoadHomeDataMoreTenderInfo(int pageNum,int type){
-        moreProjectModel.LoadHomeDataMoreTenderInfo(pageNum,type,new MyCacheCallBack(){
-            @Override
-            public void onSuccess(String s) {
-                super.onSuccess(s);
-                Gson gson=new Gson();
-                ProjectInfoBean projectInfo = gson.fromJson(s, ProjectInfoBean.class);
-                List<ProjectInfoBean.ItemsBean> projectinfo_list = projectInfo.getItems();
-                moreProjectView.onLoadSucess(projectinfo_list);
-                Log.i("TAG","fragementhomedata--------"+projectinfo_list.size());
-            }
-            @Override
-            public void onError(Throwable throwable, boolean b) {
-                super.onError(throwable, b);
-                moreProjectView.onLoadFailed(throwable.getMessage());
-                Log.i("TAG","error--------"+throwable.getMessage());
-            }
-
-            @Override
-            public boolean onCache(String s) {
-                Gson gson=new Gson();
-                ProjectInfoBean projectInfo = gson.fromJson(s, ProjectInfoBean.class);
-                List<ProjectInfoBean.ItemsBean> projectinfo_list = projectInfo.getItems();
-                moreProjectView.onLoadSucess(projectinfo_list);
-                return super.onCache(s);
-            }
-        });
-    }
-    public void LoadHomeDataMoreBuyInfo(int pageNum,int type){
-        moreProjectModel.LoadHomeDataMoreBuyInfo(pageNum,type,new MyCacheCallBack(){
+    public void LoadHomeDataMoreTenderInfo(int pageNum,int type,int dateRange,String trad,int provinceId){
+        moreProjectModel.LoadHomeDataMoreTenderInfo(pageNum,type, dateRange, trad,provinceId,new MyCacheCallBack(){
             @Override
             public void onSuccess(String s) {
                 super.onSuccess(s);
@@ -103,8 +76,8 @@ public class MoreProjectPresenter{
             }
         });
     }
-    public void LoadHomeDataMorePProjectInfo(int pageNum,int type){
-        moreProjectModel.LoadHomeDataMorePpProjectInfo(pageNum,type,new MyCacheCallBack(){
+    public void LoadHomeDataMoreBuyInfo(int pageNum,int type,int dateRange,String trad,int provinceId){
+        moreProjectModel.LoadHomeDataMoreBuyInfo(pageNum,type, dateRange, trad,provinceId,new MyCacheCallBack(){
             @Override
             public void onSuccess(String s) {
                 super.onSuccess(s);
@@ -131,8 +104,36 @@ public class MoreProjectPresenter{
             }
         });
     }
-    public void LoadHomeDataMoreApplayProjectInfo(int pageNum,int type){
-        moreProjectModel.LoadHomeDataMoreApplayProjectInfo(pageNum,type,new MyCacheCallBack(){
+    public void LoadHomeDataMorePProjectInfo(int pageNum,int type,int dateRange,String trad,int provinceId){
+        moreProjectModel.LoadHomeDataMorePpProjectInfo(pageNum,type, dateRange, trad,provinceId,new MyCacheCallBack(){
+            @Override
+            public void onSuccess(String s) {
+                super.onSuccess(s);
+                Gson gson=new Gson();
+                ProjectInfoBean projectInfo = gson.fromJson(s, ProjectInfoBean.class);
+                List<ProjectInfoBean.ItemsBean> projectinfo_list = projectInfo.getItems();
+                moreProjectView.onLoadSucess(projectinfo_list);
+                Log.i("TAG","fragementhomedata--------"+projectinfo_list.size());
+            }
+            @Override
+            public void onError(Throwable throwable, boolean b) {
+                super.onError(throwable, b);
+                moreProjectView.onLoadFailed(throwable.getMessage());
+                Log.i("TAG","error--------"+throwable.getMessage());
+            }
+
+            @Override
+            public boolean onCache(String s) {
+                Gson gson=new Gson();
+                ProjectInfoBean projectInfo = gson.fromJson(s, ProjectInfoBean.class);
+                List<ProjectInfoBean.ItemsBean> projectinfo_list = projectInfo.getItems();
+                moreProjectView.onLoadSucess(projectinfo_list);
+                return super.onCache(s);
+            }
+        });
+    }
+    public void LoadHomeDataMoreApplayProjectInfo(int pageNum,int type,int dateRange,String trad,int provinceId){
+        moreProjectModel.LoadHomeDataMoreApplayProjectInfo(pageNum,type, dateRange, trad,provinceId,new MyCacheCallBack(){
             @Override
             public void onSuccess(String s) {
                 super.onSuccess(s);

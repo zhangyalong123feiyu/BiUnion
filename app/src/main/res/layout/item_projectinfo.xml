@@ -6,13 +6,18 @@
         android:layout_width="match_parent"
         android:layout_height="63dp"
         android:orientation="horizontal">
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            >
 <ImageView
     android:id="@+id/projectTypeImage"
-    android:layout_width="0dp"
-    android:layout_weight="1"
+    android:layout_width="33dp"
     android:src="@mipmap/ic_launcher"
-    android:layout_height="match_parent" />
-
+    android:layout_centerInParent="true"
+    android:layout_height="33dp" />
+        </RelativeLayout>
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="match_parent"

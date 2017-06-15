@@ -29,7 +29,7 @@ import butterknife.OnClick;
 /**
  * Created by bibinet on 2017-1-6.
  */
-public class SocailFooterAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class MoreProjectAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private final LayoutInflater inflater;
 
     private Context context;
@@ -46,7 +46,7 @@ public class SocailFooterAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     public static int Lastposition;
     private BannerUtils bannerUtils;
 
-    public SocailFooterAdapter(Context context, List<ProjectInfoBean.ItemsBean> socailInfos) {
+    public MoreProjectAdapter(Context context, List<ProjectInfoBean.ItemsBean> socailInfos) {
         this.context = context;
         this.socailInfos = socailInfos;
         Lastposition = socailInfos.size();
@@ -79,10 +79,6 @@ public class SocailFooterAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             //view.setBackgroundColor(Color.RED);
             ProgressViewHolder footViewHolder = new ProgressViewHolder(foot_view);
             return footViewHolder;
-        } else if (viewType == TYPE_HEADER) {
-            View headerView = inflater.inflate(R.layout.item_banner, parent, false);
-            HeaderViewHolder headerViewHolder = new HeaderViewHolder(headerView);
-            return headerViewHolder;
         }
         return null;
     }
@@ -122,13 +118,7 @@ public class SocailFooterAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                     progressHolder.progressBar.setVisibility(View.VISIBLE);
                     break;
             }
-        } else if (holder instanceof HeaderViewHolder) {
-            if (bannerUtils==null) {
-                bannerUtils = new BannerUtils(context, ((HeaderViewHolder)holder).viewpager,((HeaderViewHolder)holder).groupContain, Arrays.asList(Constants.ImageUrls));
-                bannerUtils.startPlayBanner();
-            		}else {
-                return;
-            }
+
 
         }
     }
@@ -196,25 +186,6 @@ public class SocailFooterAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             super(itemView);
             progressBar = (ProgressBar) itemView.findViewById(R.id.loadMore);
             textshow = (TextView) itemView.findViewById(R.id.textshow);
-        }
-    }
-
-    class HeaderViewHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.bibiPlatform)
-        LinearLayout bibiPlatform;
-        @BindView(R.id.finacePlatform)
-        LinearLayout finacePlatform;
-        @BindView(R.id.tenderPlatform)
-        LinearLayout tenderPlatform;
-        @BindView(R.id.servicePlatform)
-        LinearLayout servicePlatform;
-        @BindView(R.id.viewpager)
-        MyViewPager viewpager;
-        @BindView(R.id.group_contain)
-        LinearLayout groupContain;
-        public HeaderViewHolder(View itemView) {
-            super(itemView);
-            ButterKnife.bind(this, itemView);
         }
     }
 

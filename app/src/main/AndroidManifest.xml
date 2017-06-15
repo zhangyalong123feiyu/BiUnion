@@ -61,7 +61,6 @@
         <activity android:name=".project.ui.activity.SplashActivity" android:screenOrientation="portrait">
         <intent-filter>
             <action android:name="android.intent.action.MAIN" />
-
             <category android:name="android.intent.category.LAUNCHER" />
         </intent-filter>
         </activity>
@@ -81,6 +80,8 @@
         <activity android:name=".project.ui.activity.TenderHelpActivity" android:screenOrientation="portrait"/>
         <activity android:name=".project.ui.activity.WriteTenderBook" android:screenOrientation="portrait"/>
         <activity android:name=".project.ui.activity.TenderHistoryActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".project.ui.activity.RegistActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".project.ui.activity.PlatFormActivity" android:screenOrientation="portrait"/>
         <!--定位service-->
         <service android:name="com.amap.api.location.APSService"></service>
         <!--高德地图所使用的key-->

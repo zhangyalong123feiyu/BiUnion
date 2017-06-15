@@ -8,7 +8,7 @@
     <LinearLayout
         android:id="@+id/linearbottom"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="49dp"
         android:background="@color/lightgray"
         android:layout_alignParentBottom="true"
         android:orientation="horizontal">
@@ -21,40 +21,22 @@
             android:layout_weight="1">
             <ImageView
                 android:id="@+id/home"
-                android:layout_width="30dp"
+                android:layout_width="18dp"
+                android:layout_height="19dp"
+                android:layout_centerHorizontal="true"
                 android:src="@drawable/bottomhome_selector"
-                android:layout_height="30dp"
                 />
             <TextView
                 android:id="@+id/texthome"
                 android:layout_width="wrap_content"
                 android:layout_below="@id/home"
-                android:layout_marginTop="2dp"
+                android:layout_marginTop="7dp"
+                android:layout_centerHorizontal="true"
+                android:textSize="9sp"
                 android:textColor="@drawable/bottomtext_selector"
                 android:layout_height="wrap_content"
                 android:text="@string/bottom_home"/>
         </RelativeLayout>
-  <!--      <RelativeLayout
-            android:id="@+id/bottomFoucs"
-            android:clickable="true"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:layout_weight="1">
-            <ImageView
-                android:id="@+id/Foucs"
-                android:layout_width="30dp"
-                android:src="@drawable/bottommy_selector"
-                android:layout_height="30dp"
-                />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_below="@id/Foucs"
-                android:layout_marginTop="2dp"
-                android:textColor="@drawable/bottomtext_selector"
-                android:layout_height="wrap_content"
-                android:text="@string/bottom_foucs"/>
-        </RelativeLayout>-->
         <RelativeLayout
             android:id="@+id/bottomask"
             android:clickable="true"
@@ -63,19 +45,21 @@
             android:gravity="center"
             android:layout_weight="1">
             <ImageView
-                android:id="@+id/my"
-                android:layout_width="30dp"
-                android:src="@drawable/bottommy_selector"
-                android:layout_height="30dp"
+                android:id="@+id/imageask"
+                android:layout_width="18dp"
+                android:layout_height="19dp"
+                android:layout_centerHorizontal="true"
+                android:src="@drawable/bottommore_selector"
                 />
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_below="@id/my"
-                android:layout_marginTop="2dp"
+                android:layout_below="@id/imageask"
+                android:layout_marginTop="7dp"
+                android:textSize="9sp"
+                android:layout_centerHorizontal="true"
                 android:textColor="@drawable/bottomtext_selector"
                 android:layout_height="wrap_content"
-                android:text="@string/bottom_ask"
-                android:layout_alignStart="@+id/my" />
+                android:text="@string/bottom_server"/>
         </RelativeLayout>
         <RelativeLayout
             android:id="@+id/bottomy"
@@ -86,14 +70,17 @@
             android:layout_weight="1">
             <ImageView
                 android:id="@+id/more"
-                android:layout_width="30dp"
+                android:layout_width="18dp"
+                android:layout_height="19dp"
+                android:layout_centerHorizontal="true"
                 android:src="@drawable/bottommore_selector"
-                android:layout_height="30dp"
                 />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_below="@id/more"
-                android:layout_marginTop="2dp"
+                android:layout_marginTop="7dp"
+                android:textSize="9sp"
+                android:layout_centerHorizontal="true"
                 android:textColor="@drawable/bottomtext_selector"
                 android:layout_height="wrap_content"
                 android:text="@string/bottom_my"/>

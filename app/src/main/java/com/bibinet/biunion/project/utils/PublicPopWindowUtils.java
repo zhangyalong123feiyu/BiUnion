@@ -19,36 +19,33 @@ public class PublicPopWindowUtils {
     private Context context;
     private PopOnclickListioner popOnclickListioner;
     private View popview;
+    private PopupWindow popupWindow;
 
-    public PublicPopWindowUtils(Context context, PopOnclickListioner popOnclickListioner) {
+    public PublicPopWindowUtils(Context context) {
         this.context = context;
-        this.popOnclickListioner = popOnclickListioner;
     }
-    public void showPopWindow(View v) {
-        PopupWindow popupWindow = new PopupWindow(context);
+    public void showPopWindow(int layoutId) {
+         popupWindow = new PopupWindow(context);
         popupWindow.setWidth(WindowManager.LayoutParams.MATCH_PARENT);
         popupWindow.setHeight(WindowManager.LayoutParams.WRAP_CONTENT);
-        popview= LayoutInflater.from(context).inflate(R.layout.item_projecttype,null);
+        popview= LayoutInflater.from(context).inflate(layoutId,null);
         popupWindow.setContentView(popview);
         //点击popupWindow以外的区域自动关闭popupWindow
         popupWindow.setOutsideTouchable(true);
         popupWindow.setBackgroundDrawable(new ColorDrawable(Color.WHITE));
-        popupWindow.showAsDropDown(v, 0, 0);//设置popwindow的弹出方式为向下弹出
-        popview.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                popOnclickListioner.onPopClickListioner();
-
-            }
-        });
 
     }
-
+    public void showPopWindow(){
+        popupWindow.showAsDropDown(popview, 0, 0);//设置popwindow的弹出方式为向下弹出
+    }
+    public void dissMisPopWindow(){
+        popupWindow.dismiss();
+    }
     public View getPopview() {
         return popview;
     }
 
-    interface PopOnclickListioner{
+     interface PopOnclickListioner{
         void onPopClickListioner();
     }
 }

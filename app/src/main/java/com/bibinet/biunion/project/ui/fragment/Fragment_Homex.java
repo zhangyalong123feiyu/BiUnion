@@ -301,7 +301,7 @@ public class Fragment_Homex extends Fragment implements FragmentHomeView, View.O
                 projectNameTwo.setText("业主委托项目");
                 projectNameThree.setText("PPP项目");
                 selectType=6;
-                presenter.LoadHomeDataProjcetInfo(pageNum, detailType);
+                presenter.LoadHomeDataProjcetInfo(pageNum,detailType);
                 break;
             case R.id.buyprojectInfo:
                 projectInfo.setText(R.string.buyProjectInfo);

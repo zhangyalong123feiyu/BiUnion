@@ -21,6 +21,7 @@ import com.bibinet.biunion.project.application.Constants;
 import com.bibinet.biunion.project.ui.activity.CompanyInfoActivity;
 import com.bibinet.biunion.project.ui.activity.FoucsMyActivity;
 import com.bibinet.biunion.project.ui.activity.LoginActivity;
+import com.bibinet.biunion.project.ui.activity.RegistActivity;
 import com.bibinet.biunion.project.ui.activity.SettingActivity;
 import com.bibinet.biunion.project.utils.cityselectutil.Base64MapUtils;
 
@@ -41,7 +42,7 @@ public class Fragment_My extends Fragment {
     ImageView titleImageleft;
     @BindView(R.id.companyName)
     TextView companyName;
-//    @BindView(R.id.userName)
+    //    @BindView(R.id.userName)
 //    TextView userName;
     @BindView(R.id.companyInfo)
     LinearLayout companyInfo;
@@ -68,6 +69,8 @@ public class Fragment_My extends Fragment {
     Button loginBtn;
     @BindView(R.id.noLogin)
     RelativeLayout noLogin;
+    @BindView(R.id.rigestBtn)
+    Button rigestBtn;
     private View view;
 
     public Fragment_My() {
@@ -92,22 +95,22 @@ public class Fragment_My extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        if (Constants.loginresultInfo==null) {
+        if (Constants.loginresultInfo == null) {
             logined.setVisibility(View.GONE);
             noLogin.setVisibility(View.VISIBLE);
-        }else {
-            Toast.makeText(getActivity(),"不为空",Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(getActivity(), "不为空", Toast.LENGTH_SHORT).show();
             logined.setVisibility(View.VISIBLE);
             noLogin.setVisibility(View.GONE);
             userPhotoLogin.setImageResource(R.mipmap.ic_launcher);
-            Log.i("TAG","name________________________"+Constants.loginresultInfo.getUser().getEnterprise().getName());
+            Log.i("TAG", "name________________________" + Constants.loginresultInfo.getUser().getEnterprise().getName());
             companyName.setText(Constants.loginresultInfo.getUser().getName());
-            Bitmap bitmap=Base64MapUtils.stringToBitmap(Constants.loginresultInfo.getUser().getImage());
+            Bitmap bitmap = Base64MapUtils.stringToBitmap(Constants.loginresultInfo.getUser().getImage());
             userPhotoLogin.setImageBitmap(bitmap);
         }
     }
 
-    @OnClick({R.id.companyInfo, R.id.privateOdering, R.id.foucsMy, R.id.aboutOur, R.id.serviceTerm, R.id.legalStatement, R.id.setting,R.id.userPhoto_login, R.id.logined, R.id.loginBtn})
+    @OnClick({R.id.companyInfo, R.id.privateOdering, R.id.foucsMy, R.id.aboutOur, R.id.rigestBtn,R.id.serviceTerm, R.id.legalStatement, R.id.setting, R.id.userPhoto_login, R.id.logined, R.id.loginBtn})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.userPhoto_login:
@@ -126,6 +129,10 @@ public class Fragment_My extends Fragment {
                 startActivity(new Intent(getActivity(), FoucsMyActivity.class));
                 break;
             case R.id.aboutOur:
+
+                break;
+            case R.id.rigestBtn:
+                startActivity(new Intent(getActivity(), RegistActivity.class));
                 break;
             case R.id.serviceTerm:
                 break;
@@ -137,9 +144,14 @@ public class Fragment_My extends Fragment {
         }
 
     }
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+    }
+
+    @OnClick()
+    public void onViewClicked() {
     }
 }
