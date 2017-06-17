@@ -8,17 +8,29 @@ import java.util.Map;
  */
 
 public class ConversionMap {
-    private static   Map<String,String> industryMap=new HashMap<>();
-    private static   Map<String,String> areaMap=new HashMap<>();;
-    private static Map<String,String> timeMap=new HashMap<>();
+    private  Map<String,String> industryMap=new HashMap<>();
+    private  Map<String,String> areaMap=new HashMap<>();;
+    private  Map<String,String> timeMap=new HashMap<>();
 
-    public static void allMapUtil(){
+    public Map<String, String> getIndustryMap() {
+        return industryMap;
+    }
+
+    public Map<String, String> getAreaMap() {
+        return areaMap;
+    }
+
+    public Map<String, String> getTimeMap() {
+        return timeMap;
+    }
+
+    public  void getAllMap(){
     Map<String,Map<String,String>> stringMapMap=new HashMap<>();
     stringMapMap.put("1",setIndustryMap());
     stringMapMap.put("2",setTimeMap());
     stringMapMap.put("3",setAreaMap());
 }
- public static Map setIndustryMap(){
+ public  Map setIndustryMap(){
     industryMap.put("A","农、林、牧、渔业");
     industryMap.put("B","采矿业");
     industryMap.put("C","制造业");
@@ -41,7 +53,7 @@ public class ConversionMap {
     industryMap.put("T","国际组织");
     return industryMap;
 }
-public static Map setAreaMap(){
+public  Map setAreaMap(){
     areaMap.put("110000", "北京市");
     areaMap.put("120000","天津市");
     areaMap.put("130000", "河北省");
@@ -77,7 +89,7 @@ public static Map setAreaMap(){
     areaMap.put("820000", "澳门特别行政区");
     return areaMap;
 }
-public static Map setTimeMap(){
+public  Map setTimeMap(){
     timeMap.put("1","一周");
     timeMap.put("2","一个月");
     timeMap.put("3","半年");

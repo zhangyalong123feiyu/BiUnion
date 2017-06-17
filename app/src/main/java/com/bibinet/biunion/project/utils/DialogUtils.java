@@ -43,16 +43,16 @@ public class DialogUtils {
    public interface DialogListioner{
         void onDialogClickListioner(View view);
     }
-    public void showLoginDialog(Context context){
+    public void showProgressDialog(Context context,String dscrp){
         progressDialog=new ProgressDialog(context);
-        progressDialog.setTitle("正在登陆");
+        progressDialog.setTitle(dscrp);
         progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);// 设置进度条的形式为圆形转动的进度条
         progressDialog.setCancelable(true);// 设置是否可以通过点击Back键取消
         progressDialog.setCanceledOnTouchOutside(false);// 设置在点击Dialog外是否取消Dialog进度条
         progressDialog.setIcon(R.mipmap.ic_launcher);//
         progressDialog.show();
     }
-    public void disLoginDialog(){
+    public void disProgressDialog(){
         progressDialog.dismiss();
     }
 }

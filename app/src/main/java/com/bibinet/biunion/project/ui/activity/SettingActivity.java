@@ -11,7 +11,9 @@ import android.widget.TextView;
 
 import com.bibinet.biunion.R;
 import com.bibinet.biunion.project.application.BaseActivity;
+import com.bibinet.biunion.project.application.Constants;
 import com.bibinet.biunion.project.utils.DataCleanManagerUtils;
+import com.bibinet.biunion.project.utils.SharedPresUtils;
 
 import java.io.File;
 
@@ -24,8 +26,6 @@ import butterknife.OnClick;
  */
 
 public class SettingActivity extends BaseActivity {
-    @BindView(R.id.accountManage)
-    LinearLayout accountManage;
     @BindView(R.id.advicetalk)
     LinearLayout advicetalk;
     @BindView(R.id.clearCache)
@@ -63,22 +63,28 @@ public class SettingActivity extends BaseActivity {
         }
     }
 
-    @OnClick({R.id.accountManage, R.id.advicetalk, R.id.clearCache, R.id.loginOut,R.id.title_imageleft})
+    @OnClick({ R.id.advicetalk, R.id.clearCache, R.id.loginOut,R.id.title_imageleft})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.accountManage:
-                break;
             case R.id.advicetalk:
                 break;
             case R.id.clearCache:
                 doClearCache();
                 break;
             case R.id.loginOut:
+                doLoginOut();
                 break;
             case R.id.title_imageleft:
                 finish();
                 break;
         }
+    }
+
+    private void doLoginOut() {
+        Constants.loginresultInfo=null;
+        SharedPresUtils sharedPresUtils=SharedPresUtils.getsSharedPresUtils(this);
+        sharedPresUtils.putString("loginResultData",null);
+        finish();
     }
 
     private void doClearCache() {

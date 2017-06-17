@@ -30,7 +30,6 @@ public class LoginPresenter {
             @Override
             public void onSuccess(String s) {
                 super.onSuccess(s);
-                Log.i("TAG","logindata____________________________________"+s);
                 loginView.hideProgress();
                 loginView.onLoadSucess(s);
             }
@@ -40,7 +39,6 @@ public class LoginPresenter {
                 super.onError(throwable, b);
                 loginView.hideProgress();
                 loginView.onLoadFaield(throwable.getMessage());
-                Log.i("TAG","loginerror____________________________________"+throwable.getMessage());
             }
         });
     }

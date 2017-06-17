@@ -30,10 +30,12 @@ public class FragmentHomePresenter {
                 ProjectInfoBean projectInfo = gson.fromJson(s, ProjectInfoBean.class);
                 List<ProjectInfoBean.ItemsBean> projectinfo_list = projectInfo.getItems();
                 fragmentHomeView.onLoadSucess(projectinfo_list);
+                fragmentHomeView.hideProgress();
             }
             @Override
             public void onError(Throwable throwable, boolean b) {
                 super.onError(throwable, b);
+                fragmentHomeView.hideProgress();
                 fragmentHomeView.onLoadFaield(throwable.getMessage());
             }
             @Override
@@ -55,13 +57,14 @@ public class FragmentHomePresenter {
                 ProjectInfoBean projectInfo = gson.fromJson(s, ProjectInfoBean.class);
                 List<ProjectInfoBean.ItemsBean> projectinfo_list = projectInfo.getItems();
                 fragmentHomeView.onLoadSucess(projectinfo_list);
+                fragmentHomeView.hideProgress();
                 Log.i("TAG","fragementhomedata--------"+projectinfo_list.size());
             }
             @Override
             public void onError(Throwable throwable, boolean b) {
                 super.onError(throwable, b);
                 fragmentHomeView.onLoadFaield(throwable.getMessage());
-                Log.i("TAG","error--------"+throwable.getMessage());
+                fragmentHomeView.hideProgress();
             }
 
             @Override
@@ -83,13 +86,14 @@ public class FragmentHomePresenter {
                 ProjectInfoBean projectInfo = gson.fromJson(s, ProjectInfoBean.class);
                 List<ProjectInfoBean.ItemsBean> projectinfo_list = projectInfo.getItems();
                 fragmentHomeView.onLoadSucess(projectinfo_list);
+                fragmentHomeView.hideProgress();
                 Log.i("TAG","fragementhomedata--------"+projectinfo_list.size());
             }
             @Override
             public void onError(Throwable throwable, boolean b) {
                 super.onError(throwable, b);
                 fragmentHomeView.onLoadFaield(throwable.getMessage());
-                Log.i("TAG","error--------"+throwable.getMessage());
+                fragmentHomeView.hideProgress();
             }
 
             @Override
@@ -111,13 +115,15 @@ public class FragmentHomePresenter {
                 ProjectInfoBean projectInfo = gson.fromJson(s, ProjectInfoBean.class);
                 List<ProjectInfoBean.ItemsBean> projectinfo_list = projectInfo.getItems();
                 fragmentHomeView.onLoadSucess(projectinfo_list);
+                fragmentHomeView.hideProgress();
                 Log.i("TAG","fragementhomedata--------"+projectinfo_list.size());
             }
             @Override
             public void onError(Throwable throwable, boolean b) {
                 super.onError(throwable, b);
                 fragmentHomeView.onLoadFaield(throwable.getMessage());
-                Log.i("TAG","error--------"+throwable.getMessage());
+                fragmentHomeView.hideProgress();
+                Log.i("TAG","errorhomedata--------"+throwable.getMessage());
             }
 
             @Override
@@ -139,13 +145,15 @@ public class FragmentHomePresenter {
                 ProjectInfoBean projectInfo = gson.fromJson(s, ProjectInfoBean.class);
                 List<ProjectInfoBean.ItemsBean> projectinfo_list = projectInfo.getItems();
                 fragmentHomeView.onLoadSucess(projectinfo_list);
+                fragmentHomeView.hideProgress();
                 Log.i("TAG","fragementhomedata--------"+projectinfo_list.size());
             }
             @Override
             public void onError(Throwable throwable, boolean b) {
                 super.onError(throwable, b);
                 fragmentHomeView.onLoadFaield(throwable.getMessage());
-                Log.i("TAG","error--------"+throwable.getMessage());
+                fragmentHomeView.hideProgress();
+                Log.i("TAG","errorhomedata--------"+throwable.getMessage());
             }
 
             @Override

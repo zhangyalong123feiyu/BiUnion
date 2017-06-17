@@ -95,7 +95,7 @@ public class Fragment_Homex extends Fragment implements FragmentHomeView, View.O
     private ProjectInfoAdapterx adapterx;
     private int lastvisibleitem;
     private LinearLayoutManager linearLayoutManager;
-    private boolean isLoadMore;
+    private boolean isLoadMore=false;
     private SocailFooterAdapter adapter;
 
     public Fragment_Homex() {
@@ -126,7 +126,6 @@ public class Fragment_Homex extends Fragment implements FragmentHomeView, View.O
     }
     private void loadData(boolean isLoadMore) {
         if (isLoadMore) {
-            swipeReresh.setEnabled(false);
             adapter.changeMoreStatus(SocailFooterAdapter.LOADING_MORE);
             pageNum++;
             Log.i("pageNum","pagenumber________________________"+pageNum);
@@ -211,7 +210,6 @@ public class Fragment_Homex extends Fragment implements FragmentHomeView, View.O
         projectProvideInfo.setOnClickListener(this);
     }
 
-
     private void initData() {
         projectInfoRecycler.setHasFixedSize(true);
         linearLayoutManager=new LinearLayoutManager(getActivity());
@@ -222,6 +220,7 @@ public class Fragment_Homex extends Fragment implements FragmentHomeView, View.O
                 super.onScrollStateChanged(recyclerView, newState);
                 if (newState == RecyclerView.SCROLL_STATE_IDLE && lastvisibleitem + 1 == adapter.getItemCount()) {
                     loadData(true);
+                    isLoadMore=true;
                 }
             }
             @Override
@@ -245,18 +244,18 @@ public class Fragment_Homex extends Fragment implements FragmentHomeView, View.O
 
     @Override
     public void onLoadSucess(List<ProjectInfoBean.ItemsBean> projectinfoList) {
-        if(projectinfoList.size()==0){
-            Toast.makeText(getActivity(),"没有更多数据", Toast.LENGTH_SHORT).show();
-            adapter.changeMoreStatus(SocailFooterAdapter.PULLUP_LOAD_MORE);
-            return;
-        }else {
+            if (projectinfoList.size()==0) {
+                Toast.makeText(getActivity(),"没有跟多数据了",Toast.LENGTH_SHORT).show();
+                adapter.changeMoreStatus(SocailFooterAdapter.LOAD_NODATA);
+            		}
             projectList = projectinfoList;
             if (isLoadMore) {
+                Logger.i("TAG",projectinfoList.size()+"projcelist+++++++++++++++++++++");
                 if (projectList.size() == 0) {
+                    swipeReresh.setRefreshing(false);
                     adapter.changeMoreStatus(SocailFooterAdapter.PULLUP_LOAD_MORE);
                     // infoListView.scrollToPosition(InfoRefreshFootAdapter.Lastposition);
                     projectInfoRecycler.smoothScrollToPosition(adapter.getItemCount() - 1);
-                    // infoListView.smoothScrollBy(240,1000);
                 } else {
                     Logger.i("TAG","还有一些数据ssssssssssssssssssssss");
                     adapter.addMoreItem(projectList);
@@ -270,11 +269,11 @@ public class Fragment_Homex extends Fragment implements FragmentHomeView, View.O
 
         }
 
-    }
 
     @Override
     public void onLoadFaield(String msg) {
-        Log.i("TAG", "errormsg+++++++++++++++++" + msg);
+        Toast.makeText(getActivity(),"加载失败",Toast.LENGTH_SHORT).show();
+        adapter.changeMoreStatus(SocailFooterAdapter.PULLUP_LOAD_MORE);
     }
 
     @Override

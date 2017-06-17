@@ -86,12 +86,12 @@ public class LoginActivity extends BaseActivity implements LoginView{
 
     @Override
     public void showProgress() {
-        dialogUtils.showLoginDialog(this);
+        dialogUtils.showProgressDialog(this,"正在登陆");
     }
 
     @Override
     public void hideProgress() {
-        dialogUtils.disLoginDialog();
+        dialogUtils.disProgressDialog();
     }
 
     @Override
@@ -114,6 +114,6 @@ public class LoginActivity extends BaseActivity implements LoginView{
 
     @Override
     public void onLoadFaield(String msg) {
-    dialogUtils.disLoginDialog();
+    dialogUtils.disProgressDialog();
     }
 }

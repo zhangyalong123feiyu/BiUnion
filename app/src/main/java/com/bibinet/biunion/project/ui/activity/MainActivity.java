@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.LocalBroadcastManager;
+import android.util.Log;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -64,7 +65,7 @@ public class MainActivity extends BaseActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         initView();
-        StatusBarUtil.setColor(this, Color.argb(255,240,196,51),0);
+//        StatusBarUtil.setColor(this, Color.argb(255,240,196,51),0);
         registerMessageReceiver();
     }
     private void initView() {

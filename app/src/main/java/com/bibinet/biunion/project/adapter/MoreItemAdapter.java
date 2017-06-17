@@ -38,7 +38,6 @@ public class MoreItemAdapter extends RecyclerView.Adapter<MoreItemAdapter.MoreVi
 
     @Override
     public void onBindViewHolder(MoreViewHolder holder, int position) {
-        Log.i("TAG","datasad==========================="+datas.toString());
         holder.projectText.setText(datas.get(position));
         holder.projectText.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -52,7 +51,7 @@ public class MoreItemAdapter extends RecyclerView.Adapter<MoreItemAdapter.MoreVi
     }
     @Override
     public int getItemCount() {
-        return datas.size();
+        return datas.size()!=0?datas.size():0;
     }
 
     class MoreViewHolder extends RecyclerView.ViewHolder {

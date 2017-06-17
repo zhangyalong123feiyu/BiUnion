@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import com.bibinet.biunion.R;
 import com.bibinet.biunion.project.application.Constants;
+import com.bibinet.biunion.project.ui.activity.AboutOurActivity;
 import com.bibinet.biunion.project.ui.activity.CompanyInfoActivity;
 import com.bibinet.biunion.project.ui.activity.FoucsMyActivity;
 import com.bibinet.biunion.project.ui.activity.LoginActivity;
@@ -129,7 +130,7 @@ public class Fragment_My extends Fragment {
                 startActivity(new Intent(getActivity(), FoucsMyActivity.class));
                 break;
             case R.id.aboutOur:
-
+                startActivity(new Intent(getActivity(), AboutOurActivity.class));
                 break;
             case R.id.rigestBtn:
                 startActivity(new Intent(getActivity(), RegistActivity.class));

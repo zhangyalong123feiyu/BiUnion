@@ -20,10 +20,12 @@ import com.bibinet.biunion.project.adapter.MoreProjectAdapter;
 import com.bibinet.biunion.project.application.BaseActivity;
 import com.bibinet.biunion.project.bean.ProjectInfoBean;
 import com.bibinet.biunion.project.utils.PublicPopWindowUtils;
+import com.bibinet.biunion.project.utils.cityselectutil.ConversionMap;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -55,8 +57,12 @@ public class MoreProjectActivity extends BaseActivity implements MoreProjectView
     private MoreProjectPresenter projectPresenter;
     private List<String> projectDatas = new ArrayList<>();
     private String[] time = new String[]{"全部", "1", "2", "3"};
-    private String[] industry = new String[]{"全部", "农、林、牧、渔业", "采矿业", "制造业","电力、热力、燃气及水生产和供应业",""};
-    private String[] area = new String[]{"全部", "120000", "130000", "140000"};
+    private String[] industry = new String[]{"全部", "农、林、牧、渔业", "采矿业", "制造业","电力、热力、燃气及水生产和供应业","建筑业",
+            "批发和零售业","交通运输、仓储和邮政业","住宿和餐饮业","信息传输、软件和信息技术服务业","金融业","房地产业","租赁和商务服务业","科学研究和技术服务业","水利、环境和公共设施管理业",
+            "居民服务、修理和其他服务业","教育","卫生和社会工作","文化、体育和娱乐业","公共管理、社会保障和社会组织","国际组织"};
+    private String[] area = new String[]{"全部", "北京市", "天津市", "河北省","山西省","内蒙古自治区","辽宁省","吉林省","黑龙江省","上海市","江苏省","浙江省","安徽省","福建省","江西省","山东省"
+            ,"河南省","湖北省","湖南省","广东省","广西壮族自治区","重庆市","四川省","贵州省","云南省","西藏自治区","陕西省","甘肃省","青海省","宁夏回族自治区","新疆维吾尔自治区",
+            "台湾省","香港特别行政区","澳门特别行政区"};
     private String selectText;
     private int pageNumb=1;
     private String selectType;
@@ -99,6 +105,12 @@ public class MoreProjectActivity extends BaseActivity implements MoreProjectView
 
     private void initView() {
         projectPresenter = new MoreProjectPresenter(this);
+        ConversionMap conversionMap=new ConversionMap();
+        conversionMap.getAllMap();
+        Map<String, String> areaMap = conversionMap.getAreaMap();
+        Map<String, String> industryMap = conversionMap.getIndustryMap();
+        Map<String, String> timeMap = conversionMap.getTimeMap();
+
     }
 
     @OnClick({R.id.backImage, R.id.projectIndustry, R.id.projectAeara, R.id.projectTime})
@@ -109,19 +121,16 @@ public class MoreProjectActivity extends BaseActivity implements MoreProjectView
                 break;
             case R.id.projectIndustry:
                 projectDatas = Arrays.asList(industry);
-                initView(projectDatas);
-                industryTextView.setText(selectText);
+                initPopView(projectDatas,industryTextView);
                 doSelect(industryTextView.getText().toString(),timeTextView.getText().toString(),areaTextView.getText().toString());
                 break;
             case R.id.projectAeara:
                 projectDatas = Arrays.asList(area);
-                initView(projectDatas);
-                areaTextView.setText(selectText);
+                initPopView(projectDatas,areaTextView);
                 break;
             case R.id.projectTime:
                 projectDatas = Arrays.asList(time);
-                initView(projectDatas);
-                timeTextView.setText(selectText);
+                initPopView(projectDatas,timeTextView);
                 break;
         }
     }
@@ -147,7 +156,7 @@ public class MoreProjectActivity extends BaseActivity implements MoreProjectView
             }
 
     //开始进行查询
-    private void initView(List<String> projectDatas) {
+    private void initPopView(List<String> projectDatas, final TextView textView) {
         final PublicPopWindowUtils publicPopWindowUtils = new PublicPopWindowUtils(this);
         publicPopWindowUtils.showPopWindow(R.layout.item_popwindow);
         View view=publicPopWindowUtils.getPopview();
@@ -159,11 +168,11 @@ public class MoreProjectActivity extends BaseActivity implements MoreProjectView
             @Override
             public void onProjectTextClickLitioner(View view) {
                 selectText = ((TextView) view).getText().toString();
-                Log.i("TAG",selectText+"selecttext_________________________________");
                 publicPopWindowUtils.dissMisPopWindow();
+                textView.setText(selectText);
             }
         });
-        publicPopWindowUtils.showPopWindow();
+        publicPopWindowUtils.showPopWindow(textView);
     }
 
 

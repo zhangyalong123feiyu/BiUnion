@@ -34,8 +34,8 @@
 
             <ImageView
                 android:id="@+id/imageView4"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
+                android:layout_width="11dp"
+                android:layout_height="7dp"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="6dp"
                 android:src="@mipmap/down_location" />
