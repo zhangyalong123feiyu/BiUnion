@@ -28,7 +28,7 @@
         android:layout_centerVertical="true"
         android:onClick="onClick"
         android:clickable="true"
-        android:src="@mipmap/ic_launcher"
+        android:src="@mipmap/denglu_fanhui"
         android:visibility="gone"
         android:layout_marginLeft="17dp"/>
 </RelativeLayout>

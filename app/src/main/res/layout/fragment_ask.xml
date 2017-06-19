@@ -7,31 +7,27 @@
 
     <include layout="@layout/titlebar"/>
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
 
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="161dp"
                 android:scaleType="fitXY"
                 android:src="@mipmap/banner" />
-
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center"
                 android:orientation="horizontal">
 
                 <LinearLayout
                     android:id="@+id/customService"
                     android:layout_width="0dp"
-                    android:layout_height="130dp"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="center">
 
@@ -44,7 +40,7 @@
                 <LinearLayout
                     android:id="@+id/experts"
                     android:layout_width="0dp"
-                    android:layout_height="130dp"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="center">
 
@@ -57,13 +53,15 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center"
                 android:orientation="horizontal">
 
                 <LinearLayout
                     android:id="@+id/hotelSure"
                     android:layout_width="0dp"
-                    android:layout_height="130dp"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="center">
 
@@ -76,7 +74,7 @@
                 <LinearLayout
                     android:id="@+id/carSure"
                     android:layout_width="0dp"
-                    android:layout_height="130dp"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="center">
 
@@ -89,13 +87,15 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center"
                 android:orientation="horizontal">
 
                 <LinearLayout
                     android:id="@+id/tenderBook"
                     android:layout_width="0dp"
-                    android:layout_height="130dp"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="center">
 
@@ -108,7 +108,7 @@
                 <LinearLayout
                     android:id="@+id/tenderHelp"
                     android:layout_width="0dp"
-                    android:layout_height="130dp"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="center">
 
@@ -117,7 +117,6 @@
                         android:layout_height="match_parent"
                         android:src="@mipmap/bibiyizhan_toubiaoxiezhu" />
                 </LinearLayout>
+                </LinearLayout>
             </LinearLayout>
-        </LinearLayout>
-    </ScrollView>
 </LinearLayout>

@@ -140,21 +140,6 @@ public class SocailFooterAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         }
     }
 
-    @OnClick({R.id.bibiPlatform, R.id.finacePlatform, R.id.tenderPlatform, R.id.servicePlatform})
-    public void onViewClicked(View view) {
-        switch (view.getId()) {
-            case R.id.bibiPlatform:
-                context.startActivity(new Intent(context, PlatFormActivity.class));
-                break;
-            case R.id.finacePlatform:
-                break;
-            case R.id.tenderPlatform:
-                break;
-            case R.id.servicePlatform:
-                break;
-        }
-    }
-
     public class FootViewHolder extends RecyclerView.ViewHolder {
         private ProgressBar loadMore;
         private TextView textshow;
@@ -206,7 +191,7 @@ public class SocailFooterAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         }
     }
 
-    class HeaderViewHolder extends RecyclerView.ViewHolder {
+    class HeaderViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         @BindView(R.id.bibiPlatform)
         LinearLayout bibiPlatform;
         @BindView(R.id.finacePlatform)
@@ -222,6 +207,25 @@ public class SocailFooterAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         public HeaderViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
+            bibiPlatform.setOnClickListener(this);
+            finacePlatform.setOnClickListener(this);
+            tenderPlatform.setOnClickListener(this);
+            servicePlatform.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            switch (v.getId()) {
+                case R.id.bibiPlatform:
+                    context.startActivity(new Intent(context, PlatFormActivity.class));
+                    break;
+                case R.id.finacePlatform:
+                    break;
+                case R.id.tenderPlatform:
+                    break;
+                case R.id.servicePlatform:
+                    break;
+            }
         }
     }
 

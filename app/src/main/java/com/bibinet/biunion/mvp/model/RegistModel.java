@@ -18,7 +18,7 @@ public class RegistModel {
         x.http().post(requestParams,myCacheCallBack);
     }
     public void compeletRegist(String companyName,String userName,String phone,String verfiCode,MyCallBack myCallBack){
-        RequestParams requestParams=new RequestParams(Constants.baseUrl+"/user/sendSMS.json");
+        RequestParams requestParams=new RequestParams(Constants.baseUrl+"/user/appRegist.json");
         requestParams.addBodyParameter("enterpriseName",companyName);
         requestParams.addBodyParameter("userName",userName);
         requestParams.addBodyParameter("cellPhone",phone);

@@ -7,6 +7,6 @@ package com.bibinet.biunion.mvp.view;
 public interface RegistView extends BaseView {
     void onVerifGetSucess();
     void onVerifGetFailed();
-    void onLoginSucess();
-    void onLoginFailed();
+    void onRegistSucess();
+    void onRegistFailed();
 }

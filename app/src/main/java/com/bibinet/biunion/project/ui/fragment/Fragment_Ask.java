@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.bibinet.biunion.R;
 import com.bibinet.biunion.project.ui.activity.CoustomAskActivity;
+import com.bibinet.biunion.project.ui.activity.ExpertsAnswerActivity;
 import com.bibinet.biunion.project.ui.activity.TenderHelpActivity;
 import com.bibinet.biunion.project.ui.activity.WriteTenderBook;
 
@@ -64,7 +65,7 @@ public class Fragment_Ask extends Fragment {
     }
 
     private void initView() {
-
+        title.setText("比比驿站");
     }
 
     @Override
@@ -80,6 +81,7 @@ public class Fragment_Ask extends Fragment {
                 startActivity(new Intent(getActivity(), CoustomAskActivity.class));
                 break;
             case R.id.experts:
+                startActivity(new Intent(getActivity(), ExpertsAnswerActivity.class));
                 break;
             case R.id.hotelSure:
                 break;

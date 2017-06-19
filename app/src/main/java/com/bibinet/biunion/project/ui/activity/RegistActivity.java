@@ -70,7 +70,6 @@ public class RegistActivity extends BaseActivity implements RegistView{
             case R.id.verifCodeBtn:
                 String phoneNumb = inputPhone.getText().toString().trim();
                 registPresenter.getVerifCode(phoneNumb,"1");
-                Log.i("TAG","zhuci点击"+phoneNumb);
                 break;
             case R.id.completeRegist:
                 phoneNumb=inputPhone.getText().toString().trim();
@@ -78,6 +77,7 @@ public class RegistActivity extends BaseActivity implements RegistView{
                 String userName = inputUserName.getText().toString().trim();
                 String verifCode = inputVerifCode.getText().toString().trim();
                 registPresenter.doRegist(companyName,userName,phoneNumb,verifCode);
+                dialogUtils.showProgressDialog(this,"正在注册");
                 break;
         }
     }
@@ -105,13 +105,14 @@ public class RegistActivity extends BaseActivity implements RegistView{
     }
 
     @Override
-    public void onLoginSucess() {
-     dialogUtils.showProgressDialog(this,"注册成功");
-     startActivity(new Intent(this,LoginActivity.class));
+    public void onRegistSucess() {
+        dialogUtils.disProgressDialog();
+        finish();
+        startActivity(new Intent(this,LoginActivity.class));
     }
 
     @Override
-    public void onLoginFailed() {
+    public void onRegistFailed() {
     dialogUtils.disProgressDialog();
     }
 }

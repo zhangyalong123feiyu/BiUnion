@@ -1,5 +1,7 @@
 package com.bibinet.biunion.mvp.presenter;
 
+import android.util.Log;
+
 import com.bibinet.biunion.mvp.model.RegistModel;
 import com.bibinet.biunion.mvp.view.RegistView;
 import com.bibinet.biunion.project.bean.VerifCodeBean;
@@ -42,13 +44,13 @@ public class RegistPresenter {
             public void onSuccess(String s) {
                 super.onSuccess(s);
                 Gson gson=new Gson();
-                registView.onLoginSucess();
+                registView.onRegistSucess();
             }
 
             @Override
             public void onError(Throwable throwable, boolean b) {
                 super.onError(throwable, b);
-                registView.onLoginFailed();
+                registView.onRegistFailed();
             }
         });
 

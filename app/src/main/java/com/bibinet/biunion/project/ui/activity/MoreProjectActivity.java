@@ -76,11 +76,23 @@ public class MoreProjectActivity extends BaseActivity implements MoreProjectView
         initView();
         loadData();
     }
+
+    private void initView() {
+        projectPresenter = new MoreProjectPresenter(this);
+        ConversionMap conversionMap=new ConversionMap();
+        conversionMap.getAllMap();
+        Map<String, String> areaMap = conversionMap.getAreaMap();
+        Map<String, String> industryMap = conversionMap.getIndustryMap();
+        Map<String, String> timeMap = conversionMap.getTimeMap();
+
+    }
 //首页过来之后进行数据加载
     private void loadData() {
         Intent intent = getIntent();
          selectType = intent.getStringExtra("selectType");
          detailType = intent.getStringExtra("detailType");
+        Log.i("TAG","selctType"+selectType);
+        Log.i("TAG","detailType"+detailType);
         switch (Integer.parseInt(selectType)) {
             case 5:
                 projectPresenter.LoadHomeDataMoreTenderInfo(pageNumb,Integer.parseInt(selectType),1,"",1);
@@ -103,15 +115,6 @@ public class MoreProjectActivity extends BaseActivity implements MoreProjectView
         }
     }
 
-    private void initView() {
-        projectPresenter = new MoreProjectPresenter(this);
-        ConversionMap conversionMap=new ConversionMap();
-        conversionMap.getAllMap();
-        Map<String, String> areaMap = conversionMap.getAreaMap();
-        Map<String, String> industryMap = conversionMap.getIndustryMap();
-        Map<String, String> timeMap = conversionMap.getTimeMap();
-
-    }
 
     @OnClick({R.id.backImage, R.id.projectIndustry, R.id.projectAeara, R.id.projectTime})
     public void onViewClicked(View view) {

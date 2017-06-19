@@ -106,7 +106,7 @@ public class LoginActivity extends BaseActivity implements LoginView{
                         sharedPresUtils.putString("loginResultData",loginString);
                         finish();
         				break;
-        			default:
+                    default:
         				break;
         			}
 

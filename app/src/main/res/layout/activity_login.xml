@@ -33,7 +33,7 @@
             android:layout_centerVertical="true"
             android:onClick="onClick"
             android:clickable="true"
-            android:src="@mipmap/ic_launcher"
+            android:src="@mipmap/denglu_fanhui"
             android:layout_marginLeft="20dp"/>
     </RelativeLayout>
 
@@ -152,7 +152,7 @@
         android:layout_below="@+id/relativeLayout1"
         android:layout_marginLeft="12dp"
         android:layout_marginRight="12dp"
-        android:background="@mipmap/bg"
+        android:background="@mipmap/bg2"
         android:textColor="@color/white"
         android:layout_marginTop="16dp"
         android:textSize="15sp"
@@ -164,12 +164,13 @@
         android:layout_height="40dp"
         android:layout_marginLeft="12dp"
         android:layout_marginRight="12dp"
-        android:textColor="#F99E32"
+        android:textColor="#ffffff"
         android:textSize="15sp"
         android:layout_marginTop="8dp"
         android:text="手机号快捷登录"
+        android:background="@mipmap/bg2"
         android:layout_below="@+id/btn_login"
-        android:layout_alignEnd="@+id/btn_login" />
+         />
 
 
 

@@ -22,7 +22,7 @@ public class MoreProjectModel {
         requestParams.addBodyParameter("pageNum",String.valueOf(pageNum));
         requestParams.addBodyParameter("_type",String.valueOf(_type));
         requestParams.addBodyParameter("dateRange",String.valueOf(dateRange));
-        requestParams.addBodyParameter("tradeFirst",String.valueOf(trad));
+        requestParams.addBodyParameter("tradeFirst",trad);
         requestParams.addBodyParameter("provinceId",String.valueOf(provinceId));
         requestParams.setCacheMaxAge(60*60*24*15);
         requestParams.setCacheDirName(cacheName);
@@ -36,7 +36,7 @@ public class MoreProjectModel {
         requestParams.addBodyParameter("pageNum",String.valueOf(pageNum));
         requestParams.addBodyParameter("_type",String.valueOf(_type));
         requestParams.addBodyParameter("dateRange",String.valueOf(dateRange));
-        requestParams.addBodyParameter("tradeFirst",String.valueOf(trad));
+        requestParams.addBodyParameter("tradeFirst",trad);
         requestParams.addBodyParameter("provinceId",String.valueOf(provinceId));
         requestParams.setCacheMaxAge(60*60*24*15);
         requestParams.setCacheDirName(cacheName);
@@ -49,7 +49,7 @@ public class MoreProjectModel {
         requestParams.addBodyParameter("pageNum",String.valueOf(pageNum));
         requestParams.addBodyParameter("_type",String.valueOf(_type));
         requestParams.addBodyParameter("dateRange",String.valueOf(dateRange));
-        requestParams.addBodyParameter("tradeFirst",String.valueOf(trad));
+        requestParams.addBodyParameter("tradeFirst",trad);
         requestParams.addBodyParameter("provinceId",String.valueOf(provinceId));
         requestParams.setCacheMaxAge(60*60*24*15);
         requestParams.setCacheDirName(cacheName);
@@ -61,7 +61,7 @@ public class MoreProjectModel {
         RequestParams requestParams=new RequestParams(Constants.baseUrl+"/pppProjects/selectPage.json?");
         requestParams.addBodyParameter("pageNum",String.valueOf(pageNum));
         requestParams.addBodyParameter("dateRange",String.valueOf(dateRange));
-        requestParams.addBodyParameter("tradeFirst",String.valueOf(trad));
+        requestParams.addBodyParameter("tradeFirst",trad);
         requestParams.addBodyParameter("provinceId",String.valueOf(provinceId));
         requestParams.setCacheMaxAge(60*60*24*15);
         requestParams.setCacheDirName(cacheName);
@@ -70,10 +70,10 @@ public class MoreProjectModel {
         x.http().post(requestParams,myCacheCallBack);
     }
     public void LoadHomeDataMoreApplayProjectInfo(int pageNum,int _type,int dateRange,String trad,int provinceId,MyCacheCallBack myCacheCallBack){
-        RequestParams requestParams=new RequestParams(Constants.baseUrl+"/portalUsers/selectPage.json?pageNum=2");
+        RequestParams requestParams=new RequestParams(Constants.baseUrl+"/portalUsers/selectPage.json?");
         requestParams.addBodyParameter("pageNum",String.valueOf(pageNum));
         requestParams.addBodyParameter("dateRange",String.valueOf(dateRange));
-        requestParams.addBodyParameter("tradeFirst",String.valueOf(trad));
+        requestParams.addBodyParameter("tradeFirst",trad);
         requestParams.addBodyParameter("provinceId",String.valueOf(provinceId));
         requestParams.setCacheMaxAge(60*60*24*15);
         requestParams.setCacheDirName(cacheName);
