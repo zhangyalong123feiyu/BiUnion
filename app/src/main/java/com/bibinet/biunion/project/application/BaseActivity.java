@@ -44,7 +44,7 @@ public class BaseActivity extends AppCompatActivity{
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         switch (requestCode) {
-            case Constants.READPHONE_STATE:
+            case 1:
                 requestPhonePermisson();
                 break;
 

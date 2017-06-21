@@ -12,9 +12,10 @@ import org.xutils.x;
 
 public class SearchActivityModel {
     private String cacheName="ProjectInfoCache";
-    public void searProjectInfoModel(String content,MyCacheCallBack myCacheCallBack){
-        RequestParams requestParams=new RequestParams(Constants.baseUrl+"/user/login.json");
-        requestParams.addBodyParameter("account",content);
+    public void searProjectInfoModel(int pageNumb,String content,MyCacheCallBack myCacheCallBack){
+        RequestParams requestParams=new RequestParams(Constants.baseUrl+"appData/selectPage.json");
+        requestParams.addBodyParameter("pageIndex",String.valueOf(pageNumb));
+        requestParams.addBodyParameter("messageLike",content);
         requestParams.setCacheMaxAge(60*60*24*15);
         requestParams.setCacheDirName(cacheName);
         requestParams.setCacheSize(1024*1024*30);

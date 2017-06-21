@@ -21,6 +21,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
+                android:layout_marginTop="15dp"
                 android:gravity="center"
                 android:orientation="horizontal">
 
@@ -28,6 +29,7 @@
                     android:id="@+id/customService"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
+
                     android:layout_weight="1"
                     android:gravity="center">
 
@@ -56,6 +58,7 @@
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:layout_marginTop="15dp"
                 android:orientation="horizontal">
 
                 <LinearLayout
@@ -90,6 +93,8 @@
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="15dp"
                 android:orientation="horizontal">
 
                 <LinearLayout

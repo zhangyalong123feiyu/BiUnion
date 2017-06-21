@@ -123,68 +123,68 @@ public class ProjectInfoBean implements Serializable {
          * ProjectDescrp : hgjfvgkygyukfjymkr
          * ProjectCode : A5139
          */
-        private String ProjectType;
-        private String ProjectLocation;
-        private String ProjectUrl;
-        private String ProjectTime;
-        private String ProjectName;
-        private String ProjectDescrp;
-        private String ProjectCode;
+        private String projectType;
+        private String projectLocation;
+        private String projectUrl;
+        private String projectTime;
+        private String projectName;
+        private String projectDescrp;
+        private String projectCode;
 
         public String getProjectType() {
-            return ProjectType;
+            return projectType;
         }
 
         public void setProjectType(String ProjectType) {
-            this.ProjectType = ProjectType;
+            this.projectType = ProjectType;
         }
 
         public String getProjectLocation() {
-            return ProjectLocation;
+            return projectLocation;
         }
 
         public void setProjectLocation(String ProjectLocation) {
-            this.ProjectLocation = ProjectLocation;
+            this.projectLocation = ProjectLocation;
         }
 
         public String getProjectUrl() {
-            return ProjectUrl;
+            return projectUrl;
         }
 
         public void setProjectUrl(String ProjectUrl) {
-            this.ProjectUrl = ProjectUrl;
+            this.projectUrl = ProjectUrl;
         }
 
         public String getProjectTime() {
-            return ProjectTime;
+            return projectTime;
         }
 
         public void setProjectTime(String ProjectTime) {
-            this.ProjectTime = ProjectTime;
+            this.projectTime = ProjectTime;
         }
 
         public String getProjectName() {
-            return ProjectName;
+            return projectName;
         }
 
         public void setProjectName(String ProjectName) {
-            this.ProjectName = ProjectName;
+            this.projectName = ProjectName;
         }
 
         public String getProjectDescrp() {
-            return ProjectDescrp;
+            return projectDescrp;
         }
 
         public void setProjectDescrp(String ProjectDescrp) {
-            this.ProjectDescrp = ProjectDescrp;
+            this.projectDescrp = ProjectDescrp;
         }
 
         public String getProjectCode() {
-            return ProjectCode;
+            return projectCode;
         }
 
         public void setProjectCode(String ProjectCode) {
-            this.ProjectCode = ProjectCode;
+            this.projectCode = ProjectCode;
         }
     }
 }

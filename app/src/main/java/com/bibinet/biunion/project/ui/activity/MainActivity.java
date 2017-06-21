@@ -1,5 +1,6 @@
 package com.bibinet.biunion.project.ui.activity;
 
+import android.app.Notification;
 import android.content.IntentFilter;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -29,6 +30,8 @@ import com.jaeger.library.StatusBarUtil;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import cn.jpush.android.api.BasicPushNotificationBuilder;
+import cn.jpush.android.api.JPushInterface;
 
 public class MainActivity extends BaseActivity {
     @BindView(R.id.bottomhome)
@@ -86,6 +89,7 @@ public class MainActivity extends BaseActivity {
                 .commit();
     }
     public void registerMessageReceiver() {
+        setStyleBasic();
         JPushReciver jPushReciver = new JPushReciver(texthome);
         IntentFilter filter = new IntentFilter();
         filter.setPriority(IntentFilter.SYSTEM_HIGH_PRIORITY);
@@ -121,6 +125,17 @@ public class MainActivity extends BaseActivity {
         mTabs[index].setSelected(true);
         currentTabIndex = index;
     }
+    /**
+     * 设置通知提示方式 - 基础属性
+     */
+    private void setStyleBasic() {
+        BasicPushNotificationBuilder builder = new BasicPushNotificationBuilder(this);
+        builder.statusBarDrawable = R.mipmap.search;
+        builder.notificationFlags = Notification.FLAG_AUTO_CANCEL;  //设置为点击后自动消失
+        builder.notificationDefaults = Notification.DEFAULT_SOUND;  //设置为铃声（ Notification.DEFAULT_SOUND）或者震动（ Notification.DEFAULT_VIBRATE）
+        JPushInterface.setPushNotificationBuilder(1, builder);
+    }
+
     //双击退出程序
     @Override
     public void onBackPressed() {

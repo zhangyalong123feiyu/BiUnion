@@ -18,7 +18,7 @@ public class MoreProjectModel {
     private String cacheName="ProjectInfoCache";
     private File cacheFile=new File(Environment.getExternalStorageDirectory(),"cachefile");
     public void LoadHomeDataMoreProjectInfo(int pageNum,int _type,int dateRange,String trad,int provinceId,MyCacheCallBack myCacheCallBack){
-        RequestParams requestParams=new RequestParams(Constants.baseUrl+"/generalProjects/selectPage.json?");
+        RequestParams requestParams=new RequestParams(Constants.baseUrl+"pis/generalProjects/selectPage.json");
         requestParams.addBodyParameter("pageNum",String.valueOf(pageNum));
         requestParams.addBodyParameter("_type",String.valueOf(_type));
         requestParams.addBodyParameter("dateRange",String.valueOf(dateRange));
@@ -32,7 +32,7 @@ public class MoreProjectModel {
     }
 
     public void LoadHomeDataMoreTenderInfo(int pageNum,int _type,int dateRange,String trad,int provinceId,MyCacheCallBack myCacheCallBack){
-        RequestParams requestParams=new RequestParams(Constants.baseUrl+"/biddingInfos/selectPage.json?");
+        RequestParams requestParams=new RequestParams(Constants.baseUrl+"pis/biddingInfos/selectPage.json");
         requestParams.addBodyParameter("pageNum",String.valueOf(pageNum));
         requestParams.addBodyParameter("_type",String.valueOf(_type));
         requestParams.addBodyParameter("dateRange",String.valueOf(dateRange));
@@ -45,7 +45,7 @@ public class MoreProjectModel {
         x.http().post(requestParams,myCacheCallBack);
     }
     public void LoadHomeDataMoreBuyInfo(int pageNum,int _type,int dateRange,String trad,int provinceId,MyCacheCallBack myCacheCallBack){
-        RequestParams requestParams=new RequestParams(Constants.baseUrl+"/purchaseInfos/selectPage.json?");
+        RequestParams requestParams=new RequestParams(Constants.baseUrl+"pis/purchaseInfos/selectPage.json");
         requestParams.addBodyParameter("pageNum",String.valueOf(pageNum));
         requestParams.addBodyParameter("_type",String.valueOf(_type));
         requestParams.addBodyParameter("dateRange",String.valueOf(dateRange));
@@ -58,7 +58,7 @@ public class MoreProjectModel {
         x.http().post(requestParams,myCacheCallBack);
     }
     public void LoadHomeDataMorePpProjectInfo(int pageNum,int _type,int dateRange,String trad,int provinceId,MyCacheCallBack myCacheCallBack){
-        RequestParams requestParams=new RequestParams(Constants.baseUrl+"/pppProjects/selectPage.json?");
+        RequestParams requestParams=new RequestParams(Constants.baseUrl+"pis/pppProjects/selectPage.json");
         requestParams.addBodyParameter("pageNum",String.valueOf(pageNum));
         requestParams.addBodyParameter("dateRange",String.valueOf(dateRange));
         requestParams.addBodyParameter("tradeFirst",trad);
@@ -70,7 +70,7 @@ public class MoreProjectModel {
         x.http().post(requestParams,myCacheCallBack);
     }
     public void LoadHomeDataMoreApplayProjectInfo(int pageNum,int _type,int dateRange,String trad,int provinceId,MyCacheCallBack myCacheCallBack){
-        RequestParams requestParams=new RequestParams(Constants.baseUrl+"/portalUsers/selectPage.json?");
+        RequestParams requestParams=new RequestParams(Constants.baseUrl+"pis/portalUsers/selectPage.json");
         requestParams.addBodyParameter("pageNum",String.valueOf(pageNum));
         requestParams.addBodyParameter("dateRange",String.valueOf(dateRange));
         requestParams.addBodyParameter("tradeFirst",trad);

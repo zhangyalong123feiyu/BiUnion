@@ -1,9 +1,13 @@
 package com.bibinet.biunion.project.ui.fragment;
 
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -30,6 +34,7 @@ import com.bibinet.biunion.project.ui.activity.PrivatePersonDesignActivity;
 import com.bibinet.biunion.project.ui.activity.SearchActivity;
 import com.bibinet.biunion.project.ui.activity.SelectCityActivity;
 import com.bibinet.biunion.project.utils.BannerUtils;
+import com.bibinet.biunion.project.utils.DialogUtils;
 import com.bibinet.biunion.project.utils.HomePopWindowUtils;
 import com.bibinet.biunion.project.utils.LoactionUtils;
 import com.bibinet.biunion.project.utils.Logger;
@@ -52,10 +57,6 @@ public class Fragment_Homex extends Fragment implements FragmentHomeView, View.O
     TextView location;
     @BindView(R.id.projectInfo)
     TextView projectInfo;
-//    @BindView(R.id.viewpager)
-//    MyViewPager viewpager;
-//    @BindView(R.id.group_contain)
-//    LinearLayout groupContain;
     @BindView(R.id.projectInfoRecycler)
     RecyclerView projectInfoRecycler;
     @BindView(R.id.projectNameOne)
@@ -81,7 +82,6 @@ public class Fragment_Homex extends Fragment implements FragmentHomeView, View.O
     private View view;
     private LoactionUtils loactionUtils;
     private List<ProjectInfoBean.ItemsBean> projectList = new ArrayList<>();
-//    private ProjectInfoAdapterx adapter;
     private int pageNum = 1;
     private int detailType = 1;
     private FragmentHomePresenter presenter;
@@ -92,11 +92,11 @@ public class Fragment_Homex extends Fragment implements FragmentHomeView, View.O
     private final int pProjectInfoType = 8;
     private final int applayProjectInfoType = 9;
     private int selectType = 5;
-    private ProjectInfoAdapterx adapterx;
     private int lastvisibleitem;
     private LinearLayoutManager linearLayoutManager;
     private boolean isLoadMore=false;
     private SocailFooterAdapter adapter;
+    private HomePopWindowUtils popWindowUtils;
 
     public Fragment_Homex() {
         // Required empty public constructor
@@ -114,16 +114,47 @@ public class Fragment_Homex extends Fragment implements FragmentHomeView, View.O
     }
     private void initView() {
         presenter = new FragmentHomePresenter(this);
-        initData();
-
+        initRecyclerView();
         adapter = new SocailFooterAdapter(getActivity(), projectList);
         projectInfoRecycler.setAdapter(adapter);
+       // 定位所需权限
+        if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION)!= PackageManager.PERMISSION_GRANTED) {
+        			requestPermissions(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},111);
+        		}else {
+            loactionUtils = new LoactionUtils(getActivity(), location);
+            loactionUtils.startLoaction();
+        }
+        //写入存储卡权限
+        if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE)!= PackageManager.PERMISSION_GRANTED) {
+            requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},222);
+        }else {
 
-        loactionUtils = new LoactionUtils(getActivity(), location);
-        loactionUtils.startLoaction();
-//        BannerUtils bannerUtils = new BannerUtils(getActivity(), viewpager, groupContain, Arrays.asList(Constants.ImageUrls));
-//        bannerUtils.startPlayBanner();
+        }
     }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        	switch (requestCode) {
+        			case 111:
+                            if (grantResults[0]!= PackageManager.PERMISSION_GRANTED) {
+                                Toast.makeText(getActivity(),"定位权限开启失败",Toast.LENGTH_SHORT).show();
+                            }else {
+                                loactionUtils = new LoactionUtils(getActivity(), location);
+                                loactionUtils.startLoaction();
+                            }
+        				break;
+                case 222:
+                    if (grantResults[1]!= PackageManager.PERMISSION_GRANTED) {
+                        Toast.makeText(getActivity(),"存储权限开启失败",Toast.LENGTH_SHORT).show();
+                    }
+                    break;
+
+        			default:
+        				break;
+        			}
+    }
+
     private void loadData(boolean isLoadMore) {
         if (isLoadMore) {
             adapter.changeMoreStatus(SocailFooterAdapter.LOADING_MORE);
@@ -133,10 +164,7 @@ public class Fragment_Homex extends Fragment implements FragmentHomeView, View.O
             pageNum = 1;
         }
         selectDataSource();
-//        presenter.LoadHomeDataProjcetInfo(pageNum, detailType);
     }
-
-
 
     private void selectDataSource() {
         switch (selectType) {
@@ -195,9 +223,9 @@ public class Fragment_Homex extends Fragment implements FragmentHomeView, View.O
                 break;
         }
     }
-
+    //弹出选着项目类型对话框
     private void selectProjectType() {
-        HomePopWindowUtils popWindowUtils = new HomePopWindowUtils(getActivity(), projectInfo);
+        popWindowUtils = new HomePopWindowUtils(getActivity(), projectInfo);
         popWindowUtils.showPopWindow();
         View popview = popWindowUtils.getPopView();
         TextView popwProjectInfo = (TextView) popview.findViewById(R.id.projectInfo);
@@ -210,7 +238,7 @@ public class Fragment_Homex extends Fragment implements FragmentHomeView, View.O
         projectProvideInfo.setOnClickListener(this);
     }
 
-    private void initData() {
+    private void initRecyclerView() {
         projectInfoRecycler.setHasFixedSize(true);
         linearLayoutManager=new LinearLayoutManager(getActivity());
         projectInfoRecycler.setLayoutManager(linearLayoutManager);
@@ -218,6 +246,7 @@ public class Fragment_Homex extends Fragment implements FragmentHomeView, View.O
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
+
                 if (newState == RecyclerView.SCROLL_STATE_IDLE && lastvisibleitem + 1 == adapter.getItemCount()) {
                     loadData(true);
                     isLoadMore=true;
@@ -230,7 +259,6 @@ public class Fragment_Homex extends Fragment implements FragmentHomeView, View.O
             }
         });
     }
-
 
     @Override
     public void showProgress() {
@@ -250,14 +278,12 @@ public class Fragment_Homex extends Fragment implements FragmentHomeView, View.O
             		}
             projectList = projectinfoList;
             if (isLoadMore) {
-                Logger.i("TAG",projectinfoList.size()+"projcelist+++++++++++++++++++++");
                 if (projectList.size() == 0) {
                     swipeReresh.setRefreshing(false);
                     adapter.changeMoreStatus(SocailFooterAdapter.PULLUP_LOAD_MORE);
                     // infoListView.scrollToPosition(InfoRefreshFootAdapter.Lastposition);
                     projectInfoRecycler.smoothScrollToPosition(adapter.getItemCount() - 1);
                 } else {
-                    Logger.i("TAG","还有一些数据ssssssssssssssssssssss");
                     adapter.addMoreItem(projectList);
                     adapter.changeMoreStatus(SocailFooterAdapter.PULLUP_LOAD_MORE);
                 }
@@ -268,7 +294,6 @@ public class Fragment_Homex extends Fragment implements FragmentHomeView, View.O
             }
 
         }
-
 
     @Override
     public void onLoadFaield(String msg) {
@@ -287,6 +312,7 @@ public class Fragment_Homex extends Fragment implements FragmentHomeView, View.O
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tenderInfo:
+                popWindowUtils.disMissPopWindow();
                 projectInfo.setText(R.string.tenderInfo);
                 projectNameOne.setText("招标公告");
                 projectNameTwo.setText("中标候选人公示");
@@ -295,6 +321,7 @@ public class Fragment_Homex extends Fragment implements FragmentHomeView, View.O
                 presenter.LoadHomeDataTenderInfo(pageNum, detailType);
                 break;
             case R.id.projectInfo:
+                popWindowUtils.disMissPopWindow();
                 projectInfo.setText(R.string.projectInfo);
                 projectNameOne.setText("拟在建项目");
                 projectNameTwo.setText("业主委托项目");
@@ -303,6 +330,7 @@ public class Fragment_Homex extends Fragment implements FragmentHomeView, View.O
                 presenter.LoadHomeDataProjcetInfo(pageNum,detailType);
                 break;
             case R.id.buyprojectInfo:
+                popWindowUtils.disMissPopWindow();
                 projectInfo.setText(R.string.buyProjectInfo);
                 projectNameOne.setText("政府采购");
                 projectNameTwo.setText("企业采购");
@@ -311,6 +339,7 @@ public class Fragment_Homex extends Fragment implements FragmentHomeView, View.O
                 presenter.LoadHomeDataBuyInfo(pageNum, detailType);
                 break;
             case R.id.provideProjectInfo:
+                popWindowUtils.disMissPopWindow();
                 projectInfo.setText(R.string.provideProjectInfo);
                 projectNameOne.setText("供应商");
                 projectNameTwo.setText("采购业主");

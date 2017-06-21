@@ -34,7 +34,6 @@ public class MoreProjectAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     private Context context;
     private List<ProjectInfoBean.ItemsBean> socailInfos;
-    private static final int TYPE_HEADER = 2;
     private static final int TYPE_ITEM = 0;  //普通Item View
     private static final int TYPE_FOOTER = 1;  //底部FootView
     //上拉加载更多状态-默认为0
@@ -57,8 +56,6 @@ public class MoreProjectAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     public int getItemViewType(int position) {
         if (position + 1 == getItemCount()) {
             return TYPE_FOOTER;
-        } else if (position == 0) {
-            return TYPE_HEADER;
         } else {
             return TYPE_ITEM;
         }
@@ -87,16 +84,16 @@ public class MoreProjectAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
 
         if (holder instanceof ItemHolder) {
-            ((ItemHolder) holder).companyName.setText(socailInfos.get(position-1).getProjectName());
-            ((ItemHolder) holder).projectDescrp.setText(socailInfos.get(position-1).getProjectDescrp());
-            ((ItemHolder) holder).projectLoaction.setText(socailInfos.get(position-1).getProjectLocation());
-            ((ItemHolder) holder).projectTime.setText(socailInfos.get(position-1).getProjectTime());
-            if (socailInfos.get(position-1).getProjectType().equals("A")) {
+            ((ItemHolder) holder).companyName.setText(socailInfos.get(position).getProjectName());
+            ((ItemHolder) holder).projectDescrp.setText(socailInfos.get(position).getProjectDescrp());
+            ((ItemHolder) holder).projectLoaction.setText(socailInfos.get(position).getProjectLocation());
+            ((ItemHolder) holder).projectTime.setText(socailInfos.get(position).getProjectTime());
+            if (socailInfos.get(position).getProjectType().equals("A")) {
                 ((ItemHolder) holder).projectTypeImage.setImageResource(R.mipmap.shouye_gongcheng);
-            } else if (socailInfos.get(position-1).getProjectType().equals("B")) {
-                ((ItemHolder) holder).projectTypeImage.setImageResource(R.mipmap.shouye_fuw);
-            } else {
+            } else if (socailInfos.get(position).getProjectType().equals("B")) {
                 ((ItemHolder) holder).projectTypeImage.setImageResource(R.mipmap.shouye_huowu);
+            } else {
+                ((ItemHolder) holder).projectTypeImage.setImageResource(R.mipmap.shouye_fuw);
             }
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -175,7 +172,7 @@ public class MoreProjectAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     @Override
     public int getItemCount() {
-        return socailInfos.size() > 0 ? socailInfos.size() + 2 : 2;
+        return socailInfos.size() > 0 ? socailInfos.size() + 1 : 1;
     }
 
     class ProgressViewHolder extends RecyclerView.ViewHolder {

@@ -1,10 +1,14 @@
 package com.bibinet.biunion.mvp.view;
 
+import com.bibinet.biunion.project.bean.SearchResultBean;
+
+import java.util.List;
+
 /**
  * Created by bibinet on 2017-6-19.
  */
 
 public interface SearchActivityView extends BaseView {
-    void onSearchSucess();
-    void onSearchFailed();
+    void onSearchSucess(List<SearchResultBean.ItemsBean> searchResult);
+    void onSearchFailed(String msg);
 }

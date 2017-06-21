@@ -25,6 +25,7 @@ public class DialogUtils {
         AlertDialog.Builder dialogBuider=new AlertDialog.Builder(context);
          dialog = dialogBuider.create();
          view= LayoutInflater.from(context).inflate(ResuoreceId,null);
+        dialog.setView(view);
         dialog.show();
         view.setOnClickListener(new View.OnClickListener() {
             @Override

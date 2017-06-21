@@ -101,9 +101,9 @@ public class SocailFooterAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             if (socailInfos.get(position-1).getProjectType().equals("A")) {
                 ((ItemHolder) holder).projectTypeImage.setImageResource(R.mipmap.shouye_gongcheng);
             } else if (socailInfos.get(position-1).getProjectType().equals("B")) {
-                ((ItemHolder) holder).projectTypeImage.setImageResource(R.mipmap.shouye_fuw);
-            } else {
                 ((ItemHolder) holder).projectTypeImage.setImageResource(R.mipmap.shouye_huowu);
+            } else {
+                ((ItemHolder) holder).projectTypeImage.setImageResource(R.mipmap.shouye_fuw);
             }
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

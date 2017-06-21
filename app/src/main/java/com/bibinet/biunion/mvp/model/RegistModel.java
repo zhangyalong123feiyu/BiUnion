@@ -12,13 +12,13 @@ import org.xutils.x;
 
 public class RegistModel {
     public void getVerifCode(String phone,String type,MyCallBack myCacheCallBack){
-        RequestParams requestParams=new RequestParams(Constants.baseUrl+"/user/sendSMS.json");
+        RequestParams requestParams=new RequestParams(Constants.baseUrl+"iip/user/sendSMS.json");
         requestParams.addBodyParameter("cellPhone",phone);
         requestParams.addBodyParameter("type",type);
         x.http().post(requestParams,myCacheCallBack);
     }
     public void compeletRegist(String companyName,String userName,String phone,String verfiCode,MyCallBack myCallBack){
-        RequestParams requestParams=new RequestParams(Constants.baseUrl+"/user/appRegist.json");
+        RequestParams requestParams=new RequestParams(Constants.baseUrl+"iip/user/appRegist.json");
         requestParams.addBodyParameter("enterpriseName",companyName);
         requestParams.addBodyParameter("userName",userName);
         requestParams.addBodyParameter("cellPhone",phone);

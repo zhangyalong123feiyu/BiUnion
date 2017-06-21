@@ -9,9 +9,9 @@
         android:orientation="horizontal">
             <ImageView
                 android:id="@+id/backImage"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:src="@mipmap/ic_launcher"
+                android:layout_width="11dp"
+                android:layout_height="11dp"
+                android:src="@mipmap/denglu_fanhui"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="10dp"
                 />
@@ -26,11 +26,11 @@
             <ImageView
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:src="@mipmap/ic_launcher"
+                android:src="@mipmap/search"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="20dp"
                 />
-            <EditText
+            <TextView
                 android:id="@+id/searchProject"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -45,7 +45,6 @@
         <TextView
             android:layout_width="60dp"
             android:layout_height="30dp"
-            android:src="@mipmap/ic_launcher"
             android:layout_gravity="center_vertical"
             android:layout_marginRight="15dp"
             android:textColor="@color/white"
@@ -57,7 +56,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="45dp"
-        android:background="#d9d9d9">
+        android:background="#F4F4F4">
         <LinearLayout
             android:id="@+id/projectIndustry"
             android:layout_width="0dp"
@@ -66,15 +65,18 @@
             android:layout_weight="1">
             <TextView
                 android:id="@+id/industryTextView"
-                android:layout_width="30dp"
+                android:layout_width="wrap_content"
                 android:gravity="center"
+                android:textSize="14sp"
+                android:singleLine="true"
+                android:ellipsize="end"
                 android:layout_height="match_parent"
                 android:text="行业"/>
             <ImageView
-                android:layout_width="10dp"
-                android:layout_height="10dp"
-                android:layout_marginLeft="6dp"
-                android:src="@mipmap/ic_launcher"/>
+                android:layout_width="15dp"
+                android:layout_height="12dp"
+                android:layout_marginLeft="8dp"
+                android:src="@mipmap/shangjian"/>
         </LinearLayout>
         <LinearLayout
             android:id="@+id/projectAeara"
@@ -84,16 +86,19 @@
             android:layout_weight="1">
             <TextView
                 android:id="@+id/areaTextView"
-                android:layout_width="30dp"
+                android:layout_width="wrap_content"
                 android:gravity="center"
+                android:textSize="14sp"
                 android:layout_height="match_parent"
+                android:singleLine="true"
+                android:ellipsize="end"
                 android:text="地区"/>
             <ImageView
-                android:layout_width="10dp"
-                android:layout_height="10dp"
-                android:layout_marginLeft="6dp"
+                android:layout_width="15dp"
+                android:layout_height="12dp"
+                android:layout_marginLeft="8dp"
                 android:layout_gravity="center"
-                android:src="@mipmap/ic_launcher"/>
+                android:src="@mipmap/shangjian"/>
         </LinearLayout>
         <LinearLayout
             android:id="@+id/projectTime"
@@ -103,22 +108,30 @@
             android:layout_weight="1">
             <TextView
                 android:id="@+id/timeTextView"
-                android:layout_width="30dp"
+                android:layout_width="wrap_content"
                 android:gravity="center"
+                android:textSize="14sp"
                 android:layout_height="match_parent"
+                android:singleLine="true"
+                android:ellipsize="end"
                 android:text="时间"/>
             <ImageView
-                android:layout_width="10dp"
-                android:layout_height="10dp"
-                android:layout_marginLeft="6dp"
+                android:layout_width="15dp"
+                android:layout_height="12dp"
+                android:layout_marginLeft="8dp"
                 android:layout_gravity="center"
-                android:src="@mipmap/ic_launcher"/>
+                android:src="@mipmap/shangjian"/>
         </LinearLayout>
 
     </LinearLayout>
-
+<android.support.v4.widget.SwipeRefreshLayout
+    android:id="@+id/moreSwipeRefrsh"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
     <android.support.v7.widget.RecyclerView
         android:id="@+id/projectRecyler"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
+</android.support.v4.widget.SwipeRefreshLayout>
+
 </LinearLayout>

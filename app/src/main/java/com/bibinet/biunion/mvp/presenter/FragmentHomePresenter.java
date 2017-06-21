@@ -22,6 +22,7 @@ public class FragmentHomePresenter {
         this.fragmentHomeModel=new FragmentHomeModel();
     }
     public void LoadHomeDataProjcetInfo(int pageNum,int type){
+        fragmentHomeView.showProgress();
         fragmentHomeModel.LoadHomeDataProjectInfo(pageNum,type,new MyCacheCallBack(){
             @Override
             public void onSuccess(String s) {
@@ -49,6 +50,7 @@ public class FragmentHomePresenter {
         });
     }
     public void LoadHomeDataTenderInfo(int pageNum,int type){
+        fragmentHomeView.showProgress();
         fragmentHomeModel.LoadHomeDataTenderInfo(pageNum,type,new MyCacheCallBack(){
             @Override
             public void onSuccess(String s) {
@@ -78,6 +80,7 @@ public class FragmentHomePresenter {
         });
     }
     public void LoadHomeDataBuyInfo(int pageNum,int type){
+        fragmentHomeView.showProgress();
         fragmentHomeModel.LoadHomeDataBuyInfo(pageNum,type,new MyCacheCallBack(){
             @Override
             public void onSuccess(String s) {
@@ -107,6 +110,7 @@ public class FragmentHomePresenter {
         });
     }
     public void LoadHomeDataPProjectInfo(int pageNum,int type){
+        fragmentHomeView.showProgress();
         fragmentHomeModel.LoadHomeDataPpProjectInfo(pageNum,type,new MyCacheCallBack(){
             @Override
             public void onSuccess(String s) {
@@ -137,6 +141,7 @@ public class FragmentHomePresenter {
         });
     }
     public void LoadHomeDataApplayProjectInfo(int pageNum,int type){
+        fragmentHomeView.showProgress();
         fragmentHomeModel.LoadHomeDataApplayProjectInfo(pageNum,type,new MyCacheCallBack(){
             @Override
             public void onSuccess(String s) {

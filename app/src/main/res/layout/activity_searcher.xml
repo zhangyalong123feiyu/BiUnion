@@ -7,7 +7,6 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
         <LinearLayout
-            android:id="@+id/homeSearch"
             android:layout_width="0dp"
             android:layout_height="26dp"
             android:layout_weight="5"
@@ -18,9 +17,10 @@
             android:background="@drawable/search_shape"
             android:layout_gravity="center_vertical">
             <ImageView
+                android:id="@+id/doSearch"
                 android:layout_width="11dp"
                 android:layout_height="11dp"
-                android:src="@mipmap/ic_launcher"
+                android:src="@mipmap/search"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="20dp"
                 />
@@ -29,7 +29,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:hint="@string/searchhint"
-                android:gravity="center"
+                android:gravity="left|center_vertical"
+                android:paddingLeft="20dp"
                 android:textColor="#999999"
                 android:textSize="13sp"
                 android:background="@null"/>
@@ -169,12 +170,18 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/histroyRecrodRecycler"
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/swipeRefresh"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:visibility="gone" />
+            android:visibility="gone">
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/histroyRecrodRecycler"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="gone" />
+        </android.support.v4.widget.SwipeRefreshLayout>
+
 
         <TextView
             android:layout_width="wrap_content"

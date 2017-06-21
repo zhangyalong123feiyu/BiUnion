@@ -1,6 +1,7 @@
 package com.bibinet.biunion.project.utils;
 
 import android.content.Context;
+import android.support.v4.content.ContextCompat;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -8,6 +9,7 @@ import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationClient;
 import com.amap.api.location.AMapLocationClientOption;
 import com.amap.api.location.AMapLocationListener;
+import com.bibinet.biunion.Manifest;
 
 /**
  * Created by bibinet on 2017-5-18.
@@ -33,9 +35,10 @@ public class LoactionUtils {
      * 初始化定位
      *
      * @author hongming.wang
-     * @since 2.8.0
+     * @since 2.8.0-
      */
     private void initLocation() {
+
         //初始化client
         locationClient = new AMapLocationClient(context.getApplicationContext());
         locationOption = getDefaultOption();
@@ -86,13 +89,13 @@ public class LoactionUtils {
                     //定位完成的时间
                     //  sb.append("定位时间: " + Utils.formatUTC(location.getTime(), "yyyy-MM-dd HH:mm:ss") + "\n");
                 } else {
-
+                    textView.setText("太原市");
                 }
                 //解析定位结果，
                 String result = sb.toString();
                 textView.setText(result);
             } else {
-                textView.setText("太原市，loc is null");
+                textView.setText("太原市");
                 Toast.makeText(context,"获取定位失败",Toast.LENGTH_SHORT).show();
             }
         }

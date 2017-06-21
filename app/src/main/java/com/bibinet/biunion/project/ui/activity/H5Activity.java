@@ -6,7 +6,6 @@ import android.support.annotation.Nullable;
 import android.view.KeyEvent;
 import android.view.View;
 import android.webkit.WebChromeClient;
-import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -16,7 +15,6 @@ import android.widget.TextView;
 
 import com.bibinet.biunion.R;
 import com.bibinet.biunion.project.application.BaseActivity;
-import com.bibinet.biunion.project.application.Constants;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -37,6 +35,8 @@ public class H5Activity extends BaseActivity {
     WebView webview;
     @BindView(R.id.progressBar)
     ProgressBar progressBar;
+    @BindView(R.id.title_imageRightFoucs)
+    ImageView titleImageRightFoucs;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -47,12 +47,11 @@ public class H5Activity extends BaseActivity {
     }
 
     private void initView() {
-        Intent intent=getIntent();
+        Intent intent = getIntent();
         String detailUrl = intent.getStringExtra("detailUrl");
-        webview.loadUrl("http://192.168.185.185:8080/"+detailUrl);
-        title.setText("详情");
+        webview.loadUrl("http://192.168.1.74:8080/" + detailUrl);
         titleImageleft.setVisibility(View.VISIBLE);
-        webview.setWebViewClient(new WebViewClient(){
+        webview.setWebViewClient(new WebViewClient() {
             //覆写shouldOverrideUrlLoading实现内部显示网页
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
@@ -61,17 +60,16 @@ public class H5Activity extends BaseActivity {
                 return true;
             }
         });
-        WebSettings seting=webview.getSettings();
+        WebSettings seting = webview.getSettings();
         seting.setJavaScriptEnabled(true);//设置webview支持javascript脚本
-        webview.setWebChromeClient(new WebChromeClient(){
+        webview.setWebChromeClient(new WebChromeClient() {
             @Override
             public void onProgressChanged(WebView view, int newProgress) {
                 // TODO 自动生成的方法存根
 
-                if(newProgress==100){
+                if (newProgress == 100) {
                     progressBar.setVisibility(View.GONE);//加载完网页进度条消失
-                }
-                else{
+                } else {
                     progressBar.setVisibility(View.VISIBLE);//开始加载网页时显示进度条
                     progressBar.setProgress(newProgress);//设置进度值
                 }
@@ -80,22 +78,36 @@ public class H5Activity extends BaseActivity {
         });
 
     }
-    @OnClick(R.id.title_imageleft)
-    public void onViewClicked() {
-        finish();
-    }
+   @OnClick({R.id.title_imageleft,R.id.title_imageright,R.id.title_imageRightFoucs})
+        public void viewOnclick(View view){
+       	switch (view.getId()) {
+       			case R.id.title_imageleft:
+       				finish();
+       				break;
+
+       			case R.id.title_imageright:/*客服*/
+
+       				break;
+
+       			case R.id.title_imageRightFoucs:/*关注*/
+
+       				break;
+
+       			default:
+       				break;
+       			}
+   }
 
     //设置返回键动作（防止按返回键直接退出程序)
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         // TODO 自动生成的方法存根
-        if(keyCode== KeyEvent.KEYCODE_BACK) {
-            if(webview.canGoBack()) {//当webview不是处于第一页面时，返回上一个页面
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            if (webview.canGoBack()) {//当webview不是处于第一页面时，返回上一个页面
                 webview.goBack();
                 return true;
-            }
-            else {//当webview处于第一页面时,直接退出程序
-            //    System.exit(0);
+            } else {//当webview处于第一页面时,直接退出程序
+                //    System.exit(0);
             }
         }
         return super.onKeyDown(keyCode, event);
