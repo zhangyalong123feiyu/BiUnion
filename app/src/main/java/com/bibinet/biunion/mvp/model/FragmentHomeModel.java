@@ -18,7 +18,7 @@ public class FragmentHomeModel {
     private String cacheName="ProjectInfoCache";
     private File cacheFile=new File(Environment.getExternalStorageDirectory(),"cachefile");
     public void LoadHomeDataProjectInfo(int pageNum,int _type,MyCacheCallBack myCacheCallBack){
-        RequestParams requestParams=new RequestParams(Constants.baseUrl+"pis/generalProjects/selectPage.json?");
+        RequestParams requestParams=new RequestParams(Constants.baseUrl+"pis/generalProjects/selectPage.json");
         requestParams.addBodyParameter("pageNum",String.valueOf(pageNum));
         requestParams.addBodyParameter("_type",String.valueOf(_type));
         requestParams.setCacheMaxAge(60*60*24*15);
@@ -29,7 +29,7 @@ public class FragmentHomeModel {
     }
 
     public void LoadHomeDataTenderInfo(int pageNum,int _type,MyCacheCallBack myCacheCallBack){
-        RequestParams requestParams=new RequestParams(Constants.baseUrl+"pis//biddingInfos/selectPage.json?");
+        RequestParams requestParams=new RequestParams(Constants.baseUrl+"pis/biddingInfos/selectPage.json");
         requestParams.addBodyParameter("pageNum",String.valueOf(pageNum));
         requestParams.addBodyParameter("_type",String.valueOf(_type));
         requestParams.setCacheMaxAge(60*60*24*15);
@@ -39,7 +39,7 @@ public class FragmentHomeModel {
         x.http().post(requestParams,myCacheCallBack);
     }
     public void LoadHomeDataBuyInfo(int pageNum,int _type,MyCacheCallBack myCacheCallBack){
-        RequestParams requestParams=new RequestParams(Constants.baseUrl+"pis//purchaseInfos/selectPage.json?");
+        RequestParams requestParams=new RequestParams(Constants.baseUrl+"pis/purchaseInfos/selectPage.json");
         requestParams.addBodyParameter("pageNum",String.valueOf(pageNum));
         requestParams.addBodyParameter("_type",String.valueOf(_type));
         requestParams.setCacheMaxAge(60*60*24*15);
@@ -49,7 +49,7 @@ public class FragmentHomeModel {
         x.http().post(requestParams,myCacheCallBack);
     }
     public void LoadHomeDataPpProjectInfo(int pageNum,int _type,MyCacheCallBack myCacheCallBack){
-        RequestParams requestParams=new RequestParams(Constants.baseUrl+"pis//pppProjects/selectPage.json?");
+        RequestParams requestParams=new RequestParams(Constants.baseUrl+"pis/pppProjects/selectPage.json");
         requestParams.addBodyParameter("pageNum",String.valueOf(pageNum));
         requestParams.setCacheMaxAge(60*60*24*15);
         requestParams.setCacheDirName(cacheName);
@@ -58,7 +58,7 @@ public class FragmentHomeModel {
         x.http().post(requestParams,myCacheCallBack);
     }
     public void LoadHomeDataApplayProjectInfo(int pageNum,int _type,MyCacheCallBack myCacheCallBack){
-        RequestParams requestParams=new RequestParams(Constants.baseUrl+"pis//portalUsers/selectPage.json?pageNum=2");
+        RequestParams requestParams=new RequestParams(Constants.baseUrl+"pis/portalUsers/selectPage.json");
         requestParams.addBodyParameter("pageNum",String.valueOf(pageNum));
         requestParams.setCacheMaxAge(60*60*24*15);
         requestParams.setCacheDirName(cacheName);

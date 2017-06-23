@@ -9,19 +9,26 @@ import java.util.List;
 
 public class ProjectInfoBean implements Serializable {
 
-
     /**
+     * purchaseQueryFilter : {"publishDateEnd":"2017-06-22","type":1,"realAnnouncementType":"","bidEndTimeStr":"","summary":""}
      * resCode : 0000
      * resMessage : 操作成功
-     * page : {"pageNum":2,"pageSize":8,"totalPage":32,"totalRows":256,"lastPage":1,"nextPage":3,"startRow":9,"endRow":16}
-     * items : [{"ProjectType":"","ProjectLocation":"天津市","ProjectUrl":"/pis/biddingInfos/toDetail.htm?code=A5139","ProjectTime":"","ProjectName":"gfhfh","ProjectDescrp":"hgjfvgkygyukfjymkr","ProjectCode":"A5139"},{"ProjectType":"","ProjectLocation":"天津市","ProjectUrl":"/pis/biddingInfos/toDetail.htm?code=7a7cf2ccaac94452bfc8ba07bb6324e6","ProjectTime":"已截止","ProjectName":"cs测试是否相同21","ProjectDescrp":"cs","ProjectCode":"7a7cf2ccaac94452bfc8ba07bb6324e6"},{"ProjectType":"","ProjectLocation":"北京市","ProjectUrl":"/pis/biddingInfos/toDetail.htm?code=03e8933c4d5a401f9ddcfb3dea180d49","ProjectTime":"已截止","ProjectName":"cs测试是否相同2","ProjectDescrp":"cs","ProjectCode":"03e8933c4d5a401f9ddcfb3dea180d49"},{"ProjectType":"","ProjectLocation":"山西省","ProjectUrl":"/pis/biddingInfos/toDetail.htm?code=bcb06b7984454effbcfd536c018ca8d6","ProjectTime":"已截止","ProjectName":"cs","ProjectDescrp":"cs","ProjectCode":"bcb06b7984454effbcfd536c018ca8d6"},{"ProjectType":"","ProjectLocation":"河北省","ProjectUrl":"/pis/biddingInfos/toDetail.htm?code=a91b3c4233ac4058810225bc16d5117d","ProjectTime":"已截止","ProjectName":"cs测试是否相同211","ProjectDescrp":"cs","ProjectCode":"a91b3c4233ac4058810225bc16d5117d"},{"ProjectType":"","ProjectLocation":"天津市","ProjectUrl":"/pis/biddingInfos/toDetail.htm?code=ece869960ac34dd998891422e5e159a9","ProjectTime":"已截止","ProjectName":"cs","ProjectDescrp":"cs","ProjectCode":"ece869960ac34dd998891422e5e159a9"},{"ProjectType":"","ProjectLocation":"山西省","ProjectUrl":"/pis/biddingInfos/toDetail.htm?code=A5136","ProjectTime":"46天7小时","ProjectName":"王彦强测试附件推送1","ProjectDescrp":"dfffaa发多少地方","ProjectCode":"A5136"},{"ProjectType":"","ProjectLocation":"山西省","ProjectUrl":"/pis/biddingInfos/toDetail.htm?code=A5137","ProjectTime":"17天17小时","ProjectName":"【变更公告】测试-不报名-服务0607","ProjectDescrp":"测试-不报名-服务0607","ProjectCode":"A5137"}]
-     * biddingInfoQueryFilter : {"type":1,"publisherName":"比比网络","bidEndTimeStr":"","summary":"","realType":"招标公告"}
+     * page : {"pageNum":1,"pageSize":8,"totalPage":3,"totalRows":21,"lastPage":1,"nextPage":2,"startRow":1,"endRow":8}
+     * items : [{"projectLocation":"北京市","projectPublishTime":"发布时间：2017-06-16","projectUrl":"/pis/purchaseInfos/toDetail.htm?code=907585f4f95c4b2996feb03d3a1e13d8","projectTypeName":"货物","projectCode":"907585f4f95c4b2996feb03d3a1e13d8","projectAmount":"","projectType":"B","projectName":"z","projectTime":"2017-06-16","projectDescrp":"Z123","projectTitle":"招标公告"},{"projectLocation":"北京市","projectPublishTime":"发布时间：2017-06-16","projectUrl":"/pis/purchaseInfos/toDetail.htm?code=434096d5a9c74515b5724a2c35388d4a","projectTypeName":"工程","projectCode":"434096d5a9c74515b5724a2c35388d4a","projectAmount":"","projectType":"A","projectName":"政府采购","projectTime":"2017-06-16","projectDescrp":"13123123123","projectTitle":"招标公告"},{"projectLocation":"山西省","projectPublishTime":"发布时间：2017-06-12","projectUrl":"/pis/purchaseInfos/toDetail.htm?code=2808abc1a48c4633aaf1d4229824131b","projectTypeName":"工程","projectCode":"2808abc1a48c4633aaf1d4229824131b","projectAmount":"","projectType":"A","projectName":"cs","projectTime":"2017-06-12","projectDescrp":"ca","projectTitle":"结果公告"},{"projectLocation":"北京市","projectPublishTime":"发布时间：2017-04-19","projectUrl":"/pis/purchaseInfos/toDetail.htm?code=25ef6d2faf854ac2852e708c5ff222ff","projectTypeName":"工程","projectCode":"25ef6d2faf854ac2852e708c5ff222ff","projectAmount":"","projectType":"A","projectName":"3","projectTime":"2017-04-19","projectDescrp":"发的说法","projectTitle":"结果公告"},{"projectLocation":"河北省","projectPublishTime":"发布时间：2017-04-19","projectUrl":"/pis/purchaseInfos/toDetail.htm?code=132a32a7631d48179b1faccce127c47b","projectTypeName":"货物","projectCode":"132a32a7631d48179b1faccce127c47b","projectAmount":"","projectType":"B","projectName":"2","projectTime":"2017-04-19","projectDescrp":"委屈委屈我是的","projectTitle":"变更公告"},{"projectLocation":"山西省","projectPublishTime":"发布时间：2017-04-19","projectUrl":"/pis/purchaseInfos/toDetail.htm?code=1aa2ab58b1354b5e9c03d974594c74a2","projectTypeName":"工程","projectCode":"1aa2ab58b1354b5e9c03d974594c74a2","projectAmount":"","projectType":"A","projectName":"1","projectTime":"2017-04-19","projectDescrp":"额外热污染我","projectTitle":"招标公告"},{"projectLocation":"天津市","projectPublishTime":"发布时间：2017-04-19","projectUrl":"/pis/purchaseInfos/toDetail.htm?code=999ff6f643804c0a821c399cebcf0f2a","projectTypeName":"货物","projectCode":"999ff6f643804c0a821c399cebcf0f2a","projectAmount":"3.23万元","projectType":"B","projectName":"高鸿股份","projectTime":"2017-04-19","projectDescrp":"开机后付款的恢复会计师的恢复快较好的是尽快恢复快接收到","projectTitle":"招标公告"},{"projectLocation":"河北省","projectPublishTime":"发布时间：2017-04-19","projectUrl":"/pis/purchaseInfos/toDetail.htm?code=1aa1bdd2fae94e99bcf8c14d4366bb23","projectTypeName":"工程","projectCode":"1aa1bdd2fae94e99bcf8c14d4366bb23","projectAmount":"","projectType":"A","projectName":"置顶爬虫","projectTime":"2017-04-19","projectDescrp":"离开的减肥了会计师的咖啡就流口水的健康傅雷家书抵抗力就分开了的设计费","projectTitle":"招标公告"}]
      */
 
+    private PurchaseQueryFilterBean purchaseQueryFilter;
     private String resCode;
     private String resMessage;
-    private BiddingInfoQueryFilterBean biddingInfoQueryFilter;
     private List<ItemsBean> items;
+
+    public PurchaseQueryFilterBean getPurchaseQueryFilter() {
+        return purchaseQueryFilter;
+    }
+
+    public void setPurchaseQueryFilter(PurchaseQueryFilterBean purchaseQueryFilter) {
+        this.purchaseQueryFilter = purchaseQueryFilter;
+    }
 
     public String getResCode() {
         return resCode;
@@ -39,15 +46,6 @@ public class ProjectInfoBean implements Serializable {
         this.resMessage = resMessage;
     }
 
-
-    public BiddingInfoQueryFilterBean getBiddingInfoQueryFilter() {
-        return biddingInfoQueryFilter;
-    }
-
-    public void setBiddingInfoQueryFilter(BiddingInfoQueryFilterBean biddingInfoQueryFilter) {
-        this.biddingInfoQueryFilter = biddingInfoQueryFilter;
-    }
-
     public List<ItemsBean> getItems() {
         return items;
     }
@@ -56,21 +54,28 @@ public class ProjectInfoBean implements Serializable {
         this.items = items;
     }
 
-
-    public static class BiddingInfoQueryFilterBean {
+    public static class PurchaseQueryFilterBean {
         /**
+         * publishDateEnd : 2017-06-22
          * type : 1
-         * publisherName : 比比网络
+         * realAnnouncementType :
          * bidEndTimeStr :
          * summary :
-         * realType : 招标公告
          */
 
+        private String publishDateEnd;
         private int type;
-        private String publisherName;
+        private String realAnnouncementType;
         private String bidEndTimeStr;
         private String summary;
-        private String realType;
+
+        public String getPublishDateEnd() {
+            return publishDateEnd;
+        }
+
+        public void setPublishDateEnd(String publishDateEnd) {
+            this.publishDateEnd = publishDateEnd;
+        }
 
         public int getType() {
             return type;
@@ -80,12 +85,12 @@ public class ProjectInfoBean implements Serializable {
             this.type = type;
         }
 
-        public String getPublisherName() {
-            return publisherName;
+        public String getRealAnnouncementType() {
+            return realAnnouncementType;
         }
 
-        public void setPublisherName(String publisherName) {
-            this.publisherName = publisherName;
+        public void setRealAnnouncementType(String realAnnouncementType) {
+            this.realAnnouncementType = realAnnouncementType;
         }
 
         public String getBidEndTimeStr() {
@@ -103,88 +108,121 @@ public class ProjectInfoBean implements Serializable {
         public void setSummary(String summary) {
             this.summary = summary;
         }
-
-        public String getRealType() {
-            return realType;
-        }
-
-        public void setRealType(String realType) {
-            this.realType = realType;
-        }
     }
 
     public static class ItemsBean {
         /**
-         * ProjectType :
-         * ProjectLocation : 天津市
-         * ProjectUrl : /pis/biddingInfos/toDetail.htm?code=A5139
-         * ProjectTime :
-         * ProjectName : gfhfh
-         * ProjectDescrp : hgjfvgkygyukfjymkr
-         * ProjectCode : A5139
+         * projectLocation : 北京市
+         * projectPublishTime : 发布时间：2017-06-16
+         * projectUrl : /pis/purchaseInfos/toDetail.htm?code=907585f4f95c4b2996feb03d3a1e13d8
+         * projectTypeName : 货物
+         * projectCode : 907585f4f95c4b2996feb03d3a1e13d8
+         * projectAmount :
+         * projectType : B
+         * projectName : z
+         * projectTime : 2017-06-16
+         * projectDescrp : Z123
+         * projectTitle : 招标公告
          */
-        private String projectType;
+
         private String projectLocation;
+        private String projectPublishTime;
         private String projectUrl;
-        private String projectTime;
-        private String projectName;
-        private String projectDescrp;
+        private String projectTypeName;
         private String projectCode;
-
-        public String getProjectType() {
-            return projectType;
-        }
-
-        public void setProjectType(String ProjectType) {
-            this.projectType = ProjectType;
-        }
+        private String projectAmount;
+        private String projectType;
+        private String projectName;
+        private String projectTime;
+        private String projectDescrp;
+        private String projectTitle;
 
         public String getProjectLocation() {
             return projectLocation;
         }
 
-        public void setProjectLocation(String ProjectLocation) {
-            this.projectLocation = ProjectLocation;
+        public void setProjectLocation(String projectLocation) {
+            this.projectLocation = projectLocation;
+        }
+
+        public String getProjectPublishTime() {
+            return projectPublishTime;
+        }
+
+        public void setProjectPublishTime(String projectPublishTime) {
+            this.projectPublishTime = projectPublishTime;
         }
 
         public String getProjectUrl() {
             return projectUrl;
         }
 
-        public void setProjectUrl(String ProjectUrl) {
-            this.projectUrl = ProjectUrl;
+        public void setProjectUrl(String projectUrl) {
+            this.projectUrl = projectUrl;
         }
 
-        public String getProjectTime() {
-            return projectTime;
+        public String getProjectTypeName() {
+            return projectTypeName;
         }
 
-        public void setProjectTime(String ProjectTime) {
-            this.projectTime = ProjectTime;
-        }
-
-        public String getProjectName() {
-            return projectName;
-        }
-
-        public void setProjectName(String ProjectName) {
-            this.projectName = ProjectName;
-        }
-
-        public String getProjectDescrp() {
-            return projectDescrp;
-        }
-
-        public void setProjectDescrp(String ProjectDescrp) {
-            this.projectDescrp = ProjectDescrp;
+        public void setProjectTypeName(String projectTypeName) {
+            this.projectTypeName = projectTypeName;
         }
 
         public String getProjectCode() {
             return projectCode;
         }
 
-        public void setProjectCode(String ProjectCode) {
-            this.projectCode = ProjectCode;
+        public void setProjectCode(String projectCode) {
+            this.projectCode = projectCode;
+        }
+
+        public String getProjectAmount() {
+            return projectAmount;
+        }
+
+        public void setProjectAmount(String projectAmount) {
+            this.projectAmount = projectAmount;
+        }
+
+        public String getProjectType() {
+            return projectType;
+        }
+
+        public void setProjectType(String projectType) {
+            this.projectType = projectType;
+        }
+
+        public String getProjectName() {
+            return projectName;
+        }
+
+        public void setProjectName(String projectName) {
+            this.projectName = projectName;
+        }
+
+        public String getProjectTime() {
+            return projectTime;
+        }
+
+        public void setProjectTime(String projectTime) {
+            this.projectTime = projectTime;
+        }
+
+        public String getProjectDescrp() {
+            return projectDescrp;
+        }
+
+        public void setProjectDescrp(String projectDescrp) {
+            this.projectDescrp = projectDescrp;
+        }
+
+        public String getProjectTitle() {
+            return projectTitle;
+        }
+
+        public void setProjectTitle(String projectTitle) {
+            this.projectTitle = projectTitle;
         }
     }
 }

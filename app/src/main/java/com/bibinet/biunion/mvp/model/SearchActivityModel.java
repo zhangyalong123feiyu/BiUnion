@@ -13,7 +13,7 @@ import org.xutils.x;
 public class SearchActivityModel {
     private String cacheName="ProjectInfoCache";
     public void searProjectInfoModel(int pageNumb,String content,MyCacheCallBack myCacheCallBack){
-        RequestParams requestParams=new RequestParams(Constants.baseUrl+"appData/selectPage.json");
+        RequestParams requestParams=new RequestParams(Constants.baseUrl+"pis/appData/selectPage.json");
         requestParams.addBodyParameter("pageIndex",String.valueOf(pageNumb));
         requestParams.addBodyParameter("messageLike",content);
         requestParams.setCacheMaxAge(60*60*24*15);

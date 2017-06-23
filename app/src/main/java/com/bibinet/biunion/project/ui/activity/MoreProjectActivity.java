@@ -98,11 +98,12 @@ public class MoreProjectActivity extends BaseActivity implements MoreProjectView
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
-
-                if (newState == RecyclerView.SCROLL_STATE_IDLE && lastvisibleitem + 1 == adapter.getItemCount()) {
-                    loadData(true);
-                    isLoadMore=true;
-                }
+                if (adapter!=null) {
+                    if (newState == RecyclerView.SCROLL_STATE_IDLE && lastvisibleitem + 1 == adapter.getItemCount()) {
+                        loadData(true);
+                        isLoadMore=true;
+                    }
+                		}
             }
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
@@ -110,7 +111,12 @@ public class MoreProjectActivity extends BaseActivity implements MoreProjectView
                 lastvisibleitem = linearLayoutManager.findLastVisibleItemPosition();
             }
         });
-
+        moreSwipeRefrsh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+             switchSelect();
+            }
+        });
     }
 
     //首页过来之后进行数据加载
@@ -125,23 +131,26 @@ public class MoreProjectActivity extends BaseActivity implements MoreProjectView
         Intent intent = getIntent();
         selectType = intent.getStringExtra("selectType");
         detailType = intent.getStringExtra("detailType");
+        switchSelect();
+    }
+
+    private void switchSelect() {
         switch (Integer.parseInt(selectType)) {
             case 5:
-                projectPresenter.LoadHomeDataMoreTenderInfo(pageNumb, Integer.parseInt(detailType), 1, "A", 140000);
+                projectPresenter.LoadHomeDataMoreTenderInfo(pageNumb, Integer.parseInt(detailType), 1, "", 140000);
                 break;
             case 6:
-                projectPresenter.LoadHomeDataMoreProjcetInfo(pageNumb, Integer.parseInt(detailType), 1, "A", 140000);
+                projectPresenter.LoadHomeDataMoreProjcetInfo(pageNumb, Integer.parseInt(detailType), 1, "", 140000);
                 break;
             case 7:
-                projectPresenter.LoadHomeDataMoreBuyInfo(pageNumb, Integer.parseInt(detailType), 1, "A", 140000);
+                projectPresenter.LoadHomeDataMoreBuyInfo(pageNumb, Integer.parseInt(detailType), 1, "", 140000);
                 break;
             case 8:
-                projectPresenter.LoadHomeDataMoreApplayProjectInfo(pageNumb, Integer.parseInt(detailType), 1, "A", 140000);
+                projectPresenter.LoadHomeDataMoreApplayProjectInfo(pageNumb, Integer.parseInt(detailType), 1, "", 140000);
                 break;
             case 9:
-                projectPresenter.LoadHomeDataMoreProjcetInfo(pageNumb, Integer.parseInt(detailType), 1, "A", 140000);
+                projectPresenter.LoadHomeDataMoreProjcetInfo(pageNumb, Integer.parseInt(detailType), 1, "", 140000);
                 break;
-
             default:
                 break;
         }
@@ -196,8 +205,8 @@ public class MoreProjectActivity extends BaseActivity implements MoreProjectView
     private void doSelect(String time, String industry, String ar) {
         switch (Integer.parseInt(selectType)) {
             case 5:
-                projectPresenter.LoadHomeDataMoreTenderInfo(pageNumb, Integer.parseInt(detailType), Integer.parseInt(time), industry, Integer.parseInt(ar));
-                break;
+                    projectPresenter.LoadHomeDataMoreTenderInfo(pageNumb, Integer.parseInt(detailType), Integer.parseInt(time), industry, Integer.parseInt(ar));
+                        break;
                 case 6:
                     projectPresenter.LoadHomeDataMoreTenderInfo(pageNumb, Integer.parseInt(detailType), Integer.parseInt(time), industry, Integer.parseInt(ar));
                     break;
@@ -234,8 +243,6 @@ public class MoreProjectActivity extends BaseActivity implements MoreProjectView
             if (projectInfos.size() == 0) {
                 moreSwipeRefrsh.setRefreshing(false);
                 adapter.changeMoreStatus(SocailFooterAdapter.PULLUP_LOAD_MORE);
-                // infoListView.scrollToPosition(InfoRefreshFootAdapter.Lastposition);
-                projectRecyler.smoothScrollToPosition(adapter.getItemCount() - 1);
             } else {
                 adapter.addMoreItem(projectList);
                 adapter.changeMoreStatus(SocailFooterAdapter.PULLUP_LOAD_MORE);

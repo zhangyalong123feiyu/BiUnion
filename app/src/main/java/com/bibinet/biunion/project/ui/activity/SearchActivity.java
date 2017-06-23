@@ -37,6 +37,8 @@ public class SearchActivity extends BaseActivity implements SearchActivityView {
     EditText searchEdit;
     @BindView(R.id.cancel_search)
     TextView cancelSearch;
+    @BindView(R.id.noResult)
+    TextView noResult;
     @BindView(R.id.histroyRecrodRecycler)
     RecyclerView histroyRecrodRecycler;
     @BindView(R.id.swipeRefresh)
@@ -90,9 +92,9 @@ public class SearchActivity extends BaseActivity implements SearchActivityView {
     }
     @OnClick(R.id.doSearch)
     public void onViewClicked() {
-        Log.i("TAG","点击");
+        Log.i("点击","开始收索________________________"+pageNum);
         content = searchEdit.getText().toString().trim();
-        presenter.getSearchData(pageNum, content);
+        loadData(false);
     }
 
     @Override
@@ -107,6 +109,7 @@ public class SearchActivity extends BaseActivity implements SearchActivityView {
 
     @Override
     public void onSearchSucess(List<SearchResultBean.ItemsBean> searchResult) {
+
         if (searchResult.size() == 0) {
             Toast.makeText(this, "没有跟多数据了", Toast.LENGTH_SHORT).show();
             adapter.changeMoreStatus(SocailFooterAdapter.LOAD_NODATA);
@@ -116,8 +119,6 @@ public class SearchActivity extends BaseActivity implements SearchActivityView {
             if (projectList.size() == 0) {
                 swipeRefresh.setRefreshing(false);
                 adapter.changeMoreStatus(SocailFooterAdapter.PULLUP_LOAD_MORE);
-                // infoListView.scrollToPosition(InfoRefreshFootAdapter.Lastposition);
-                histroyRecrodRecycler.smoothScrollToPosition(adapter.getItemCount() - 1);
             } else {
                 adapter.addMoreItem(projectList);
                 adapter.changeMoreStatus(SocailFooterAdapter.PULLUP_LOAD_MORE);

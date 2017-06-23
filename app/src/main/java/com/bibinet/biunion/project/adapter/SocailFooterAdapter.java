@@ -3,6 +3,7 @@ package com.bibinet.biunion.project.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -118,13 +119,15 @@ public class SocailFooterAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             switch (load_more_status) {
                 case PULLUP_LOAD_MORE:
                     progressHolder.textshow.setText("上拉加载更多...");
-                    progressHolder.progressBar.setVisibility(View.INVISIBLE);
+                    progressHolder.textshow.setVisibility(View.GONE);
+                    progressHolder.progressBar.setVisibility(View.GONE);
                     break;
                 case LOADING_MORE:
                     progressHolder.textshow.setText("正在加载...");
                     progressHolder.progressBar.setVisibility(View.VISIBLE);
                     break;
                 case LOAD_NODATA:
+                    Log.i("TAG","noData------------------------");
                     progressHolder.textshow.setVisibility(View.GONE);
                     progressHolder.progressBar.setVisibility(View.GONE);
                     break;
@@ -167,7 +170,6 @@ public class SocailFooterAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
      * LOADING_MORE=1;
      * //加载完成已经没有更多数据了
      * NO_MORE_DATA=2;
-     *
      * @param status
      */
     public void changeMoreStatus(int status) {

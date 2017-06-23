@@ -3,6 +3,7 @@ package com.bibinet.biunion.project.ui.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -16,6 +17,7 @@ import com.bibinet.biunion.mvp.presenter.RegistPresenter;
 import com.bibinet.biunion.mvp.view.RegistView;
 import com.bibinet.biunion.project.application.BaseActivity;
 import com.bibinet.biunion.project.utils.DialogUtils;
+import com.bibinet.biunion.project.utils.PhoneNumberUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -69,15 +71,27 @@ public class RegistActivity extends BaseActivity implements RegistView{
                 break;
             case R.id.verifCodeBtn:
                 String phoneNumb = inputPhone.getText().toString().trim();
-                registPresenter.getVerifCode(phoneNumb,"1");
+                if (PhoneNumberUtils.isMobileNumber(phoneNumb)) {
+                    registPresenter.getVerifCode(phoneNumb,"1");
+                }else {
+                    Toast.makeText(this,"请输入正确的手机号",Toast.LENGTH_SHORT).show();
+                }
                 break;
             case R.id.completeRegist:
                 phoneNumb=inputPhone.getText().toString().trim();
                 String companyName = inputCompanyName.getText().toString().trim();
                 String userName = inputUserName.getText().toString().trim();
                 String verifCode = inputVerifCode.getText().toString().trim();
-                registPresenter.doRegist(companyName,userName,phoneNumb,verifCode);
-                dialogUtils.showProgressDialog(this,"正在注册");
+                if (TextUtils.isEmpty(companyName)) {
+                    Toast.makeText(this,"公司名为空",Toast.LENGTH_SHORT).show();
+                		}else if (TextUtils.isEmpty(userName)) {
+                    Toast.makeText(this,"用户名为空",Toast.LENGTH_SHORT).show();
+                				}else if (TextUtils.isEmpty(verifCode)) {
+                    Toast.makeText(this,"验证码为空",Toast.LENGTH_SHORT).show();
+                						}else {
+                    registPresenter.doRegist(companyName,userName,phoneNumb,verifCode);
+                    dialogUtils.showProgressDialog(this,"正在注册");
+                }
                 break;
         }
     }

@@ -7,19 +7,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.bibinet.biunion.R;
-import com.bibinet.biunion.project.application.Constants;
 import com.bibinet.biunion.project.bean.ProjectInfoBean;
-import com.bibinet.biunion.project.builder.MyViewPager;
 import com.bibinet.biunion.project.ui.activity.H5Activity;
 import com.bibinet.biunion.project.ui.activity.PlatFormActivity;
 import com.bibinet.biunion.project.utils.BannerUtils;
 
-import java.util.Arrays;
 import java.util.List;
 
 import butterknife.BindView;
@@ -31,7 +27,6 @@ import butterknife.OnClick;
  */
 public class MoreProjectAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private final LayoutInflater inflater;
-
     private Context context;
     private List<ProjectInfoBean.ItemsBean> socailInfos;
     private static final int TYPE_ITEM = 0;  //普通Item View
@@ -43,7 +38,6 @@ public class MoreProjectAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     //正在加载中
     public static final int LOADING_MORE = 1;
     public static int Lastposition;
-    private BannerUtils bannerUtils;
 
     public MoreProjectAdapter(Context context, List<ProjectInfoBean.ItemsBean> socailInfos) {
         this.context = context;
@@ -65,7 +59,7 @@ public class MoreProjectAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         //进行判断显示类型，来创建返回不同的View
         if (viewType == TYPE_ITEM) {
-            View view = inflater.inflate(R.layout.item_projectinfo, parent, false);
+            View view = inflater.inflate(R.layout.item_projectdetail, parent, false);
             //这边可以做一些属性设置，甚至事件监听绑定
             //view.setBackgroundColor(Color.RED);
             ItemHolder itemViewHolder = new ItemHolder(view);
@@ -84,16 +78,20 @@ public class MoreProjectAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
 
         if (holder instanceof ItemHolder) {
-            ((ItemHolder) holder).companyName.setText(socailInfos.get(position).getProjectName());
-            ((ItemHolder) holder).projectDescrp.setText(socailInfos.get(position).getProjectDescrp());
-            ((ItemHolder) holder).projectLoaction.setText(socailInfos.get(position).getProjectLocation());
-            ((ItemHolder) holder).projectTime.setText(socailInfos.get(position).getProjectTime());
+            ((ItemHolder) holder).projcetName.setText(socailInfos.get(position).getProjectName());
+            ((ItemHolder) holder).projectTitle.setText(socailInfos.get(position).getProjectTitle());
+            ((ItemHolder) holder).projcetDescrp.setText(socailInfos.get(position).getProjectDescrp());
+            ((ItemHolder) holder).projectLocation.setText(socailInfos.get(position).getProjectLocation());
+            ((ItemHolder) holder).projcetOffer.setText(socailInfos.get(position).getProjectAmount());
+            ((ItemHolder) holder).publishTime.setText(socailInfos.get(position).getProjectPublishTime());
+            ((ItemHolder) holder).projcetOffer.setText(socailInfos.get(position).getProjectAmount());
+
             if (socailInfos.get(position).getProjectType().equals("A")) {
-                ((ItemHolder) holder).projectTypeImage.setImageResource(R.mipmap.shouye_gongcheng);
+                ((ItemHolder) holder).projectImage.setImageResource(R.mipmap.shouye_gongcheng);
             } else if (socailInfos.get(position).getProjectType().equals("B")) {
-                ((ItemHolder) holder).projectTypeImage.setImageResource(R.mipmap.shouye_huowu);
+                ((ItemHolder) holder).projectImage.setImageResource(R.mipmap.shouye_huowu);
             } else {
-                ((ItemHolder) holder).projectTypeImage.setImageResource(R.mipmap.shouye_fuw);
+                ((ItemHolder) holder).projectImage.setImageResource(R.mipmap.shouye_fuw);
             }
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -115,8 +113,6 @@ public class MoreProjectAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                     progressHolder.progressBar.setVisibility(View.VISIBLE);
                     break;
             }
-
-
         }
     }
 
@@ -187,17 +183,22 @@ public class MoreProjectAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     }
 
     class ItemHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.projectTypeImage)
-        ImageView projectTypeImage;
-        @BindView(R.id.companyName)
-        TextView companyName;
-        @BindView(R.id.projectDescrp)
-        TextView projectDescrp;
-        @BindView(R.id.projectLoaction)
-        TextView projectLoaction;
-        @BindView(R.id.projectTime)
-        TextView projectTime;
-
+        @BindView(R.id.projectTitle)
+        TextView projectTitle;
+        @BindView(R.id.projcetName)
+        TextView projcetName;
+        @BindView(R.id.projcetOffer)
+        TextView projcetOffer;
+        @BindView(R.id.projcetDescrp)
+        TextView projcetDescrp;
+        @BindView(R.id.projectImage)
+        ImageView projectImage;
+        @BindView(R.id.projectType)
+        TextView projectType;
+        @BindView(R.id.projectLocation)
+        TextView projectLocation;
+        @BindView(R.id.publishTime)
+        TextView publishTime;
         public ItemHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);

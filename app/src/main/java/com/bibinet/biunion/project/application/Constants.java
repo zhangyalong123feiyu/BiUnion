@@ -15,10 +15,11 @@ public class Constants {
 
 
 
+
     //APP所用常量
     public final int READPHONE_STATE = 1;
     public static LoginResultBean loginresultInfo = null;
-    public static String baseUrl = "http://192.168.1.74:8080/";
+    public static String baseUrl = "http://202.99.212.204:8080/";
 
     public static String loginData = null;
     public static String[] ImageUrls = {"http://www.bibenet.com/iip-portlet/review?filePath=20175/5/9/31b74a24-3bd5-4ebb-974d-1578709bb0da.jpg",

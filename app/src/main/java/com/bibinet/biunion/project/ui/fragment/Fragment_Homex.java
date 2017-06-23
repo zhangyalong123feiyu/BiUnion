@@ -130,8 +130,36 @@ public class Fragment_Homex extends Fragment implements FragmentHomeView, View.O
         }else {
 
         }
+        doRefresh();
     }
+    public void doRefresh(){
+        swipeReresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+               	switch (selectType) {
+               			case 5:
+               				presenter.LoadHomeDataProjcetInfo(1,detailType);
+               				break;
+               			case 6:
+               				presenter.LoadHomeDataTenderInfo(1,detailType);
+               				break;
+               			case 7:
+               				presenter.LoadHomeDataBuyInfo(1,detailType);
+               				break;
+               			case 8:
+               				presenter.LoadHomeDataPProjectInfo(1,detailType);
+               				break;
+               			case 9:
+               				presenter.LoadHomeDataApplayProjectInfo(1,detailType);
+               				break;
 
+               			default:
+               				break;
+               			}
+
+            }
+        });
+    }
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -165,7 +193,7 @@ public class Fragment_Homex extends Fragment implements FragmentHomeView, View.O
         }
         selectDataSource();
     }
-
+//选择加载不同的数据类型
     private void selectDataSource() {
         switch (selectType) {
             case projectInfoType:
@@ -209,7 +237,6 @@ public class Fragment_Homex extends Fragment implements FragmentHomeView, View.O
                 selectDataSource();
                 break;
             case R.id.projectNameThree:
-                detailType = 3;
                 selectDataSource();
                 break;
             case R.id.moreProject:
@@ -273,7 +300,7 @@ public class Fragment_Homex extends Fragment implements FragmentHomeView, View.O
     @Override
     public void onLoadSucess(List<ProjectInfoBean.ItemsBean> projectinfoList) {
             if (projectinfoList.size()==0) {
-                Toast.makeText(getActivity(),"没有跟多数据了",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(),"没有更多数据了",Toast.LENGTH_SHORT).show();
                 adapter.changeMoreStatus(SocailFooterAdapter.LOAD_NODATA);
             		}
             projectList = projectinfoList;
@@ -281,8 +308,6 @@ public class Fragment_Homex extends Fragment implements FragmentHomeView, View.O
                 if (projectList.size() == 0) {
                     swipeReresh.setRefreshing(false);
                     adapter.changeMoreStatus(SocailFooterAdapter.PULLUP_LOAD_MORE);
-                    // infoListView.scrollToPosition(InfoRefreshFootAdapter.Lastposition);
-                    projectInfoRecycler.smoothScrollToPosition(adapter.getItemCount() - 1);
                 } else {
                     adapter.addMoreItem(projectList);
                     adapter.changeMoreStatus(SocailFooterAdapter.PULLUP_LOAD_MORE);

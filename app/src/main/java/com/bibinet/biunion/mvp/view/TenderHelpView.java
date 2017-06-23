@@ -1,11 +1,10 @@
 package com.bibinet.biunion.mvp.view;
 
 /**
- * Created by bibinet on 2017-6-21.
+ * Created by bibinet on 2017-6-23.
  */
 
-public interface CompanyInfoView extends BaseView {
+public interface TenderHelpView extends BaseView {
     void onUpLoadDataSucess();
     void onUpLoadDataFailed();
-
 }

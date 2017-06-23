@@ -130,7 +130,7 @@ public class ConvertUtils {
 						areaNew=140000;
 						break;
 					case "全部":
-						areaNew=140000;
+						areaNew=Integer.parseInt("");
 						break;
 					case "北京市":
 						areaNew=110000;

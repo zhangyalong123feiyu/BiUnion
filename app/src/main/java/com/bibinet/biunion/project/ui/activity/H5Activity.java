@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.bibinet.biunion.R;
 import com.bibinet.biunion.project.application.BaseActivity;
+import com.bibinet.biunion.project.application.Constants;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -49,7 +50,7 @@ public class H5Activity extends BaseActivity {
     private void initView() {
         Intent intent = getIntent();
         String detailUrl = intent.getStringExtra("detailUrl");
-        webview.loadUrl("http://192.168.1.74:8080/" + detailUrl);
+        webview.loadUrl(Constants.baseUrl + detailUrl);
         titleImageleft.setVisibility(View.VISIBLE);
         webview.setWebViewClient(new WebViewClient() {
             //覆写shouldOverrideUrlLoading实现内部显示网页

@@ -27,7 +27,8 @@ public class SearchActivityPresenter {
             public void onSuccess(String s) {
                 super.onSuccess(s);
                 Gson gson=new Gson();
-                Log.i("TAG","search_____________"+s);
+                Log.i("TAG","成功搜索________________________"+s);
+
                 SearchResultBean searchResultInfo = gson.fromJson(s, SearchResultBean.class);
                 searchActivityView.onSearchSucess(searchResultInfo.getItems());
                 searchActivityView.hideProgress();

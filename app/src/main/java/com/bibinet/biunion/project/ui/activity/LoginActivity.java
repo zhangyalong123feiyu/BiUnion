@@ -3,6 +3,7 @@ package com.bibinet.biunion.project.ui.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -17,6 +18,7 @@ import com.bibinet.biunion.project.application.BaseActivity;
 import com.bibinet.biunion.project.application.Constants;
 import com.bibinet.biunion.project.bean.LoginResultBean;
 import com.bibinet.biunion.project.utils.DialogUtils;
+import com.bibinet.biunion.project.utils.PhoneNumberUtils;
 import com.bibinet.biunion.project.utils.SharedPresUtils;
 import com.google.gson.Gson;
 
@@ -81,7 +83,11 @@ public class LoginActivity extends BaseActivity implements LoginView{
         LoginPresenter presenter=new LoginPresenter(this);
         String phoneNumber = inputPhoneNumber.getText().toString().trim();
         String phonePassword = inputPassword.getText().toString().trim();
-        presenter.getLoginInfo(phoneNumber,phonePassword);
+        if (TextUtils.isEmpty(phoneNumber)&&TextUtils.isEmpty(phonePassword)) {
+        			Toast.makeText(this,"手机号或者密码为空",Toast.LENGTH_SHORT).show();
+        		}else {
+            presenter.getLoginInfo(phoneNumber,phonePassword);
+        }
     }
 
     @Override
