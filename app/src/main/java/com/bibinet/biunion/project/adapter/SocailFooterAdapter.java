@@ -111,6 +111,8 @@ public class SocailFooterAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 public void onClick(View v) {
                     Intent intent = new Intent(context, H5Activity.class);
                     intent.putExtra("detailUrl", socailInfos.get(position).getProjectUrl());
+                    intent.putExtra("type",socailInfos.get(position).getProjectType());
+                    intent.putExtra("projectCode",socailInfos.get(position).getProjectCode());
                     context.startActivity(intent);
                 }
             });

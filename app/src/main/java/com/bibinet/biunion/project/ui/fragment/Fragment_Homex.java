@@ -91,7 +91,7 @@ public class Fragment_Homex extends Fragment implements FragmentHomeView, View.O
     private final int buyProjectInfoType = 7;
     private final int pProjectInfoType = 8;
     private final int applayProjectInfoType = 9;
-    private int selectType = 5;
+    private int selectType=6 ;
     private int lastvisibleitem;
     private LinearLayoutManager linearLayoutManager;
     private boolean isLoadMore=false;
@@ -184,6 +184,7 @@ public class Fragment_Homex extends Fragment implements FragmentHomeView, View.O
     }
 
     private void loadData(boolean isLoadMore) {
+        Log.i("TAG","loadData");
         if (isLoadMore) {
             adapter.changeMoreStatus(SocailFooterAdapter.LOADING_MORE);
             pageNum++;
@@ -197,9 +198,11 @@ public class Fragment_Homex extends Fragment implements FragmentHomeView, View.O
     private void selectDataSource() {
         switch (selectType) {
             case projectInfoType:
+                Log.i("TAG",selectType+"selecty========"+detailType+"============"+pageNum+"pagenumber");
                 presenter.LoadHomeDataProjcetInfo(pageNum, detailType);
                 break;
             case tenderProjectInfoType:
+                Log.i("TAG",selectType+"TenderInfo======="+"selecty========"+detailType+"============"+pageNum+"pagenumber");
                 presenter.LoadHomeDataTenderInfo(pageNum, detailType);
                 break;
             case buyProjectInfoType:
@@ -230,14 +233,17 @@ public class Fragment_Homex extends Fragment implements FragmentHomeView, View.O
                 break;
             case R.id.projectNameOne:
                 detailType = 1;
-                selectDataSource();
+                Log.i("TAG","projectone------------------------");
+                loadData(false);
                 break;
             case R.id.projectNameTwo:
                 detailType = 2;
-                selectDataSource();
+                Log.i("TAG","projecttwo------------------------");
+                loadData(false);
                 break;
             case R.id.projectNameThree:
-                selectDataSource();
+                detailType=3;
+                loadData(false);
                 break;
             case R.id.moreProject:
                 Intent intent=new Intent(getActivity(), MoreProjectActivity.class);
@@ -342,7 +348,7 @@ public class Fragment_Homex extends Fragment implements FragmentHomeView, View.O
                 projectNameOne.setText("招标公告");
                 projectNameTwo.setText("中标候选人公示");
                 projectNameThree.setText("中标公告");
-                selectType=5;
+                selectType=6;
                 presenter.LoadHomeDataTenderInfo(pageNum, detailType);
                 break;
             case R.id.projectInfo:
@@ -351,7 +357,7 @@ public class Fragment_Homex extends Fragment implements FragmentHomeView, View.O
                 projectNameOne.setText("拟在建项目");
                 projectNameTwo.setText("业主委托项目");
                 projectNameThree.setText("PPP项目");
-                selectType=6;
+                selectType=5;
                 presenter.LoadHomeDataProjcetInfo(pageNum,detailType);
                 break;
             case R.id.buyprojectInfo:

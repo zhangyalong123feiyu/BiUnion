@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    <RelativeLayout
+        android:id="@+id/act_title_title"
+        android:layout_width="match_parent"
+        android:background="#f9c432"
+        android:layout_height="45dp">
+        <ImageView
+            android:id="@+id/act_title_title_go_back"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:padding="5dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="5dp"
+            android:src="@mipmap/denglu_fanhui"
+            />
+        <TextView
+            android:id="@+id/act_title_title_txt"
+            android:textSize="18sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="客服咨询"
+            android:textColor="#ffffff"
+            />
+        <ImageView
+            android:id="@+id/act_custom_service_chat"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="14dp"
+            android:src="@mipmap/kefuzixun_kefu"
+            />
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ListView
+            android:id="@+id/act_custom_service_main"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:listSelector="@null"
+            android:divider="@null"
+            android:dividerHeight="0dp"
+            >
+
+        </ListView>
+
+        <ImageView
+            android:id="@+id/act_custom_service_not_message"
+            android:layout_centerInParent="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="35dp"
+            android:src="@mipmap/xiaoxin_zanwu"
+            />
+    </RelativeLayout>
+
+</LinearLayout>

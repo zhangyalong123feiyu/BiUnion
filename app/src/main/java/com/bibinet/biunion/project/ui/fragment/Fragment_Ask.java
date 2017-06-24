@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.bibinet.biunion.R;
 import com.bibinet.biunion.project.ui.activity.CoustomAskActivity;
+import com.bibinet.biunion.project.ui.activity.CustomServiceActivity;
 import com.bibinet.biunion.project.ui.activity.ExpertsAnswerActivity;
 import com.bibinet.biunion.project.ui.activity.TenderHelpActivity;
 import com.bibinet.biunion.project.ui.activity.WriteTenderBook;
@@ -78,7 +79,7 @@ public class Fragment_Ask extends Fragment {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.customService:
-                startActivity(new Intent(getActivity(), CoustomAskActivity.class));
+                startActivity(new Intent(getActivity(), CustomServiceActivity.class));
                 break;
             case R.id.experts:
                 startActivity(new Intent(getActivity(), ExpertsAnswerActivity.class));

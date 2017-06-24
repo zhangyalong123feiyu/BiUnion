@@ -5,6 +5,25 @@
     android:versionName="3.0.6"
     >
 
+
+    <!-- 环信需要权限 -->
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <!--环信权限结束-->
+
     <!--用于进行网络定位-->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"></uses-permission>
     <!--用于访问GPS定位-->
@@ -85,6 +104,33 @@
         <activity android:name=".project.ui.activity.AboutOurActivity" android:screenOrientation="portrait"/>
         <activity android:name=".project.ui.activity.ExpertsAnswerActivity" android:screenOrientation="portrait"/>
         <activity android:name=".project.ui.activity.AdviceProvideActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".project.ui.activity.CustomServiceActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".project.ui.activity.ChatActivity" android:screenOrientation="portrait"/>
+
+
+
+        <!-- 设置环信应用的AppKey 环信需要 -->
+        <meta-data android:name="EASEMOB_APPKEY"  android:value="1146170615115496#kefuchannelapp43102" />
+        <!-- 声明SDK所需的service SDK核心功能-->
+        <service android:name="com.hyphenate.chat.EMChatService" android:exported="true"/>
+        <service android:name="com.hyphenate.chat.EMJobService"
+            android:permission="android.permission.BIND_JOB_SERVICE"
+            android:exported="true"
+            />
+        <!-- 声明SDK所需的receiver -->
+        <receiver android:name="com.hyphenate.chat.EMMonitorReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.PACKAGE_REMOVED"/>
+                <data android:scheme="package"/>
+            </intent-filter>
+            <!-- 可选filter -->
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+                <action android:name="android.intent.action.USER_PRESENT" />
+            </intent-filter>
+        </receiver>
+
+
         <!--定位service-->
         <service android:name="com.amap.api.location.APSService"></service>
         <!--高德地图所使用的key-->
@@ -189,7 +235,6 @@
                 <category android:name="com.bibinet.biunion" />
             </intent-filter>
         </receiver>
-
         <!-- Required  . Enable it you can get statistics data with channel -->
         <meta-data android:name="JPUSH_CHANNEL" android:value="developer-default"/>
         <meta-data android:name="JPUSH_APPKEY" android:value="c4bc1e0a4999e0d503d86868" /> <!--  </>值来自开发者平台取得的AppKey-->
