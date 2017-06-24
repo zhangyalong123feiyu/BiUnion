@@ -1,6 +1,7 @@
 package com.bibinet.biunion.mvp.model;
 
 import com.bibinet.biunion.project.application.Constants;
+import com.bibinet.biunion.project.builder.MyCallBack;
 
 import org.xutils.http.RequestParams;
 import org.xutils.x;
@@ -10,10 +11,11 @@ import org.xutils.x;
  */
 
 public class TenderHelpModel {
-    public void upLoadData(){
-        RequestParams requestParams=new RequestParams(Constants.baseUrl+"iip/user/login.json");
-//        requestParams.addBodyParameter("account",account);
-//        requestParams.addBodyParameter("password",password);
-//        x.http().post(requestParams,myCacheCallBack);
+    public void upLoadData(String contact, String cellPhone, String content, MyCallBack myCallBack){
+        RequestParams requestParams=new RequestParams(Constants.baseUrl+"/pis/appAssistance/apply.json");
+        requestParams.addBodyParameter("contact",contact);
+        requestParams.addBodyParameter("cellPhone",cellPhone);
+        requestParams.addBodyParameter("content",content);
+        x.http().post(requestParams,myCallBack);
     }
 }

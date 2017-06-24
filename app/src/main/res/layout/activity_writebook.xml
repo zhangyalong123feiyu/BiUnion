@@ -37,12 +37,13 @@
                     android:background="@drawable/range_shape"
                     android:orientation="horizontal">
 
-                    <EditText
+                    <TextView
                         android:id="@+id/writeBookInput"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:background="@null"
+                        android:gravity="center_vertical"
                         android:hint="请选择标书的类型"
                         android:paddingLeft="10dp"
                         android:textColor="#999999"
@@ -82,11 +83,12 @@
                     android:background="@drawable/range_shape"
                     android:orientation="horizontal">
 
-                    <EditText
+                    <TextView
                         android:id="@+id/projectTypeInput"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
+                        android:gravity="center_vertical"
                         android:background="@null"
                         android:hint="请选择项目类别"
                         android:paddingLeft="10dp"
@@ -126,12 +128,13 @@
                     android:background="@drawable/range_shape"
                     android:orientation="horizontal">
 
-                    <EditText
+                    <TextView
                         android:id="@+id/selectTenderType"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:background="@null"
+                        android:gravity="center_vertical"
                         android:hint="请选择招标方式"
                         android:paddingLeft="10dp"
                         android:textColor="#999999"
@@ -170,12 +173,13 @@
                     android:background="@drawable/range_shape"
                     android:orientation="horizontal">
 
-                    <EditText
+                    <TextView
                         android:id="@+id/tenderTypeInput"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:background="@null"
+                        android:gravity="center_vertical"
                         android:hint="请选择标书的类型"
                         android:paddingLeft="10dp"
                         android:textColor="#999999"
@@ -226,12 +230,7 @@
                         android:textColor="#999999"
                         android:textSize="12sp" />
 
-                    <ImageView
-                        android:layout_width="15dp"
-                        android:layout_height="15dp"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginRight="10dp"
-                        android:src="@mipmap/qianjin" />
+
                 </LinearLayout>
             </LinearLayout>
 
@@ -270,12 +269,7 @@
                         android:textColor="#999999"
                         android:textSize="12sp" />
 
-                    <ImageView
-                        android:layout_width="15dp"
-                        android:layout_height="15dp"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginRight="10dp"
-                        android:src="@mipmap/qianjin" />
+
                 </LinearLayout>
             </LinearLayout>
 
@@ -314,12 +308,6 @@
                         android:textColor="#999999"
                         android:textSize="12sp" />
 
-                    <ImageView
-                        android:layout_width="15dp"
-                        android:layout_height="15dp"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginRight="10dp"
-                        android:src="@mipmap/qianjin" />
                 </LinearLayout>
             </LinearLayout>
 

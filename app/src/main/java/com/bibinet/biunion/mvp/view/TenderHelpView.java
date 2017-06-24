@@ -6,5 +6,5 @@ package com.bibinet.biunion.mvp.view;
 
 public interface TenderHelpView extends BaseView {
     void onUpLoadDataSucess();
-    void onUpLoadDataFailed();
+    void onUpLoadDataFailed(String msg);
 }
