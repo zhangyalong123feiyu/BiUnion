@@ -122,7 +122,7 @@ public class MoreProjectActivity extends BaseActivity implements MoreProjectView
     //首页过来之后进行数据加载
     private void loadData(boolean isLoadMore) {
         if (isLoadMore) {
-            adapter.changeMoreStatus(SocailFooterAdapter.LOADING_MORE);
+            adapter.changeMoreStatus(MoreProjectAdapter.LOADING_MORE);
             pageNumb++;
             Log.i("pageNum","moeragenumber________________________"+pageNumb);
         } else {
@@ -236,16 +236,16 @@ public class MoreProjectActivity extends BaseActivity implements MoreProjectView
     public void onLoadSucess(List<ProjectInfoBean.ItemsBean> projectInfos) {
         if (projectInfos.size() == 0) {
             Toast.makeText(this, "没有跟多数据了", Toast.LENGTH_SHORT).show();
-            adapter.changeMoreStatus(SocailFooterAdapter.LOAD_NODATA);
+            adapter.changeMoreStatus(MoreProjectAdapter.LOAD_NODATA);
         }
         projectList = projectInfos;
         if (isLoadMore) {
             if (projectInfos.size() == 0) {
                 moreSwipeRefrsh.setRefreshing(false);
-                adapter.changeMoreStatus(SocailFooterAdapter.PULLUP_LOAD_MORE);
+                adapter.changeMoreStatus(MoreProjectAdapter.PULLUP_LOAD_MORE);
             } else {
                 adapter.addMoreItem(projectList);
-                adapter.changeMoreStatus(SocailFooterAdapter.PULLUP_LOAD_MORE);
+                adapter.changeMoreStatus(MoreProjectAdapter.PULLUP_LOAD_MORE);
             }
         } else {
             adapter = new MoreProjectAdapter(this, projectInfos);

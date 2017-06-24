@@ -37,6 +37,7 @@ public class MoreProjectAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     public static final int PULLUP_LOAD_MORE = 0;
     //正在加载中
     public static final int LOADING_MORE = 1;
+    public static final int LOAD_NODATA = 2;
     public static int Lastposition;
 
     public MoreProjectAdapter(Context context, List<ProjectInfoBean.ItemsBean> socailInfos) {
@@ -111,6 +112,10 @@ public class MoreProjectAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 case LOADING_MORE:
                     progressHolder.textshow.setText("正在加载...");
                     progressHolder.progressBar.setVisibility(View.VISIBLE);
+                    break;
+                case LOAD_NODATA:
+                    progressHolder.textshow.setVisibility(View.GONE);
+                    progressHolder.progressBar.setVisibility(View.GONE);
                     break;
             }
         }

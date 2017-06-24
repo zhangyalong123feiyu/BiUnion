@@ -1,6 +1,5 @@
 package com.bibinet.biunion.project.ui.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -13,14 +12,10 @@ import android.widget.Toast;
 
 import com.bibinet.biunion.R;
 import com.bibinet.biunion.mvp.presenter.FoucsActivityPresenter;
-import com.bibinet.biunion.mvp.presenter.MoreProjectPresenter;
 import com.bibinet.biunion.mvp.view.FoucsActivityView;
 import com.bibinet.biunion.project.adapter.FoucsMyAdapter;
-import com.bibinet.biunion.project.adapter.MoreProjectAdapter;
-import com.bibinet.biunion.project.adapter.SocailFooterAdapter;
 import com.bibinet.biunion.project.application.BaseActivity;
 import com.bibinet.biunion.project.bean.FoucsedBean;
-import com.bibinet.biunion.project.bean.ProjectInfoBean;
 
 import java.util.List;
 
@@ -56,6 +51,7 @@ public class FoucsMyActivity extends BaseActivity implements FoucsActivityView{
         setContentView(R.layout.activity_foucs);
         ButterKnife.bind(this);
         initView();
+        loadData(false);
     }
 
     private void initView() {

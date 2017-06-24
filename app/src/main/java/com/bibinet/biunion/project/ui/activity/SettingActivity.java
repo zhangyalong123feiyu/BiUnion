@@ -1,5 +1,6 @@
 package com.bibinet.biunion.project.ui.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.annotation.Nullable;
@@ -67,6 +68,7 @@ public class SettingActivity extends BaseActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.advicetalk:
+                startActivity(new Intent(this,AdviceProvideActivity.class));
                 break;
             case R.id.clearCache:
                 doClearCache();
