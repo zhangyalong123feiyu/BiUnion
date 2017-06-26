@@ -98,6 +98,7 @@
                     android:layout_height="match_parent"
                     android:gravity="center_vertical"
                     android:paddingLeft="18dp"
+                    android:textColor="#333333"
                     android:text="@string/companyInfo" />
 
                 <View
@@ -137,6 +138,7 @@
                     android:layout_height="match_parent"
                     android:gravity="center_vertical"
                     android:paddingLeft="18dp"
+                    android:textColor="#333333"
                     android:text="@string/privateOdering" />
 
                 <View

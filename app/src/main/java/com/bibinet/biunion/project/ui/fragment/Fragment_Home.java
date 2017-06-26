@@ -22,6 +22,7 @@ import com.bibinet.biunion.mvp.presenter.FragmentHomePresenter;
 import com.bibinet.biunion.mvp.view.FragmentHomeView;
 import com.bibinet.biunion.project.adapter.ProjectInfoAdapterx;
 import com.bibinet.biunion.project.application.Constants;
+import com.bibinet.biunion.project.bean.BannerBean;
 import com.bibinet.biunion.project.bean.ProjectInfoBean;
 import com.bibinet.biunion.project.builder.MyViewPager;
 import com.bibinet.biunion.project.ui.activity.MoreProjectActivity;
@@ -91,6 +92,7 @@ public class Fragment_Home extends Fragment implements FragmentHomeView,View.OnC
     private final int applayProjectInfoType=9;
     private int selectType=5;
     private ProjectInfoAdapterx adapterx;
+    private List<BannerBean.ItemBean> bannerInfoList;
 
     public Fragment_Home() {
         // Required empty public constructor
@@ -147,7 +149,7 @@ public class Fragment_Home extends Fragment implements FragmentHomeView,View.OnC
         });
         loactionUtils = new LoactionUtils(getActivity(), location);
         loactionUtils.startLoaction();
-        BannerUtils bannerUtils = new BannerUtils(getActivity(), viewpager, groupContain, Arrays.asList(Constants.ImageUrls));
+        BannerUtils bannerUtils = new BannerUtils(getActivity(), viewpager, groupContain, bannerInfoList);
         bannerUtils.startPlayBanner();
     }
     private void selectDataSource() {
@@ -258,6 +260,17 @@ public class Fragment_Home extends Fragment implements FragmentHomeView,View.OnC
     public void onLoadFaield(String msg) {
         Log.i("TAG","errormsg+++++++++++++++++"+msg);
     }
+
+    @Override
+    public void onLoadBannerSucess(List<BannerBean.ItemBean> bannerInfo) {
+        bannerInfoList=bannerInfo;
+    }
+
+    @Override
+    public void onLoadBannerFailed() {
+
+    }
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();

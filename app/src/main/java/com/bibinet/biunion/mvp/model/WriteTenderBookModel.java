@@ -1,6 +1,7 @@
 package com.bibinet.biunion.mvp.model;
 
 import com.bibinet.biunion.project.application.Constants;
+import com.bibinet.biunion.project.builder.MyCallBack;
 
 import org.xutils.http.RequestParams;
 import org.xutils.x;
@@ -10,10 +11,15 @@ import org.xutils.x;
  */
 
 public class WriteTenderBookModel {
-    public void upLoadTenderBookData(){
-//        RequestParams requestParams=new RequestParams(Constants.baseUrl+"iip/user/login.json");
-//        requestParams.addBodyParameter("account",account);
-//        requestParams.addBodyParameter("password",password);
-//        x.http().post(requestParams,myCacheCallBack);
+    public void upLoadTenderBookData(String tenderSelection, String projectType, String tenderMode, String tenderType, String contact, String cellPhone, String email,MyCallBack myCallBack){
+        RequestParams requestParams=new RequestParams(Constants.baseUrl+"iip/user/login.json");
+        requestParams.addBodyParameter("tenderSelection",tenderSelection);
+        requestParams.addBodyParameter("projectType",projectType);
+        requestParams.addBodyParameter("tenderMode",tenderMode);
+        requestParams.addBodyParameter("tenderType",tenderType);
+        requestParams.addBodyParameter("contact",contact);
+        requestParams.addBodyParameter("cellPhone",cellPhone);
+        requestParams.addBodyParameter("email",email);
+        x.http().post(requestParams,myCallBack);
     }
 }

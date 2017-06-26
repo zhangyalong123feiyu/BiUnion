@@ -25,7 +25,7 @@ public class Constants {
     public static String[] ImageUrls = {"http://www.bibenet.com/iip-portlet/review?filePath=20175/5/9/31b74a24-3bd5-4ebb-974d-1578709bb0da.jpg",
             "http://www.bibenet.com/iip-portlet/review?filePath=20174/25/18/1805b048-792b-4bea-813f-6da23ea61e78.png",
             "http://www.bibenet.com/iip-portlet/images/banner/a1-03.png",
-            "http://www.bibenet.com/iip-portlet/review?filePath=20174/26/14/ebfd72c5-b14a-47eb-a09a-dc20cae33535.png"
+            "http://www.bibenet.com/iip-portlet/review?filePath=20175/6/14/2b5fc0a0-ef86-4ac5-b33c-692b7901f394.jpg"
     };
     public static String tenderProjectUrl = "http://192.168.1.74:8080/pis/rest/biddingInfos/selectPage.json?";
     public static String projectDataUrl = "http://192.168.1.74:8080/pis/rest/generalProjects/selectPage.json?";

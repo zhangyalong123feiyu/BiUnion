@@ -1,5 +1,6 @@
 package com.bibinet.biunion.mvp.view;
 
+import com.bibinet.biunion.project.bean.BannerBean;
 import com.bibinet.biunion.project.bean.ProjectInfoBean;
 
 import java.util.List;
@@ -11,4 +12,6 @@ import java.util.List;
 public interface FragmentHomeView extends BaseView {
    void onLoadSucess(List<ProjectInfoBean.ItemsBean> projectinfolist);
    void onLoadFaield(String msg);
+   void onLoadBannerSucess(List<BannerBean.ItemBean> bannerInfo);
+   void onLoadBannerFailed();
 }

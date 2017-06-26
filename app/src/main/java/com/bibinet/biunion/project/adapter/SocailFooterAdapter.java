@@ -14,12 +14,14 @@ import android.widget.TextView;
 
 import com.bibinet.biunion.R;
 import com.bibinet.biunion.project.application.Constants;
+import com.bibinet.biunion.project.bean.BannerBean;
 import com.bibinet.biunion.project.bean.ProjectInfoBean;
 import com.bibinet.biunion.project.builder.MyViewPager;
 import com.bibinet.biunion.project.ui.activity.H5Activity;
 import com.bibinet.biunion.project.ui.activity.PlatFormActivity;
 import com.bibinet.biunion.project.utils.BannerUtils;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -49,7 +51,7 @@ public class SocailFooterAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     public static int Lastposition;
     private BannerUtils bannerUtils;
-
+    private List<BannerBean.ItemBean> bannerInfo=new ArrayList<>();
     public SocailFooterAdapter(Context context, List<ProjectInfoBean.ItemsBean> socailInfos) {
         this.context = context;
         this.socailInfos = socailInfos;
@@ -68,6 +70,9 @@ public class SocailFooterAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         }
     }
 
+    public void setBannerUrl(List<BannerBean.ItemBean> bannerInfo){
+        this.bannerInfo=bannerInfo;
+    }
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         //进行判断显示类型，来创建返回不同的View
@@ -136,8 +141,9 @@ public class SocailFooterAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             }
         } else if (holder instanceof HeaderViewHolder) {
             if (bannerUtils==null) {
-                bannerUtils = new BannerUtils(context, ((HeaderViewHolder)holder).viewpager,((HeaderViewHolder)holder).groupContain, Arrays.asList(Constants.ImageUrls));
-                bannerUtils.startPlayBanner();
+              Log.i("TAG",  bannerInfo.size()+"  bannerInfo.size()-----------------------");
+//                bannerUtils = new BannerUtils(context, ((HeaderViewHolder)holder).viewpager,((HeaderViewHolder)holder).groupContain, bannerInfo);
+//                bannerUtils.startPlayBanner();
             		}else {
                 return;
             }

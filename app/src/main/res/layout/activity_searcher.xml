@@ -64,89 +64,50 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="20dp">
-        <CheckBox
+        <TextView
+            android:id="@+id/hotOne"
             android:layout_width="0dp"
             android:layout_weight="1"
-            android:text="招标公告"
             android:button="@null"
             android:gravity="center"
-            android:layout_marginLeft="14dp"
             android:layout_height="match_parent" />
-        <CheckBox
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:text="招标公告"
-            android:gravity="center"
-            android:button="@null"
-            android:layout_height="match_parent" />
-        <CheckBox
+        <TextView
+            android:id="@+id/hotTwo"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="招标公告"
             android:button="@null"
             android:layout_height="match_parent" />
-        <CheckBox
+        <TextView
+            android:id="@+id/hotThree"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="公告"
             android:button="@null"
-            android:layout_height="match_parent" />
-        <CheckBox
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="招标"
-            android:button="@null"
-            android:paddingLeft="14dp"
-            android:layout_height="match_parent" />
-        <CheckBox
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:text="招标公告"
-            android:gravity="center"
-            android:button="@null"
-            android:layout_marginRight="23dp"
             android:layout_height="match_parent" />
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="20dp">
-        <CheckBox
+        <TextView
+            android:id="@+id/hotFour"
             android:layout_width="0dp"
             android:layout_weight="1"
-            android:text="招标公告"
-            android:button="@null"
-            android:gravity="center"
-            android:layout_marginLeft="14dp"
-            android:layout_height="match_parent" />
-        <CheckBox
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:text="招标公告"
             android:gravity="center"
             android:button="@null"
             android:layout_height="match_parent" />
-        <CheckBox
+        <TextView
+            android:id="@+id/hotFive"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="招标公告"
             android:button="@null"
             android:layout_height="match_parent" />
-        <CheckBox
+        <TextView
+            android:id="@+id/hotSix"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="公告"
-            android:button="@null"
-            android:layout_height="match_parent" />
-        <CheckBox
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="招标"
             android:button="@null"
             android:paddingLeft="14dp"
             android:layout_height="match_parent" />
@@ -174,13 +135,7 @@
             android:id="@+id/swipeRefresh"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:visibility="visible">
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/histroyRecrodRecycler"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:visibility="visible" />
-        </android.support.v4.widget.SwipeRefreshLayout>
+            android:visibility="visible"></android.support.v4.widget.SwipeRefreshLayout>
 
 
         <TextView
@@ -193,6 +148,14 @@
             android:textColor="#666666"
             android:visibility="gone"
             android:textSize="12sp" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/histroyRecrodRecycler"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:visibility="visible" />
     </RelativeLayout>
 
     <View

@@ -6,13 +6,16 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bibinet.biunion.R;
+import com.bibinet.biunion.mvp.presenter.HotWordsPresenter;
 import com.bibinet.biunion.mvp.presenter.SearchActivityPresenter;
+import com.bibinet.biunion.mvp.view.HotWordsView;
 import com.bibinet.biunion.mvp.view.SearchActivityView;
 import com.bibinet.biunion.project.adapter.SearchActivityAdapter;
 import com.bibinet.biunion.project.adapter.SocailFooterAdapter;
@@ -30,7 +33,7 @@ import butterknife.OnClick;
  * Created by bibinet on 2017-6-5.
  */
 
-public class SearchActivity extends BaseActivity implements SearchActivityView {
+public class SearchActivity extends BaseActivity implements SearchActivityView, HotWordsView {
     @BindView(R.id.doSearch)
     ImageView doSearch;
     @BindView(R.id.searchEdit)
@@ -43,6 +46,18 @@ public class SearchActivity extends BaseActivity implements SearchActivityView {
     RecyclerView histroyRecrodRecycler;
     @BindView(R.id.swipeRefresh)
     SwipeRefreshLayout swipeRefresh;
+    @BindView(R.id.hotOne)
+    TextView hotOne;
+    @BindView(R.id.hotTwo)
+    TextView hotTwo;
+    @BindView(R.id.hotThree)
+    TextView hotThree;
+    @BindView(R.id.hotFour)
+    TextView hotFour;
+    @BindView(R.id.hotFive)
+    TextView hotFive;
+    @BindView(R.id.hotSix)
+    TextView hotSix;
     private SearchActivityPresenter presenter;
     private List<SearchResultBean.ItemsBean> projectList = new ArrayList<>();
     private SearchActivityAdapter adapter;
@@ -50,6 +65,7 @@ public class SearchActivity extends BaseActivity implements SearchActivityView {
     private int lastvisibleitem;
     private int pageNum;
     private String content;
+    private HotWordsPresenter hotpresenter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -60,9 +76,11 @@ public class SearchActivity extends BaseActivity implements SearchActivityView {
     }
 
     private void initView() {
-        final LinearLayoutManager linearLayoutManager=new LinearLayoutManager(this);
+        final LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         histroyRecrodRecycler.setLayoutManager(linearLayoutManager);
         presenter = new SearchActivityPresenter(this);
+        hotpresenter = new HotWordsPresenter(this);
+        hotpresenter.getHotWords();//热词presenter
         histroyRecrodRecycler.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
@@ -70,9 +88,10 @@ public class SearchActivity extends BaseActivity implements SearchActivityView {
 
                 if (newState == RecyclerView.SCROLL_STATE_IDLE && lastvisibleitem + 1 == adapter.getItemCount()) {
                     loadData(true);
-                    isLoadMore=true;
+                    isLoadMore = true;
                 }
             }
+
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
@@ -80,19 +99,20 @@ public class SearchActivity extends BaseActivity implements SearchActivityView {
             }
         });
     }
+
     private void loadData(boolean isLoadMore) {
         if (isLoadMore) {
             adapter.changeMoreStatus(SocailFooterAdapter.LOADING_MORE);
             pageNum++;
-            Log.i("pageNum","pagenumber________________________"+pageNum);
         } else {
             pageNum = 1;
         }
-        presenter.getSearchData(pageNum,content);
+        presenter.getSearchData(pageNum, content);//搜索presenter
+
     }
+
     @OnClick(R.id.doSearch)
     public void onViewClicked() {
-        Log.i("点击","开始收索________________________"+pageNum);
         content = searchEdit.getText().toString().trim();
         loadData(false);
     }
@@ -133,5 +153,50 @@ public class SearchActivity extends BaseActivity implements SearchActivityView {
     @Override
     public void onSearchFailed(String msg) {
         Log.i("TAG", "searcherror----------" + msg);
+    }
+
+    @Override//加载热词
+    public void onLoadHotWordsSucess(List<String> hotWords) {
+        hotOne.setText(hotWords.get(0));
+        hotTwo.setText(hotWords.get(1));
+        hotThree.setText(hotWords.get(2));
+        hotFour.setText(hotWords.get(3));
+        hotFive.setText(hotWords.get(4));
+        hotSix.setText(hotWords.get(5));
+    }
+
+    @Override
+    public void onLoadHotWordsFailed() {
+
+    }
+
+    @OnClick({R.id.hotOne, R.id.hotTwo, R.id.hotThree, R.id.hotFour, R.id.hotFive, R.id.hotSix})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.hotOne:
+                content=hotOne.getText().toString().trim();
+                loadData(false);
+                break;
+            case R.id.hotTwo:
+                content=hotTwo.getText().toString().trim();
+                loadData(false);
+                break;
+            case R.id.hotThree:
+                content=hotThree.getText().toString().trim();
+                loadData(false);
+                break;
+            case R.id.hotFour:
+                content=hotFour.getText().toString().trim();
+                loadData(false);
+                break;
+            case R.id.hotFive:
+                content=hotFive.getText().toString().trim();
+                loadData(false);
+                break;
+            case R.id.hotSix:
+                content=hotSix.getText().toString().trim();
+                loadData(false);
+                break;
+        }
     }
 }

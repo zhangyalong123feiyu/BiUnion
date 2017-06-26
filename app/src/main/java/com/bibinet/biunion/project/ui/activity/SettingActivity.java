@@ -68,7 +68,7 @@ public class SettingActivity extends BaseActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.advicetalk:
-                startActivity(new Intent(this,AdviceProvideActivity.class));
+                startActivity(new Intent(this,AdviceSubmitActivity.class));
                 break;
             case R.id.clearCache:
                 doClearCache();

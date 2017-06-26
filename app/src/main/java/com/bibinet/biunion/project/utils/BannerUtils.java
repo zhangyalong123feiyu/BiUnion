@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.bibinet.biunion.R;
+import com.bibinet.biunion.project.bean.BannerBean;
 import com.bibinet.biunion.project.builder.MyViewPager;
 import com.bumptech.glide.Glide;
 
@@ -23,11 +24,11 @@ public class BannerUtils {
     private MyViewPager viewPager;
     private boolean isRuning;
     private Context context;
-    private List<String> urls;
+    private List<BannerBean.ItemBean> urls;
     private int lastPosition;
     private LinearLayout groupContain;
 
-    public BannerUtils(Context context, MyViewPager viewPager, LinearLayout groupContain, List<String> urls) {
+    public BannerUtils(Context context, MyViewPager viewPager, LinearLayout groupContain, List<BannerBean.ItemBean> urls) {
         this.viewPager = viewPager;
         this.urls = urls;
         this.groupContain=groupContain;
@@ -114,7 +115,12 @@ public class BannerUtils {
             iv.setScaleType(ImageView.ScaleType.FIT_XY);
             // if (IsNetCanUse){
 //            Glide.with(context).load(ProConstant.ImageUrls[position%(3)]).error(R.mipmap.ic_launcher).into(iv);
-            Glide.with(context).load(urls.get(position%3)).error(R.mipmap.ic_launcher).into(iv);
+            if (urls.size()==0) {
+                Glide.with(context).load("").error(R.mipmap.ic_launcher).into(iv);
+            		}else {
+                Glide.with(context).load(urls.get(position%urls.size())).error(R.mipmap.ic_launcher).into(iv);
+            }
+
             //}
             // iv.setImageBitmap(BitmapFactory.decodeResource(getResources(), pics[position%(pics.length)]));
 

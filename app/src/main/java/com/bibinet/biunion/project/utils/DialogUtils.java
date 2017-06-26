@@ -71,12 +71,12 @@ public class DialogUtils {
         dialogwindow.setAttributes(params);
         dialogwindow.setGravity(Gravity.BOTTOM);
         bottomDialog.getWindow().setAttributes(params);
-        bottomView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialogListioner.onDialogClickListioner(v);
-            }
-        });
+//        bottomView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                dialogListioner.onDialogClickListioner(v);
+//            }
+//        });
     }
     public void disBottomDiaglog(){
         bottomDialog.dismiss();

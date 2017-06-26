@@ -4,6 +4,7 @@ import android.os.Environment;
 
 import com.bibinet.biunion.project.application.Constants;
 import com.bibinet.biunion.project.builder.MyCacheCallBack;
+import com.bibinet.biunion.project.builder.MyCallBack;
 
 import org.xutils.http.RequestParams;
 import org.xutils.x;
@@ -65,5 +66,9 @@ public class FragmentHomeModel {
         requestParams.setCacheSize(1024*1024*30);
         requestParams.setMaxRetryCount(2);
         x.http().post(requestParams,myCacheCallBack);
+    }
+    public void getBannerUrl(MyCallBack myCacheCallBack){
+        RequestParams requestParams=new RequestParams(Constants.baseUrl+"/pis/appData/getHomeImg.json");
+        x.http().get(requestParams,myCacheCallBack);
     }
 }

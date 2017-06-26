@@ -98,14 +98,15 @@
         <activity android:name=".project.ui.activity.CoustomAskActivity" android:screenOrientation="portrait"/>
         <activity android:name=".project.ui.activity.TenderHelpActivity" android:screenOrientation="portrait"/>
         <activity android:name=".project.ui.activity.WriteTenderBook" android:screenOrientation="portrait"/>
-        <activity android:name=".project.ui.activity.TenderHistoryActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".project.ui.activity.WriteTenderHistoryActivity" android:screenOrientation="portrait"/>
         <activity android:name=".project.ui.activity.RegistActivity" android:screenOrientation="portrait"/>
         <activity android:name=".project.ui.activity.PlatFormActivity" android:screenOrientation="portrait"/>
         <activity android:name=".project.ui.activity.AboutOurActivity" android:screenOrientation="portrait"/>
         <activity android:name=".project.ui.activity.ExpertsAnswerActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".project.ui.activity.AdviceProvideActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".project.ui.activity.AdviceSubmitActivity" android:screenOrientation="portrait"/>
         <activity android:name=".project.ui.activity.CustomServiceActivity" android:screenOrientation="portrait"/>
         <activity android:name=".project.ui.activity.ChatActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".project.ui.activity.AskExpertsActivtiy" android:screenOrientation="portrait"/>
 
 
 

@@ -7,12 +7,13 @@ import org.xutils.http.RequestParams;
 import org.xutils.x;
 
 /**
- * Created by bibinet on 2017-6-24.
+ * Created by bibinet on 2017-6-26.
  */
 
-public class AdviceProvideActivityModel {
-    public void upLoadAdvice(String phone,MyCallBack myCacheCallBack){
-        RequestParams requestParams=new RequestParams(Constants.baseUrl+"iip/user/sendLoginSMS.json");
+public class AdiceSubmitActivityModel {
+    public void submitAdvice(String content,String phone,MyCallBack myCacheCallBack){
+        RequestParams requestParams=new RequestParams(Constants.baseUrl+"pis/appFeedBack/apply.json");
+        requestParams.addBodyParameter("content",content);
         requestParams.addBodyParameter("cellPhone",phone);
         x.http().post(requestParams,myCacheCallBack);
     }

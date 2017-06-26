@@ -100,14 +100,13 @@ public class Fragment_My extends Fragment {
             logined.setVisibility(View.GONE);
             noLogin.setVisibility(View.VISIBLE);
         } else {
-            Toast.makeText(getActivity(), "不为空", Toast.LENGTH_SHORT).show();
             logined.setVisibility(View.VISIBLE);
             noLogin.setVisibility(View.GONE);
             userPhotoLogin.setImageResource(R.mipmap.ic_launcher);
-            Log.i("TAG", "name________________________" + Constants.loginresultInfo.getUser().getEnterprise().getName());
-            companyName.setText(Constants.loginresultInfo.getUser().getName());
-            Bitmap bitmap = Base64MapUtils.stringToBitmap(Constants.loginresultInfo.getUser().getImage());
-            userPhotoLogin.setImageBitmap(bitmap);
+                companyName.setText(Constants.loginresultInfo.getUser().getName());
+                Bitmap bitmap = Base64MapUtils.stringToBitmap(Constants.loginresultInfo.getUser().getImage());
+                userPhotoLogin.setImageBitmap(bitmap);
+
         }
     }
 

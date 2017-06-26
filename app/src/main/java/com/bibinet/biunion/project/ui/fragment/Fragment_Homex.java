@@ -24,23 +24,17 @@ import android.widget.Toast;
 import com.bibinet.biunion.R;
 import com.bibinet.biunion.mvp.presenter.FragmentHomePresenter;
 import com.bibinet.biunion.mvp.view.FragmentHomeView;
-import com.bibinet.biunion.project.adapter.ProjectInfoAdapterx;
 import com.bibinet.biunion.project.adapter.SocailFooterAdapter;
-import com.bibinet.biunion.project.application.Constants;
+import com.bibinet.biunion.project.bean.BannerBean;
 import com.bibinet.biunion.project.bean.ProjectInfoBean;
-import com.bibinet.biunion.project.builder.MyViewPager;
 import com.bibinet.biunion.project.ui.activity.MoreProjectActivity;
 import com.bibinet.biunion.project.ui.activity.PrivatePersonDesignActivity;
 import com.bibinet.biunion.project.ui.activity.SearchActivity;
 import com.bibinet.biunion.project.ui.activity.SelectCityActivity;
-import com.bibinet.biunion.project.utils.BannerUtils;
-import com.bibinet.biunion.project.utils.DialogUtils;
 import com.bibinet.biunion.project.utils.HomePopWindowUtils;
 import com.bibinet.biunion.project.utils.LoactionUtils;
-import com.bibinet.biunion.project.utils.Logger;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import butterknife.BindView;
@@ -97,7 +91,7 @@ public class Fragment_Homex extends Fragment implements FragmentHomeView, View.O
     private boolean isLoadMore=false;
     private SocailFooterAdapter adapter;
     private HomePopWindowUtils popWindowUtils;
-
+    private List<BannerBean.ItemBean> bannerInfoList=new ArrayList<>();
     public Fragment_Homex() {
         // Required empty public constructor
     }
@@ -114,8 +108,12 @@ public class Fragment_Homex extends Fragment implements FragmentHomeView, View.O
     }
     private void initView() {
         presenter = new FragmentHomePresenter(this);
+        presenter.getBannerData();
         initRecyclerView();
         adapter = new SocailFooterAdapter(getActivity(), projectList);
+        if (bannerInfoList!=null) {
+            adapter.setBannerUrl(bannerInfoList);
+        }
         projectInfoRecycler.setAdapter(adapter);
        // 定位所需权限
         if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION)!= PackageManager.PERMISSION_GRANTED) {
@@ -184,11 +182,9 @@ public class Fragment_Homex extends Fragment implements FragmentHomeView, View.O
     }
 
     private void loadData(boolean isLoadMore) {
-        Log.i("TAG","loadData");
         if (isLoadMore) {
             adapter.changeMoreStatus(SocailFooterAdapter.LOADING_MORE);
             pageNum++;
-            Log.i("pageNum","pagenumber________________________"+pageNum);
         } else {
             pageNum = 1;
         }
@@ -198,7 +194,6 @@ public class Fragment_Homex extends Fragment implements FragmentHomeView, View.O
     private void selectDataSource() {
         switch (selectType) {
             case projectInfoType:
-                Log.i("TAG",selectType+"selecty========"+detailType+"============"+pageNum+"pagenumber");
                 presenter.LoadHomeDataProjcetInfo(pageNum, detailType);
                 break;
             case tenderProjectInfoType:
@@ -206,6 +201,7 @@ public class Fragment_Homex extends Fragment implements FragmentHomeView, View.O
                 presenter.LoadHomeDataTenderInfo(pageNum, detailType);
                 break;
             case buyProjectInfoType:
+                Log.i("TAG",selectType+"tenderProjectInfoType======="+"selecty========"+detailType+"============"+pageNum+"pagenumber");
                 presenter.LoadHomeDataBuyInfo(pageNum, detailType);
                 break;
             case pProjectInfoType:
@@ -233,12 +229,10 @@ public class Fragment_Homex extends Fragment implements FragmentHomeView, View.O
                 break;
             case R.id.projectNameOne:
                 detailType = 1;
-                Log.i("TAG","projectone------------------------");
                 loadData(false);
                 break;
             case R.id.projectNameTwo:
                 detailType = 2;
-                Log.i("TAG","projecttwo------------------------");
                 loadData(false);
                 break;
             case R.id.projectNameThree:
@@ -305,12 +299,14 @@ public class Fragment_Homex extends Fragment implements FragmentHomeView, View.O
 
     @Override
     public void onLoadSucess(List<ProjectInfoBean.ItemsBean> projectinfoList) {
+
             if (projectinfoList.size()==0) {
                 Toast.makeText(getActivity(),"没有更多数据了",Toast.LENGTH_SHORT).show();
                 adapter.changeMoreStatus(SocailFooterAdapter.LOAD_NODATA);
             		}
-            projectList = projectinfoList;
             if (isLoadMore) {
+                projectList = projectinfoList;
+                Log.i("TAG","LoadMoreprojectListSzie------------------------"+projectinfoList.size());
                 if (projectList.size() == 0) {
                     swipeReresh.setRefreshing(false);
                     adapter.changeMoreStatus(SocailFooterAdapter.PULLUP_LOAD_MORE);
@@ -319,9 +315,14 @@ public class Fragment_Homex extends Fragment implements FragmentHomeView, View.O
                     adapter.changeMoreStatus(SocailFooterAdapter.PULLUP_LOAD_MORE);
                 }
             } else {
+                projectList.clear();
+                projectList = projectinfoList;
+                Log.i("TAG","projectListSzie------------------------"+projectinfoList.size());
                 adapter = new SocailFooterAdapter(getActivity(), projectList);
                 projectInfoRecycler.setAdapter(adapter);
+                adapter.notifyDataSetChanged();
                 swipeReresh.setRefreshing(false);
+
             }
 
         }
@@ -330,6 +331,17 @@ public class Fragment_Homex extends Fragment implements FragmentHomeView, View.O
     public void onLoadFaield(String msg) {
         Toast.makeText(getActivity(),"加载失败",Toast.LENGTH_SHORT).show();
         adapter.changeMoreStatus(SocailFooterAdapter.PULLUP_LOAD_MORE);
+    }
+
+    @Override
+    public void onLoadBannerSucess(List<BannerBean.ItemBean> bannerInfo) {
+        bannerInfoList=bannerInfo;
+        Log.i("TAG",bannerInfo.size()+"onsucess____banner");
+    }
+
+    @Override
+    public void onLoadBannerFailed() {
+
     }
 
     @Override
@@ -343,41 +355,49 @@ public class Fragment_Homex extends Fragment implements FragmentHomeView, View.O
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tenderInfo:
+                projectList.clear();
+                Log.i("TAG","projectList大小--------------"+projectList.size());
                 popWindowUtils.disMissPopWindow();
                 projectInfo.setText(R.string.tenderInfo);
                 projectNameOne.setText("招标公告");
                 projectNameTwo.setText("中标候选人公示");
                 projectNameThree.setText("中标公告");
                 selectType=6;
-                presenter.LoadHomeDataTenderInfo(pageNum, detailType);
+                loadData(false);
                 break;
             case R.id.projectInfo:
+                projectList.clear();
+                Log.i("TAG","projectList大小--------------"+projectList.size());
                 popWindowUtils.disMissPopWindow();
                 projectInfo.setText(R.string.projectInfo);
                 projectNameOne.setText("拟在建项目");
                 projectNameTwo.setText("业主委托项目");
                 projectNameThree.setText("PPP项目");
                 selectType=5;
-                presenter.LoadHomeDataProjcetInfo(pageNum,detailType);
+                loadData(false);
                 break;
             case R.id.buyprojectInfo:
+                projectList.clear();
+                Log.i("TAG","projectList大小--------------"+projectList.size());
                 popWindowUtils.disMissPopWindow();
                 projectInfo.setText(R.string.buyProjectInfo);
                 projectNameOne.setText("政府采购");
                 projectNameTwo.setText("企业采购");
                 projectNameThree.setText("");
                 selectType=7;
-                presenter.LoadHomeDataBuyInfo(pageNum, detailType);
+                loadData(false);
                 break;
             case R.id.provideProjectInfo:
+                projectList.clear();
                 popWindowUtils.disMissPopWindow();
                 projectInfo.setText(R.string.provideProjectInfo);
                 projectNameOne.setText("供应商");
                 projectNameTwo.setText("采购业主");
                 projectNameThree.setText("招标机构");
                 selectType=8;
-                presenter.LoadHomeDataApplayProjectInfo(pageNum, detailType);
+                loadData(false);
                 break;
         }
     }
+
 }

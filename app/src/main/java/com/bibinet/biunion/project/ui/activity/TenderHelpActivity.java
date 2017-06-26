@@ -92,7 +92,6 @@ public class TenderHelpActivity extends BaseActivity implements TenderHelpView {
             		}else {
                     tenderHelpPresenter.upLoadData(contactPerson,contactWay,content);
                 }
-
                 break;
         }
     }

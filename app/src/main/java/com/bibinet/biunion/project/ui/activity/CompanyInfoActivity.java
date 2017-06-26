@@ -156,7 +156,7 @@ public class CompanyInfoActivity extends BaseActivity implements CompanyInfoView
                 String pathImage = cursor.getString(cursor
                         .getColumnIndex(MediaStore.Images.Media.DATA));
                 File file=new File(pathImage);
-                RequestParams requestParams=new RequestParams("http://202.99.212.204:8080/iip/user/uploadFile.json");
+                RequestParams requestParams=new RequestParams(Constants.baseUrl+"iip/user/uploadFile.json");
                 requestParams.addBodyParameter("file",file);
                 x.http().post(requestParams,new MyCallBack(){
                     @Override

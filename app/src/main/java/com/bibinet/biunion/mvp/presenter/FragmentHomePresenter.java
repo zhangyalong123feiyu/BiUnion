@@ -4,8 +4,10 @@ import android.util.Log;
 
 import com.bibinet.biunion.mvp.model.FragmentHomeModel;
 import com.bibinet.biunion.mvp.view.FragmentHomeView;
+import com.bibinet.biunion.project.bean.BannerBean;
 import com.bibinet.biunion.project.bean.ProjectInfoBean;
 import com.bibinet.biunion.project.builder.MyCacheCallBack;
+import com.bibinet.biunion.project.builder.MyCallBack;
 import com.google.gson.Gson;
 
 import java.util.List;
@@ -168,6 +170,25 @@ public class FragmentHomePresenter {
                 List<ProjectInfoBean.ItemsBean> projectinfo_list = projectInfo.getItems();
                 fragmentHomeView.onLoadSucess(projectinfo_list);
                 return super.onCache(s);
+            }
+        });
+    }
+    public void getBannerData(){
+        fragmentHomeModel.getBannerUrl(new MyCallBack(){
+            @Override
+            public void onSuccess(String s) {
+                super.onSuccess(s);
+                Gson gson=new Gson();
+                BannerBean bannerInfo = gson.fromJson(s, BannerBean.class);
+                fragmentHomeView.onLoadBannerSucess(bannerInfo.getItem());
+                Log.i("TAG--bannersucess----",s);
+            }
+
+            @Override
+            public void onError(Throwable throwable, boolean b) {
+                super.onError(throwable, b);
+                fragmentHomeView.onLoadBannerFailed();
+                Log.i("TAG-----banner--err----",throwable.getMessage());
             }
         });
     }
