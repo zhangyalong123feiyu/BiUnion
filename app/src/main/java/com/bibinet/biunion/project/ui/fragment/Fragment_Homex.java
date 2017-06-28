@@ -27,6 +27,7 @@ import com.bibinet.biunion.mvp.view.FragmentHomeView;
 import com.bibinet.biunion.project.adapter.SocailFooterAdapter;
 import com.bibinet.biunion.project.bean.BannerBean;
 import com.bibinet.biunion.project.bean.ProjectInfoBean;
+import com.bibinet.biunion.project.ui.activity.MainActivity;
 import com.bibinet.biunion.project.ui.activity.MoreProjectActivity;
 import com.bibinet.biunion.project.ui.activity.PrivatePersonDesignActivity;
 import com.bibinet.biunion.project.ui.activity.SearchActivity;
@@ -85,13 +86,14 @@ public class Fragment_Homex extends Fragment implements FragmentHomeView, View.O
     private final int buyProjectInfoType = 7;
     private final int pProjectInfoType = 8;
     private final int applayProjectInfoType = 9;
-    private int selectType=6 ;
+    private int selectType = 6;
     private int lastvisibleitem;
     private LinearLayoutManager linearLayoutManager;
-    private boolean isLoadMore=false;
+    private boolean isLoadMore = false;
     private SocailFooterAdapter adapter;
     private HomePopWindowUtils popWindowUtils;
-    private List<BannerBean.ItemBean> bannerInfoList=new ArrayList<>();
+    private List<BannerBean.ItemBean> bannerInfoList = new ArrayList<>();
+
     public Fragment_Homex() {
         // Required empty public constructor
     }
@@ -106,79 +108,46 @@ public class Fragment_Homex extends Fragment implements FragmentHomeView, View.O
         loadData(false);
         return view;
     }
+
     private void initView() {
         presenter = new FragmentHomePresenter(this);
+        adapter = new SocailFooterAdapter(getActivity(), projectList, bannerInfoList);
+        projectInfoRecycler.setAdapter(adapter);
         presenter.getBannerData();
         initRecyclerView();
-        adapter = new SocailFooterAdapter(getActivity(), projectList);
-        if (bannerInfoList!=null) {
-            adapter.setBannerUrl(bannerInfoList);
-        }
-        projectInfoRecycler.setAdapter(adapter);
-       // 定位所需权限
-        if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION)!= PackageManager.PERMISSION_GRANTED) {
-        			requestPermissions(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},111);
-        		}else {
-            loactionUtils = new LoactionUtils(getActivity(), location);
-            loactionUtils.startLoaction();
-        }
-        //写入存储卡权限
-        if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE)!= PackageManager.PERMISSION_GRANTED) {
-            requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},222);
-        }else {
-
-        }
+        loactionUtils = new LoactionUtils(getActivity(), location);
+        loactionUtils.startLoaction();
         doRefresh();
     }
-    public void doRefresh(){
+
+    public void doRefresh() {
+        presenter.getBannerData();
         swipeReresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-               	switch (selectType) {
-               			case 5:
-               				presenter.LoadHomeDataProjcetInfo(1,detailType);
-               				break;
-               			case 6:
-               				presenter.LoadHomeDataTenderInfo(1,detailType);
-               				break;
-               			case 7:
-               				presenter.LoadHomeDataBuyInfo(1,detailType);
-               				break;
-               			case 8:
-               				presenter.LoadHomeDataPProjectInfo(1,detailType);
-               				break;
-               			case 9:
-               				presenter.LoadHomeDataApplayProjectInfo(1,detailType);
-               				break;
+                switch (selectType) {
+                    case 5:
+                        presenter.LoadHomeDataProjcetInfo(1, detailType,false);
+                        break;
+                    case 6:
+                        presenter.LoadHomeDataTenderInfo(1, detailType,false);
+                        break;
+                    case 7:
+                        presenter.LoadHomeDataBuyInfo(1, detailType,false);
+                        break;
+                    case 8:
+                        presenter.LoadHomeDataPProjectInfo(1, detailType,false);
+                        break;
+                    case 9:
+                        presenter.LoadHomeDataApplayProjectInfo(1, detailType,false);
+                        break;
 
-               			default:
-               				break;
-               			}
+                    default:
+                        break;
+                }
 
             }
         });
-    }
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        	switch (requestCode) {
-        			case 111:
-                            if (grantResults[0]!= PackageManager.PERMISSION_GRANTED) {
-                                Toast.makeText(getActivity(),"定位权限开启失败",Toast.LENGTH_SHORT).show();
-                            }else {
-                                loactionUtils = new LoactionUtils(getActivity(), location);
-                                loactionUtils.startLoaction();
-                            }
-        				break;
-                case 222:
-                    if (grantResults[1]!= PackageManager.PERMISSION_GRANTED) {
-                        Toast.makeText(getActivity(),"存储权限开启失败",Toast.LENGTH_SHORT).show();
-                    }
-                    break;
-
-        			default:
-        				break;
-        			}
     }
 
     private void loadData(boolean isLoadMore) {
@@ -188,27 +157,26 @@ public class Fragment_Homex extends Fragment implements FragmentHomeView, View.O
         } else {
             pageNum = 1;
         }
-        selectDataSource();
+        selectDataSource(isLoadMore);
     }
-//选择加载不同的数据类型
-    private void selectDataSource() {
+
+    //选择加载不同的数据类型
+    private void selectDataSource(boolean isLoadMore) {
         switch (selectType) {
             case projectInfoType:
-                presenter.LoadHomeDataProjcetInfo(pageNum, detailType);
+                presenter.LoadHomeDataProjcetInfo(pageNum, detailType,isLoadMore);
                 break;
             case tenderProjectInfoType:
-                Log.i("TAG",selectType+"TenderInfo======="+"selecty========"+detailType+"============"+pageNum+"pagenumber");
-                presenter.LoadHomeDataTenderInfo(pageNum, detailType);
+                presenter.LoadHomeDataTenderInfo(pageNum, detailType,isLoadMore);
                 break;
             case buyProjectInfoType:
-                Log.i("TAG",selectType+"tenderProjectInfoType======="+"selecty========"+detailType+"============"+pageNum+"pagenumber");
-                presenter.LoadHomeDataBuyInfo(pageNum, detailType);
+                presenter.LoadHomeDataBuyInfo(pageNum, detailType,isLoadMore);
                 break;
             case pProjectInfoType:
-                presenter.LoadHomeDataPProjectInfo(pageNum, detailType);
+                presenter.LoadHomeDataPProjectInfo(pageNum, detailType,isLoadMore);
                 break;
             case applayProjectInfoType:
-                presenter.LoadHomeDataApplayProjectInfo(pageNum, detailType);
+                presenter.LoadHomeDataApplayProjectInfo(pageNum, detailType,isLoadMore);
                 break;
             default:
                 break;
@@ -236,13 +204,19 @@ public class Fragment_Homex extends Fragment implements FragmentHomeView, View.O
                 loadData(false);
                 break;
             case R.id.projectNameThree:
-                detailType=3;
+                detailType = 3;
+                if (selectType==5) {
+                  selectType=8;
+                    loadData(false);
+                		}else {
+                    loadData(false);
+                }
                 loadData(false);
                 break;
             case R.id.moreProject:
-                Intent intent=new Intent(getActivity(), MoreProjectActivity.class);
-                intent.putExtra("selectType",String.valueOf(selectType));
-                intent.putExtra("detailType",String.valueOf(detailType));
+                Intent intent = new Intent(getActivity(), MoreProjectActivity.class);
+                intent.putExtra("selectType", String.valueOf(selectType));
+                intent.putExtra("detailType", String.valueOf(detailType));
                 startActivity(intent);
                 break;
             case R.id.homeSearch:
@@ -250,6 +224,7 @@ public class Fragment_Homex extends Fragment implements FragmentHomeView, View.O
                 break;
         }
     }
+
     //弹出选着项目类型对话框
     private void selectProjectType() {
         popWindowUtils = new HomePopWindowUtils(getActivity(), projectInfo);
@@ -267,7 +242,7 @@ public class Fragment_Homex extends Fragment implements FragmentHomeView, View.O
 
     private void initRecyclerView() {
         projectInfoRecycler.setHasFixedSize(true);
-        linearLayoutManager=new LinearLayoutManager(getActivity());
+        linearLayoutManager = new LinearLayoutManager(getActivity());
         projectInfoRecycler.setLayoutManager(linearLayoutManager);
         projectInfoRecycler.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
@@ -276,15 +251,35 @@ public class Fragment_Homex extends Fragment implements FragmentHomeView, View.O
 
                 if (newState == RecyclerView.SCROLL_STATE_IDLE && lastvisibleitem + 1 == adapter.getItemCount()) {
                     loadData(true);
-                    isLoadMore=true;
                 }
             }
+
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
                 lastvisibleitem = linearLayoutManager.findLastVisibleItemPosition();
             }
         });
+    }
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        switch (requestCode) {
+            case 111:
+                if (grantResults[0]!= PackageManager.PERMISSION_GRANTED) {
+                    Toast.makeText(getActivity(),"定位权限开启失败",Toast.LENGTH_SHORT).show();
+                }else {
+                }
+                break;
+            case 222:
+                if (grantResults[1]!= PackageManager.PERMISSION_GRANTED) {
+                    Toast.makeText(getActivity(),"存储权限开启失败",Toast.LENGTH_SHORT).show();
+                }
+                break;
+
+            default:
+                break;
+        }
     }
 
     @Override
@@ -294,49 +289,50 @@ public class Fragment_Homex extends Fragment implements FragmentHomeView, View.O
 
     @Override
     public void hideProgress() {
-    swipeReresh.setRefreshing(false);
+        swipeReresh.setRefreshing(false);
     }
 
     @Override
-    public void onLoadSucess(List<ProjectInfoBean.ItemsBean> projectinfoList) {
-
-            if (projectinfoList.size()==0) {
-                Toast.makeText(getActivity(),"没有更多数据了",Toast.LENGTH_SHORT).show();
-                adapter.changeMoreStatus(SocailFooterAdapter.LOAD_NODATA);
-            		}
-            if (isLoadMore) {
-                projectList = projectinfoList;
-                Log.i("TAG","LoadMoreprojectListSzie------------------------"+projectinfoList.size());
-                if (projectList.size() == 0) {
-                    swipeReresh.setRefreshing(false);
-                    adapter.changeMoreStatus(SocailFooterAdapter.PULLUP_LOAD_MORE);
-                } else {
-                    adapter.addMoreItem(projectList);
-                    adapter.changeMoreStatus(SocailFooterAdapter.PULLUP_LOAD_MORE);
-                }
-            } else {
-                projectList.clear();
-                projectList = projectinfoList;
-                Log.i("TAG","projectListSzie------------------------"+projectinfoList.size());
-                adapter = new SocailFooterAdapter(getActivity(), projectList);
-                projectInfoRecycler.setAdapter(adapter);
-                adapter.notifyDataSetChanged();
-                swipeReresh.setRefreshing(false);
-
-            }
-
+    public void onLoadSucess(List<ProjectInfoBean.ItemsBean> projectinfoList,boolean isLoadMore) {
+        if (projectinfoList.size() == 0) {
+            Toast.makeText(getActivity(), "没有更多数据了", Toast.LENGTH_SHORT).show();
+            adapter.changeMoreStatus(SocailFooterAdapter.LOAD_NODATA);
         }
+        if (isLoadMore) {
+        			Log.i("TAG","isloadmore===========true");
+        		}else {
+            Log.i("TAG","islomore========false");
+        }
+        if (isLoadMore) {
+            projectList.addAll(projectinfoList);
+            if (projectList.size() == 0) {
+                swipeReresh.setRefreshing(false);
+                adapter.changeMoreStatus(SocailFooterAdapter.PULLUP_LOAD_MORE);
+            } else {
+                adapter.addMoreItem(projectList);
+                adapter.changeMoreStatus(SocailFooterAdapter.PULLUP_LOAD_MORE);
+            }
+        } else {
+            projectList.clear();
+            projectList.addAll(projectinfoList);
+            adapter = new SocailFooterAdapter(getActivity(), projectList, bannerInfoList);
+            projectInfoRecycler.setAdapter(adapter);
+            swipeReresh.setRefreshing(false);
+        }
+
+    }
 
     @Override
     public void onLoadFaield(String msg) {
-        Toast.makeText(getActivity(),"加载失败",Toast.LENGTH_SHORT).show();
+        Toast.makeText(getActivity(), "加载失败", Toast.LENGTH_SHORT).show();
         adapter.changeMoreStatus(SocailFooterAdapter.PULLUP_LOAD_MORE);
     }
 
     @Override
     public void onLoadBannerSucess(List<BannerBean.ItemBean> bannerInfo) {
-        bannerInfoList=bannerInfo;
-        Log.i("TAG",bannerInfo.size()+"onsucess____banner");
+        bannerInfoList = bannerInfo;
+        adapter = new SocailFooterAdapter(getActivity(), projectList, bannerInfo);
+        projectInfoRecycler.setAdapter(adapter);
     }
 
     @Override
@@ -355,49 +351,45 @@ public class Fragment_Homex extends Fragment implements FragmentHomeView, View.O
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tenderInfo:
-                projectList.clear();
-                Log.i("TAG","projectList大小--------------"+projectList.size());
                 popWindowUtils.disMissPopWindow();
                 projectInfo.setText(R.string.tenderInfo);
                 projectNameOne.setText("招标公告");
                 projectNameTwo.setText("中标候选人公示");
                 projectNameThree.setText("中标公告");
-                selectType=6;
+                selectType = 6;
+                detailType=1;
                 loadData(false);
                 break;
             case R.id.projectInfo:
-                projectList.clear();
-                Log.i("TAG","projectList大小--------------"+projectList.size());
                 popWindowUtils.disMissPopWindow();
                 projectInfo.setText(R.string.projectInfo);
                 projectNameOne.setText("拟在建项目");
                 projectNameTwo.setText("业主委托项目");
                 projectNameThree.setText("PPP项目");
-                selectType=5;
+                selectType = 5;
+                detailType=1;
                 loadData(false);
                 break;
             case R.id.buyprojectInfo:
-                projectList.clear();
-                Log.i("TAG","projectList大小--------------"+projectList.size());
                 popWindowUtils.disMissPopWindow();
                 projectInfo.setText(R.string.buyProjectInfo);
                 projectNameOne.setText("政府采购");
                 projectNameTwo.setText("企业采购");
                 projectNameThree.setText("");
-                selectType=7;
+                selectType = 7;
+                detailType=1;
                 loadData(false);
                 break;
             case R.id.provideProjectInfo:
-                projectList.clear();
                 popWindowUtils.disMissPopWindow();
                 projectInfo.setText(R.string.provideProjectInfo);
                 projectNameOne.setText("供应商");
                 projectNameTwo.setText("采购业主");
                 projectNameThree.setText("招标机构");
-                selectType=8;
+                selectType = 8;
+                detailType=1;
                 loadData(false);
                 break;
         }
     }
-
 }

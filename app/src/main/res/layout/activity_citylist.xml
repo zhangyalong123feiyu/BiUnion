@@ -15,7 +15,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="48dp"
-            android:background="#FFFFFF"
+            android:background="#F9C432"
             android:id="@+id/rl_head"
             >
 
@@ -27,7 +27,7 @@
                 android:paddingLeft="16dp"
                 android:paddingRight="16dp"
                 android:scaleType="center"
-                android:src="@mipmap/ic_launcher"
+                android:src="@mipmap/denglu_fanhui"
                 tools:ignore="ContentDescription" />
 
             <TextView
@@ -35,7 +35,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:text="城市选择"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
                 android:textSize="20sp" />
         </RelativeLayout>
 
@@ -53,14 +53,6 @@
         android:focusable="true"
         android:focusableInTouchMode="true"
         >
-
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/rv"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@android:color/white"
-            ></android.support.v7.widget.RecyclerView>
 
 
         <com.bibinet.biunion.project.utils.cityselectutil.IndexBar
@@ -96,6 +88,12 @@
             android:dividerHeight="0dp"
             android:listSelector="@android:color/transparent"
             android:visibility="gone" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/white"></android.support.v7.widget.RecyclerView>
 
 
     </FrameLayout>

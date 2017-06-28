@@ -22,6 +22,7 @@ import com.bibinet.biunion.project.ui.activity.AboutOurActivity;
 import com.bibinet.biunion.project.ui.activity.CompanyInfoActivity;
 import com.bibinet.biunion.project.ui.activity.FoucsMyActivity;
 import com.bibinet.biunion.project.ui.activity.LoginActivity;
+import com.bibinet.biunion.project.ui.activity.PrivatePersonDesignActivity;
 import com.bibinet.biunion.project.ui.activity.RegistActivity;
 import com.bibinet.biunion.project.ui.activity.SettingActivity;
 import com.bibinet.biunion.project.utils.cityselectutil.Base64MapUtils;
@@ -124,13 +125,15 @@ public class Fragment_My extends Fragment {
                 startActivity(new Intent(getActivity(), CompanyInfoActivity.class));
                 break;
             case R.id.privateOdering:
+                startActivity(new Intent(getActivity(), PrivatePersonDesignActivity.class));
                 break;
             case R.id.foucsMy:
                 startActivity(new Intent(getActivity(), FoucsMyActivity.class));
                 break;
             case R.id.aboutOur:
-                startActivity(new Intent(getActivity(), AboutOurActivity.class));
-                break;
+                return;
+//                startActivity(new Intent(getActivity(), AboutOurActivity.class));
+//                break;
             case R.id.rigestBtn:
                 startActivity(new Intent(getActivity(), RegistActivity.class));
                 break;

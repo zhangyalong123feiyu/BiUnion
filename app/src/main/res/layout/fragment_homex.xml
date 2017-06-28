@@ -16,9 +16,9 @@
         android:orientation="horizontal">
 
         <LinearLayout
-            android:layout_width="0dp"
+            android:layout_marginRight="5dp"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_weight="1"
             android:orientation="horizontal">
 
             <TextView
@@ -37,8 +37,8 @@
                 android:layout_width="11dp"
                 android:layout_height="7dp"
                 android:layout_gravity="center_vertical"
-                android:layout_marginLeft="6dp"
-                android:src="@mipmap/down_location" />
+                android:layout_marginLeft="7dp"
+                android:src="@mipmap/img_spring_down" />
         </LinearLayout>
         <LinearLayout
             android:layout_width="0dp"

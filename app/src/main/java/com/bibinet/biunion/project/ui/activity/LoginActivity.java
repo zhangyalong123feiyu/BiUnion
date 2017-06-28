@@ -3,7 +3,9 @@ package com.bibinet.biunion.project.ui.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.InputType;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -33,8 +35,6 @@ import butterknife.OnClick;
 public class LoginActivity extends BaseActivity implements LoginView{
     @BindView(R.id.title)
     TextView title;
-    @BindView(R.id.title_imageright)
-    TextView titleImageright;
     @BindView(R.id.title_imageleft)
     ImageView titleImageleft;
     @BindView(R.id.imageView2)
@@ -50,6 +50,7 @@ public class LoginActivity extends BaseActivity implements LoginView{
     @BindView(R.id.fastLogin)
     Button fastLogin;
     private DialogUtils dialogUtils;
+    private boolean ispasswordvisible;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -64,7 +65,7 @@ public class LoginActivity extends BaseActivity implements LoginView{
         dialogUtils=new DialogUtils();
     }
 
-    @OnClick({R.id.title_imageleft, R.id.btn_login, R.id.fastLogin})
+    @OnClick({R.id.title_imageleft, R.id.btn_login, R.id.fastLogin,R.id.seePasswrod})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.title_imageleft:
@@ -76,6 +77,21 @@ public class LoginActivity extends BaseActivity implements LoginView{
             case R.id.fastLogin:
                 startActivity(new Intent(LoginActivity.this, FastLoginActivity.class));
                 break;
+            case R.id.seePasswrod:
+                hideOrShowPassword();
+                break;
+        }
+    }
+    //隐藏或者显示密码
+    private void hideOrShowPassword() {
+        if (ispasswordvisible) {
+            ispasswordvisible = false;
+            inputPassword.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+            inputPassword.setSelection(inputPassword.getText().toString().length());
+        } else {
+            ispasswordvisible = true;
+            inputPassword.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+            inputPassword.setSelection(inputPassword.getText().toString().length());
         }
     }
 

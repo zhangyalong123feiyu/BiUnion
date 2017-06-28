@@ -7,4 +7,6 @@ package com.bibinet.biunion.mvp.view;
 public interface H5ActivityView extends BaseView {
     void onCollectoinSucess();
     void onCollectionFailed(String msg);
+    void onCancelFoucsSucess();
+    void onCancelFoucsFailed();
 }

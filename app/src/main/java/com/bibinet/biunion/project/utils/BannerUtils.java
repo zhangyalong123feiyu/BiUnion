@@ -62,10 +62,15 @@ public class BannerUtils {
            }
            @Override
            public void onPageSelected(int position) {
-               position = position % (urls.size());
-               groupContain.getChildAt(position).setEnabled(true);
-               groupContain.getChildAt(lastPosition).setEnabled(false);
-               lastPosition = position;
+               if (urls.size()==0) {
+                   return;
+               		}else {
+                   position = position % (urls.size());
+                   groupContain.getChildAt(position).setEnabled(true);
+                   groupContain.getChildAt(lastPosition).setEnabled(false);
+                   lastPosition = position;
+               }
+
            }
            @Override
            public void onPageScrollStateChanged(int state) {
@@ -113,16 +118,11 @@ public class BannerUtils {
             // TODO Auto-generated method stub
             ImageView iv=new ImageView(context);
             iv.setScaleType(ImageView.ScaleType.FIT_XY);
-            // if (IsNetCanUse){
-//            Glide.with(context).load(ProConstant.ImageUrls[position%(3)]).error(R.mipmap.ic_launcher).into(iv);
             if (urls.size()==0) {
-                Glide.with(context).load("").error(R.mipmap.ic_launcher).into(iv);
+                Glide.with(context).load("").error(R.mipmap.banner_nowifi).into(iv);
             		}else {
-                Glide.with(context).load(urls.get(position%urls.size())).error(R.mipmap.ic_launcher).into(iv);
+                Glide.with(context).load(urls.get(position%(urls.size())).getImgUrl()).error(R.mipmap.banner_nowifi).into(iv);
             }
-
-            //}
-            // iv.setImageBitmap(BitmapFactory.decodeResource(getResources(), pics[position%(pics.length)]));
 
             container.addView(iv);
             iv.setOnClickListener(new View.OnClickListener() {

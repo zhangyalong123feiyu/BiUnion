@@ -15,18 +15,20 @@ import com.bibinet.biunion.mvp.presenter.FoucsActivityPresenter;
 import com.bibinet.biunion.mvp.view.FoucsActivityView;
 import com.bibinet.biunion.project.adapter.FoucsMyAdapter;
 import com.bibinet.biunion.project.application.BaseActivity;
+import com.bibinet.biunion.project.application.Constants;
 import com.bibinet.biunion.project.bean.FoucsedBean;
 
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by bibinet on 2017-6-10.
  */
 
-public class FoucsMyActivity extends BaseActivity implements FoucsActivityView{
+public class FoucsMyActivity extends BaseActivity implements FoucsActivityView {
     @BindView(R.id.title)
     TextView title;
     @BindView(R.id.title_imageright)
@@ -55,24 +57,27 @@ public class FoucsMyActivity extends BaseActivity implements FoucsActivityView{
     }
 
     private void initView() {
+        String userId = Constants.loginresultInfo.getUser().getUserId();
         title.setText("我的关注");
         titleImageleft.setVisibility(View.VISIBLE);
-        presenter=new FoucsActivityPresenter(this);
-        presenter.getFoucsData(100761,1);
+        presenter = new FoucsActivityPresenter(this);
+
+        presenter.getFoucsData(Integer.parseInt(userId), 1);
         foucsRecyclerView.setHasFixedSize(true);
-        linearLayoutManager=new LinearLayoutManager(this);
+        linearLayoutManager = new LinearLayoutManager(this);
         foucsRecyclerView.setLayoutManager(linearLayoutManager);
         foucsRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
-                if (adapter!=null) {
+                if (adapter != null) {
                     if (newState == RecyclerView.SCROLL_STATE_IDLE && lastvisibleitem + 1 == adapter.getItemCount()) {
                         loadData(true);
-                        isLoadMore=true;
+                        isLoadMore = true;
                     }
                 }
             }
+
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
@@ -80,15 +85,20 @@ public class FoucsMyActivity extends BaseActivity implements FoucsActivityView{
             }
         });
     }
+    @OnClick(R.id.title_imageleft)
+    public void onViewClicked() {
+        finish();
+    }
     private void loadData(boolean isLoadMore) {
         if (isLoadMore) {
             adapter.changeMoreStatus(FoucsMyAdapter.LOADING_MORE);
             pageNumb++;
-            Log.i("pageNum","moeragenumber________________________"+pageNumb);
+            Log.i("pageNum", "moeragenumber________________________" + pageNumb);
         } else {
             pageNumb = 1;
         }
     }
+
     @Override
     public void showProgress() {
 
@@ -114,7 +124,7 @@ public class FoucsMyActivity extends BaseActivity implements FoucsActivityView{
                 adapter.changeMoreStatus(FoucsMyAdapter.PULLUP_LOAD_MORE);
             }
         } else {
-            adapter = new FoucsMyAdapter(this,projectList );
+            adapter = new FoucsMyAdapter(this, projectList);
             foucsRecyclerView.setAdapter(adapter);
         }
     }
@@ -123,4 +133,6 @@ public class FoucsMyActivity extends BaseActivity implements FoucsActivityView{
     public void onLoadFoucsDataFailed() {
 
     }
+
+
 }

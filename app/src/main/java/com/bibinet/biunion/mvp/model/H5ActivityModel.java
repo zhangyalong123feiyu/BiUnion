@@ -18,4 +18,10 @@ public class H5ActivityModel {
         requestParams.addBodyParameter("type",String.valueOf(type));
         x.http().post(requestParams,myCacheCallBack);
     }
+    public void cancelFoucs(int userId,String relatedCode,MyCallBack myCallBack){
+        RequestParams requestParams=new RequestParams(Constants.baseUrl+"pis/appCollection/cancellCollect.json");
+        requestParams.addBodyParameter("userId",String.valueOf(userId));
+        requestParams.addBodyParameter("relatedCode",relatedCode);
+        x.http().post(requestParams,myCallBack);
+    }
 }

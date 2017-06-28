@@ -22,6 +22,7 @@ import com.bibinet.biunion.project.application.BaseActivity;
 import com.bibinet.biunion.project.application.Constants;
 import com.bibinet.biunion.project.builder.MyCallBack;
 import com.bibinet.biunion.project.utils.DialogUtils;
+import com.bumptech.glide.Glide;
 
 import org.xutils.http.RequestParams;
 import org.xutils.x;
@@ -81,10 +82,14 @@ public class CompanyInfoActivity extends BaseActivity implements CompanyInfoView
     protected void onStart() {
         super.onStart();
         if (Constants.loginresultInfo!=null) {
-            inputCompanyName.setText(Constants.loginresultInfo.getUser().getEnterprise().getName());
-            inputArea.setText(Constants.loginresultInfo.getUser().getEnterprise().getAddress().getAddr());
+            inputCompanyName.setText(Constants.loginresultInfo.getUser().getEnterprise().getEnterpriseName());
+            inputArea.setText(Constants.loginresultInfo.getUser().getEnterprise().getAddr());
             inputContactPerson.setText(Constants.loginresultInfo.getUser().getEnterprise().getContactName());
-            inputCreditCode.setText(Constants.loginresultInfo.getUser().getEnterprise().getCode());
+            inputCreditCode.setText(Constants.loginresultInfo.getUser().getEnterprise().getUSCCode());
+            inputArea.setText(Constants.loginresultInfo.getUser().getEnterprise().getRegion());
+            inputDetailAddress.setText(Constants.loginresultInfo.getUser().getEnterprise().getRegion());
+            inputContactPerson.setText(Constants.loginresultInfo.getUser().getEnterprise().getContactCellphone());
+            Glide.with(this).load(Constants.loginresultInfo.getUser().getEnterprise().getTradingCertificateURL()).error(R.mipmap.banner_nowifi).into(businessImage);
         		}else {
             return;
         }

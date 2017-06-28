@@ -8,6 +8,7 @@ import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -32,10 +33,11 @@ public class GuideActivity extends BaseActivity {
     Button btnStart;
     @BindView(R.id.guide_container)
     LinearLayout guideContainer;
-    private int[] photos={R.mipmap.ic_launcher,R.mipmap.ic_launcher,R.mipmap.ic_launcher,R.mipmap.ic_launcher};
+    private int[] photos={R.mipmap.yindaoye1,R.mipmap.yindaoye2,R.mipmap.yindaoye3,R.mipmap.yindaoye4};
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);  // 隐藏状态栏
         setContentView(R.layout.activity_guide);
         ButterKnife.bind(this);
         setpagerIndacter();

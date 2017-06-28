@@ -1,13 +1,15 @@
 package com.bibinet.biunion.project.ui.activity;
 
+import android.Manifest;
 import android.app.Notification;
 import android.content.IntentFilter;
-import android.graphics.Color;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.content.LocalBroadcastManager;
-import android.util.Log;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -19,13 +21,11 @@ import com.bibinet.biunion.project.application.Constants;
 import com.bibinet.biunion.project.bean.LoginResultBean;
 import com.bibinet.biunion.project.builder.JPushReciver;
 import com.bibinet.biunion.project.ui.fragment.Fragment_Ask;
-import com.bibinet.biunion.project.ui.fragment.Fragment_Focus;
-import com.bibinet.biunion.project.ui.fragment.Fragment_Home;
+//import com.bibinet.biunion.project.ui.fragment.Fragment_Home;
 import com.bibinet.biunion.project.ui.fragment.Fragment_Homex;
 import com.bibinet.biunion.project.ui.fragment.Fragment_My;
 import com.bibinet.biunion.project.utils.SharedPresUtils;
 import com.google.gson.Gson;
-import com.jaeger.library.StatusBarUtil;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -48,7 +48,6 @@ public class MainActivity extends BaseActivity {
     private Fragment[] fragments = new Fragment[3];
     private Fragment_Ask fragment_Ask;
     private Fragment_My fragment_My;
-    private Fragment_Focus fragment_Focus;
 
     private RelativeLayout[] mTabs;
     private int index;
@@ -72,6 +71,21 @@ public class MainActivity extends BaseActivity {
         registerMessageReceiver();
     }
     private void initView() {
+
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+            // 定位所需权限
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)!= PackageManager.PERMISSION_GRANTED) {
+                requestPermissions(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},111);
+            }else {
+            }
+            //写入存储卡权限
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)!= PackageManager.PERMISSION_GRANTED) {
+                requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},222);
+            }else {
+
+            }
+        }
+
         SharedPresUtils sharedPresUtils=SharedPresUtils.getsSharedPresUtils(this);
         String loginString = sharedPresUtils.getString("loginResultData", null);
         Gson gson=new Gson();
@@ -79,12 +93,10 @@ public class MainActivity extends BaseActivity {
         framentHome = new Fragment_Homex();
         fragment_Ask = new Fragment_Ask();
         fragment_My = new Fragment_My();
-        fragment_Focus = new Fragment_Focus();
         fragments = new Fragment[]{framentHome,fragment_Ask, fragment_My};
         mTabs = new RelativeLayout[]{bottomhome,bottomask, bottomy};
         mTabs[0].setSelected(true);
         getSupportFragmentManager().beginTransaction().add(R.id.fragementcontainer, framentHome).show(framentHome).
-//                add(R.id.fragementcontainer, fragment_Focus).hide(fragment_Focus).
                 add(R.id.fragementcontainer, fragment_Ask).hide(fragment_Ask).add(R.id.fragementcontainer, fragment_My).hide(fragment_My)
                 .commit();
     }
@@ -96,15 +108,12 @@ public class MainActivity extends BaseActivity {
         filter.addAction(MESSAGE_RECEIVED_ACTION);
         LocalBroadcastManager.getInstance(this).registerReceiver(jPushReciver, filter);
     }
-    @OnClick({R.id.bottomhome, R.id.bottomask, R.id.bottomy/*,R.id.bottomFoucs*/})
+    @OnClick({R.id.bottomhome, R.id.bottomask, R.id.bottomy})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.bottomhome:
                 index = 0;
                 break;
-//            case R.id.bottomFoucs:
-//                index = 1;
-//                break;
             case R.id.bottomask:
                 index = 1;
                 break;

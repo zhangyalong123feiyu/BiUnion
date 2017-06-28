@@ -23,7 +23,7 @@ public class FragmentHomePresenter {
         this.fragmentHomeView = fragmentHomeView;
         this.fragmentHomeModel=new FragmentHomeModel();
     }
-    public void LoadHomeDataProjcetInfo(int pageNum,int type){
+    public void LoadHomeDataProjcetInfo(int pageNum, int type, final boolean isLoadMore){
         fragmentHomeView.showProgress();
         fragmentHomeModel.LoadHomeDataProjectInfo(pageNum,type,new MyCacheCallBack(){
             @Override
@@ -32,7 +32,7 @@ public class FragmentHomePresenter {
                 Gson gson=new Gson();
                 ProjectInfoBean projectInfo = gson.fromJson(s, ProjectInfoBean.class);
                 List<ProjectInfoBean.ItemsBean> projectinfo_list = projectInfo.getItems();
-                fragmentHomeView.onLoadSucess(projectinfo_list);
+                fragmentHomeView.onLoadSucess(projectinfo_list,isLoadMore);
                 fragmentHomeView.hideProgress();
             }
             @Override
@@ -46,12 +46,12 @@ public class FragmentHomePresenter {
                 Gson gson=new Gson();
                 ProjectInfoBean projectInfo = gson.fromJson(s, ProjectInfoBean.class);
                 List<ProjectInfoBean.ItemsBean> projectinfo_list = projectInfo.getItems();
-                fragmentHomeView.onLoadSucess(projectinfo_list);
+                fragmentHomeView.onLoadSucess(projectinfo_list,isLoadMore);
                 return super.onCache(s);
             }
         });
     }
-    public void LoadHomeDataTenderInfo(int pageNum,int type){
+    public void LoadHomeDataTenderInfo(int pageNum, int type, final boolean isLoadMore){
         fragmentHomeView.showProgress();
         fragmentHomeModel.LoadHomeDataTenderInfo(pageNum,type,new MyCacheCallBack(){
             @Override
@@ -60,7 +60,7 @@ public class FragmentHomePresenter {
                 Gson gson=new Gson();
                 ProjectInfoBean projectInfo = gson.fromJson(s, ProjectInfoBean.class);
                 List<ProjectInfoBean.ItemsBean> projectinfo_list = projectInfo.getItems();
-                fragmentHomeView.onLoadSucess(projectinfo_list);
+                fragmentHomeView.onLoadSucess(projectinfo_list,isLoadMore);
                 fragmentHomeView.hideProgress();
                 Log.i("TAG","fragementhomedata--------"+projectinfo_list.size());
             }
@@ -76,12 +76,12 @@ public class FragmentHomePresenter {
                 Gson gson=new Gson();
                 ProjectInfoBean projectInfo = gson.fromJson(s, ProjectInfoBean.class);
                 List<ProjectInfoBean.ItemsBean> projectinfo_list = projectInfo.getItems();
-                fragmentHomeView.onLoadSucess(projectinfo_list);
+                fragmentHomeView.onLoadSucess(projectinfo_list,isLoadMore);
                 return super.onCache(s);
             }
         });
     }
-    public void LoadHomeDataBuyInfo(int pageNum,int type){
+    public void LoadHomeDataBuyInfo(int pageNum, int type, final boolean isLoadMore){
         fragmentHomeView.showProgress();
         fragmentHomeModel.LoadHomeDataBuyInfo(pageNum,type,new MyCacheCallBack(){
             @Override
@@ -90,7 +90,7 @@ public class FragmentHomePresenter {
                 Gson gson=new Gson();
                 ProjectInfoBean projectInfo = gson.fromJson(s, ProjectInfoBean.class);
                 List<ProjectInfoBean.ItemsBean> projectinfo_list = projectInfo.getItems();
-                fragmentHomeView.onLoadSucess(projectinfo_list);
+                fragmentHomeView.onLoadSucess(projectinfo_list,isLoadMore);
                 fragmentHomeView.hideProgress();
                 Log.i("TAG","fragementhomedata--------"+projectinfo_list.size());
             }
@@ -106,12 +106,12 @@ public class FragmentHomePresenter {
                 Gson gson=new Gson();
                 ProjectInfoBean projectInfo = gson.fromJson(s, ProjectInfoBean.class);
                 List<ProjectInfoBean.ItemsBean> projectinfo_list = projectInfo.getItems();
-                fragmentHomeView.onLoadSucess(projectinfo_list);
+                fragmentHomeView.onLoadSucess(projectinfo_list,isLoadMore);
                 return super.onCache(s);
             }
         });
     }
-    public void LoadHomeDataPProjectInfo(int pageNum,int type){
+    public void LoadHomeDataPProjectInfo(int pageNum, int type, final boolean isLoadMore){
         fragmentHomeView.showProgress();
         fragmentHomeModel.LoadHomeDataPpProjectInfo(pageNum,type,new MyCacheCallBack(){
             @Override
@@ -120,7 +120,7 @@ public class FragmentHomePresenter {
                 Gson gson=new Gson();
                 ProjectInfoBean projectInfo = gson.fromJson(s, ProjectInfoBean.class);
                 List<ProjectInfoBean.ItemsBean> projectinfo_list = projectInfo.getItems();
-                fragmentHomeView.onLoadSucess(projectinfo_list);
+                fragmentHomeView.onLoadSucess(projectinfo_list,isLoadMore);
                 fragmentHomeView.hideProgress();
                 Log.i("TAG","fragementhomedata--------"+projectinfo_list.size());
             }
@@ -137,12 +137,12 @@ public class FragmentHomePresenter {
                 Gson gson=new Gson();
                 ProjectInfoBean projectInfo = gson.fromJson(s, ProjectInfoBean.class);
                 List<ProjectInfoBean.ItemsBean> projectinfo_list = projectInfo.getItems();
-                fragmentHomeView.onLoadSucess(projectinfo_list);
+                fragmentHomeView.onLoadSucess(projectinfo_list,isLoadMore);
                 return super.onCache(s);
             }
         });
     }
-    public void LoadHomeDataApplayProjectInfo(int pageNum,int type){
+    public void LoadHomeDataApplayProjectInfo(int pageNum, int type, final boolean isLoadmore){
         fragmentHomeView.showProgress();
         fragmentHomeModel.LoadHomeDataApplayProjectInfo(pageNum,type,new MyCacheCallBack(){
             @Override
@@ -151,7 +151,7 @@ public class FragmentHomePresenter {
                 Gson gson=new Gson();
                 ProjectInfoBean projectInfo = gson.fromJson(s, ProjectInfoBean.class);
                 List<ProjectInfoBean.ItemsBean> projectinfo_list = projectInfo.getItems();
-                fragmentHomeView.onLoadSucess(projectinfo_list);
+                fragmentHomeView.onLoadSucess(projectinfo_list,isLoadmore);
                 fragmentHomeView.hideProgress();
                 Log.i("TAG","fragementhomedata--------"+projectinfo_list.size());
             }
@@ -168,7 +168,7 @@ public class FragmentHomePresenter {
                 Gson gson=new Gson();
                 ProjectInfoBean projectInfo = gson.fromJson(s, ProjectInfoBean.class);
                 List<ProjectInfoBean.ItemsBean> projectinfo_list = projectInfo.getItems();
-                fragmentHomeView.onLoadSucess(projectinfo_list);
+                fragmentHomeView.onLoadSucess(projectinfo_list,isLoadmore);
                 return super.onCache(s);
             }
         });
@@ -181,14 +181,12 @@ public class FragmentHomePresenter {
                 Gson gson=new Gson();
                 BannerBean bannerInfo = gson.fromJson(s, BannerBean.class);
                 fragmentHomeView.onLoadBannerSucess(bannerInfo.getItem());
-                Log.i("TAG--bannersucess----",s);
             }
 
             @Override
             public void onError(Throwable throwable, boolean b) {
                 super.onError(throwable, b);
                 fragmentHomeView.onLoadBannerFailed();
-                Log.i("TAG-----banner--err----",throwable.getMessage());
             }
         });
     }

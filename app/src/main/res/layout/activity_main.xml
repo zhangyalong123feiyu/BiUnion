@@ -9,7 +9,7 @@
         android:id="@+id/linearbottom"
         android:layout_width="match_parent"
         android:layout_height="49dp"
-        android:background="@color/lightgray"
+        android:background="#F4F4F4"
         android:layout_alignParentBottom="true"
         android:orientation="horizontal">
         <RelativeLayout

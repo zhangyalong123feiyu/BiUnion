@@ -96,12 +96,20 @@ public class H5Activity extends BaseActivity implements H5ActivityView{
        				break;
 
        			case R.id.title_imageright:/*客服*/
-
+                    startActivity(new Intent(this, ChatActivity.class));
        				break;
 
        			case R.id.title_imageRightFoucs:/*关注*/
                     Log.i("TAG","点击关注");
+                    if (titleImageRightFoucs.isSelected()) {
+                    			titleImageRightFoucs.setSelected(false);
+                            h5ActivityPresenter.cancelFoucs(100761,projectCode);
+                    		}else
+                    		    {
+                    titleImageRightFoucs.setSelected(true);
                     h5ActivityPresenter.collctionData(100761,projectCode,1);
+                }
+
        				break;
 
        			default:
@@ -140,5 +148,15 @@ public class H5Activity extends BaseActivity implements H5ActivityView{
     public void onCollectionFailed(String msg) {
         Toast.makeText(this,"收藏失败",Toast.LENGTH_SHORT).show();
         Log.i("TAG","shibaishoucang"+msg);
+    }
+
+    @Override
+    public void onCancelFoucsSucess() {
+        Toast.makeText(this,"取消收藏成功",Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onCancelFoucsFailed() {
+        Toast.makeText(this,"取消收藏失败",Toast.LENGTH_SHORT).show();
     }
 }

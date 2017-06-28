@@ -44,8 +44,6 @@ public class SearchActivity extends BaseActivity implements SearchActivityView, 
     TextView noResult;
     @BindView(R.id.histroyRecrodRecycler)
     RecyclerView histroyRecrodRecycler;
-    @BindView(R.id.swipeRefresh)
-    SwipeRefreshLayout swipeRefresh;
     @BindView(R.id.hotOne)
     TextView hotOne;
     @BindView(R.id.hotTwo)
@@ -76,7 +74,7 @@ public class SearchActivity extends BaseActivity implements SearchActivityView, 
     }
 
     private void initView() {
-        final LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        final LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false);
         histroyRecrodRecycler.setLayoutManager(linearLayoutManager);
         presenter = new SearchActivityPresenter(this);
         hotpresenter = new HotWordsPresenter(this);
@@ -85,13 +83,12 @@ public class SearchActivity extends BaseActivity implements SearchActivityView, 
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
-
-                if (newState == RecyclerView.SCROLL_STATE_IDLE && lastvisibleitem + 1 == adapter.getItemCount()) {
-                    loadData(true);
-                    isLoadMore = true;
+                    if (newState == RecyclerView.SCROLL_STATE_IDLE && lastvisibleitem + 1 == adapter.getItemCount()) {
+                        loadData(true);
+                        isLoadMore = true;
                 }
-            }
 
+            }
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
@@ -115,16 +112,15 @@ public class SearchActivity extends BaseActivity implements SearchActivityView, 
     public void onViewClicked() {
         content = searchEdit.getText().toString().trim();
         loadData(false);
+        isLoadMore=false;
     }
 
     @Override
     public void showProgress() {
-        swipeRefresh.setRefreshing(true);
     }
 
     @Override
     public void hideProgress() {
-        swipeRefresh.setRefreshing(false);
     }
 
     @Override
@@ -137,16 +133,16 @@ public class SearchActivity extends BaseActivity implements SearchActivityView, 
         projectList = searchResult;
         if (isLoadMore) {
             if (projectList.size() == 0) {
-                swipeRefresh.setRefreshing(false);
                 adapter.changeMoreStatus(SocailFooterAdapter.PULLUP_LOAD_MORE);
             } else {
                 adapter.addMoreItem(projectList);
                 adapter.changeMoreStatus(SocailFooterAdapter.PULLUP_LOAD_MORE);
             }
         } else {
+            projectList.clear();
             adapter = new SearchActivityAdapter(this, projectList);
+            histroyRecrodRecycler.setVisibility(View.VISIBLE);
             histroyRecrodRecycler.setAdapter(adapter);
-            swipeRefresh.setRefreshing(false);
         }
     }
 

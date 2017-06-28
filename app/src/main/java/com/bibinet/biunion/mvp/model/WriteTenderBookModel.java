@@ -12,7 +12,7 @@ import org.xutils.x;
 
 public class WriteTenderBookModel {
     public void upLoadTenderBookData(String tenderSelection, String projectType, String tenderMode, String tenderType, String contact, String cellPhone, String email,MyCallBack myCallBack){
-        RequestParams requestParams=new RequestParams(Constants.baseUrl+"iip/user/login.json");
+        RequestParams requestParams=new RequestParams(Constants.baseUrl+"pis/appProxyTender/apply.json");
         requestParams.addBodyParameter("tenderSelection",tenderSelection);
         requestParams.addBodyParameter("projectType",projectType);
         requestParams.addBodyParameter("tenderMode",tenderMode);

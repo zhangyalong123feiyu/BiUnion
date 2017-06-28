@@ -25,15 +25,7 @@ public class CustomServiceActivity extends Activity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_custom_service);
 
-        //环信初始化配置
-        //初始化环信
-        EMOptions options = new EMOptions();
-        // 默认添加好友时，是不需要验证的，改成需要验证
-        options.setAcceptInvitationAlways(false);
-        //初始化
-        EMClient.getInstance().init(getApplicationContext(), options);
-        //在做打包混淆时，关闭debug模式，避免消耗不必要的资源
-        EMClient.getInstance().setDebugMode(true);
+
 
         mainLV = (ListView) findViewById(R.id.act_custom_service_main);
         notMessageV = findViewById(R.id.act_custom_service_not_message);

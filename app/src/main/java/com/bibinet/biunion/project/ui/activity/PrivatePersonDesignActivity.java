@@ -1,19 +1,25 @@
 package com.bibinet.biunion.project.ui.activity;
 
 import android.os.Bundle;
+import android.support.annotation.IdRes;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
+import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bibinet.biunion.R;
+import com.bibinet.biunion.mvp.presenter.PrivatePersonDesinPresenter;
+import com.bibinet.biunion.mvp.view.PrivatePersonDesinView;
+import com.bibinet.biunion.project.adapter.PrivateAeraAdapter;
 import com.bibinet.biunion.project.application.BaseActivity;
-import com.bibinet.biunion.project.ui.fragment.Fragment_BuyInfo;
-import com.bibinet.biunion.project.ui.fragment.Fragment_ProjectInfo;
-import com.bibinet.biunion.project.ui.fragment.Fragment_TederInfo;
+import com.bibinet.biunion.project.utils.ConvertUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -23,32 +29,26 @@ import butterknife.OnClick;
  * Created by bibinet on 2017-6-1.
  */
 
-public class PrivatePersonDesignActivity extends BaseActivity {
+public class PrivatePersonDesignActivity extends BaseActivity implements PrivatePersonDesinView {
     @BindView(R.id.title)
     TextView title;
     @BindView(R.id.title_imageright)
     ImageView titleImageright;
     @BindView(R.id.title_imageleft)
     ImageView titleImageleft;
-    @BindView(R.id.projectInfo)
-    TextView projectInfo;
-    @BindView(R.id.tenderProjectInfo)
-    TextView tenderProjectInfo;
-    @BindView(R.id.buyProjectInfo)
-    TextView buyProjectInfo;
-    @BindView(R.id.projectInfoView)
-    View projectInfoView;
-    @BindView(R.id.tenderProjectInfoView)
-    View tenderProjectInfoView;
-    @BindView(R.id.buyProjectInfoView)
-    View buyProjectInfoView;
-    @BindView(R.id.privateFragmentContainer)
-    RelativeLayout privateFragmentContainer;
 
-    private Fragment[] fragements=new Fragment[3];
-    private TextView[] textViews=new TextView[3];
-    private int index;
-    private int currentTabIndex;
+    @BindView(R.id.areaRecyclerView)
+    RecyclerView areaRecyclerView;
+
+    private PrivatePersonDesinPresenter privatePersonDesinPresenter;
+    private String projectInfoType;
+    private String typeInfoType;
+
+    private String AreaTextView;
+    private ConvertUtils convertUtils;
+
+    private String[] info = {"项目信息", "招标信息", "采购信息"};
+    private String[] type = {"工程", "货物", "服务"};
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -60,46 +60,108 @@ public class PrivatePersonDesignActivity extends BaseActivity {
 
     private void initView() {
         title.setText("信息订阅");
+        privatePersonDesinPresenter = new PrivatePersonDesinPresenter(this);
+        convertUtils = new ConvertUtils();
         titleImageleft.setVisibility(View.VISIBLE);
-
-        fragements[0]=new Fragment_ProjectInfo();
-        fragements[1]=new Fragment_TederInfo();
-        fragements[2]=new Fragment_BuyInfo();
-        textViews=new TextView[]{projectInfo,tenderProjectInfo,buyProjectInfo};
-        textViews[0].setSelected(true);
-        getSupportFragmentManager().beginTransaction().add(R.id.privateFragmentContainer, fragements[0]).show(fragements[0]).
-                add(R.id.privateFragmentContainer, fragements[1]).hide(fragements[1]).
-                add(R.id.privateFragmentContainer, fragements[2]).hide(fragements[2])
-                .commit();
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 4) {
+            @Override
+            public boolean canScrollVertically() {
+                return false;
+            }
+        };
+        areaRecyclerView.setLayoutManager(gridLayoutManager);
+        PrivateAeraAdapter aeraAdapter = new PrivateAeraAdapter(this);
+        aeraAdapter.setOnAreaClickLitioner(new PrivateAeraAdapter.AreaOnclickListioner() {
+            @Override
+            public void onAearClickListioner(View view) {
+                AreaTextView = ((TextView) view).getText().toString();
+            }
+        });
+        areaRecyclerView.setAdapter(aeraAdapter);
     }
 
-    @OnClick({R.id.title_imageleft, R.id.projectInfo, R.id.tenderProjectInfo, R.id.buyProjectInfo})
+    @OnClick({R.id.projcetInfo, R.id.tenderInfo, R.id.buyInfo, R.id.title_imageleft, R.id.project, R.id.goods, R.id.service})
     public void onViewClicked(View view) {
         switch (view.getId()) {
+            case R.id.projcetInfo:
+                findViewById(view.getId()).setSelected(true);
+                findViewById(R.id.tenderInfo).setSelected(false);
+                findViewById(R.id.buyInfo).setSelected(false);
+                projectInfoType = info[0];
+                break;
+            case R.id.tenderInfo:
+                findViewById(view.getId()).setSelected(true);
+                findViewById(R.id.projcetInfo).setSelected(false);
+                findViewById(R.id.buyInfo).setSelected(false);
+                projectInfoType = info[1];
+                break;
+            case R.id.buyInfo:
+                findViewById(view.getId()).setSelected(true);
+                findViewById(R.id.projcetInfo).setSelected(false);
+                findViewById(R.id.tenderInfo).setSelected(false);
+                projectInfoType = info[2];
+                break;
             case R.id.title_imageleft:
                 finish();
                 break;
-            case R.id.projectInfo:
-                index = 0;
+            case R.id.project:
+                findViewById(view.getId()).setSelected(true);
+                findViewById(R.id.goods).setSelected(false);
+                findViewById(R.id.service).setSelected(false);
+                typeInfoType = type[0];
                 break;
-            case R.id.tenderProjectInfo:
-                index = 1;
+            case R.id.goods:
+                findViewById(view.getId()).setSelected(true);
+                findViewById(R.id.project).setSelected(false);
+                findViewById(R.id.service).setSelected(false);
+                typeInfoType = type[1];
                 break;
-            case R.id.buyProjectInfo:
-                index = 2;
+            case R.id.service:
+                findViewById(view.getId()).setSelected(true);
+                findViewById(R.id.project).setSelected(false);
+                findViewById(R.id.goods).setSelected(false);
+                typeInfoType = type[2];
                 break;
         }
-        if (currentTabIndex != index) {
-            FragmentTransaction trx = getSupportFragmentManager().beginTransaction();
-            trx.hide(fragements[currentTabIndex]);
-            if (!fragements[index].isAdded()) {
-                trx.add(R.id.fragementcontainer, fragements[index]);
-            }
-            trx.show(fragements[index]).commit();
+    }
+
+    private boolean check() {
+        if (projectInfoType == null) {
+            Toast.makeText(this, "未选择信息", Toast.LENGTH_SHORT).show();
+            return false;
+        } else if (typeInfoType == null) {
+            Toast.makeText(this, "未选择类别", Toast.LENGTH_SHORT).show();
+            return false;
+        } else if (AreaTextView == null) {
+            Toast.makeText(this, "未选择地区", Toast.LENGTH_SHORT).show();
+            return false;
         }
-        textViews[currentTabIndex].setSelected(false);
-        // 把当前tab设为选中状态
-        textViews[index].setSelected(true);
-        currentTabIndex = index;
+        return true;
+    }
+
+    @OnClick(R.id.postDesinInfo)
+    void submit() {
+        if (check()) {
+            privatePersonDesinPresenter.onPostPrivatePersonData(100761, projectInfoType, typeInfoType, convertUtils.areaConvert(AreaTextView));
+        }
+    }
+
+    @Override
+    public void showProgress() {
+    }
+
+    @Override
+    public void hideProgress() {
+
+    }
+
+    @Override
+    public void onDesinSucess() {
+        Toast.makeText(this,"订阅成功",Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onDesinFailed() {
+        Toast.makeText(this,"订阅失败",Toast.LENGTH_SHORT).show();
     }
 }

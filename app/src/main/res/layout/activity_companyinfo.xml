@@ -64,7 +64,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="企业名称:"
-                        android:textColor="@color/red" />
+                        android:textColor="@color/color_333333" />
 
                 </LinearLayout>
 
@@ -108,7 +108,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="统一信用代码:"
-                        android:textColor="@color/red" />
+                        android:textColor="@color/color_333333" />
 
                 </LinearLayout>
 
@@ -152,7 +152,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="法定代表:"
-                        android:textColor="@color/red" />
+                        android:textColor="@color/color_333333" />
 
                 </LinearLayout>
 
@@ -193,10 +193,11 @@
                         android:textColor="@color/red" />
 
                     <TextView
+                        android:id="@+id/textView8"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="法人身份证号:"
-                        android:textColor="@color/red" />
+                        android:textColor="@color/color_333333" />
 
                 </LinearLayout>
 
@@ -240,7 +241,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="所属行业:"
-                        android:textColor="@color/red" />
+                        android:textColor="@color/color_333333" />
 
                 </LinearLayout>
 
@@ -284,7 +285,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="所在地区:"
-                        android:textColor="@color/red" />
+                        android:textColor="@color/color_333333" />
 
                 </LinearLayout>
 
@@ -328,7 +329,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="详细地址:"
-                        android:textColor="@color/red" />
+                        android:textColor="@color/color_333333" />
 
                 </LinearLayout>
 
@@ -375,8 +376,8 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="企业名称:"
-                        android:textColor="@color/red" />
+                        android:text="联系人:"
+                        android:textColor="@color/color_333333" />
 
                 </LinearLayout>
 
@@ -419,8 +420,8 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="企业名称:"
-                        android:textColor="@color/red" />
+                        android:text="手机号:"
+                        android:textColor="@color/color_333333" />
 
                 </LinearLayout>
 
@@ -467,8 +468,9 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="企业名称:"
-                        android:textColor="@color/red" />
+                        android:text="营业执照:"
+                        android:textColor="@color/color_333333"
+                         />
 
                 </LinearLayout>
 

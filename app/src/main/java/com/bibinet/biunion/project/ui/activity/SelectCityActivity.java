@@ -105,9 +105,9 @@ public class SelectCityActivity extends BaseActivity {
         mAdapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(ViewGroup parent, View view, Object o, int position) {
-                String city = mBodyDatas.get(position).getCityName();
-                setIntent(city);
-                pickCity(city);
+//                String city = mBodyDatas.get(position).getCityName();
+//                setIntent(city);
+//                pickCity(city);
             }
 
             @Override
@@ -133,7 +133,7 @@ public class SelectCityActivity extends BaseActivity {
                                             public void onClick(View v) {
 
                                                 setIntent(cityName);
-                                                pickCity(cityName);
+//                                                pickCity(cityName);
                                             }
                                         });
                                     }
@@ -204,8 +204,6 @@ public class SelectCityActivity extends BaseActivity {
                     header1.getCityList().clear();
                     header1.getCityList().add(city);
                     mHeaderAdapter.notifyDataSetChanged();
-
-
                 }
             }
         });
@@ -290,7 +288,7 @@ public class SelectCityActivity extends BaseActivity {
             if (data != null) {
 
                 String city = data.getStringExtra(Constance.KEY_PICKED_CITY);
-                pickCity(city);
+//                pickCity(city);
                 setIntent(city);
 
 
@@ -313,23 +311,23 @@ public class SelectCityActivity extends BaseActivity {
     /**
      * 保存历史城市
      *
-     * @param pickedCity
+     * @param
      */
-    public void pickCity(String pickedCity) {
-
-        if (!recentCitysList.contains(pickedCity)) {
-            if (recentCitysList.size() >= 3) {
-                recentCitysList.remove(0);
-            }
-            if (!"定位中".equals(pickedCity)) {
-                recentCitysList.add(pickedCity);
-            }
-
-            SharedPreferencesUtils.getInstence().putArrayData(mContext, recentCitysList);
-        }
-
-
-    }
+//    public void pickCity(String pickedCity) {
+//
+//        if (!recentCitysList.contains(pickedCity)) {
+//            if (recentCitysList.size() >= 3) {
+//                recentCitysList.remove(0);
+//            }
+//            if (!"定位中".equals(pickedCity)) {
+//                recentCitysList.add(pickedCity);
+//            }
+//
+//            SharedPreferencesUtils.getInstence().putArrayData(mContext, recentCitysList);
+//        }
+//
+//
+//    }
 
     @Override
     protected void onDestroy() {

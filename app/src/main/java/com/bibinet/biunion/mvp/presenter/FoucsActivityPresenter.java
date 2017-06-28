@@ -28,14 +28,12 @@ public class FoucsActivityPresenter {
                 Gson gson=new Gson();
                 FoucsedBean foucsInfo = gson.fromJson(s, FoucsedBean.class);
                 foucsActivityView.onLoadFoucsDataSucess(foucsInfo.getItem());
-                Log.i("TAG","---------foucssucess----------"+s);
             }
 
             @Override
             public void onError(Throwable throwable, boolean b) {
                 super.onError(throwable, b);
                 foucsActivityView.onLoadFoucsDataFailed();
-                Log.i("TAG","---------foucserror----------"+throwable.getMessage());
             }
         });
     }

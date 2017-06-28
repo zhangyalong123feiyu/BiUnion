@@ -23,24 +23,24 @@
             android:layout_height="wrap_content" />
         <ImageView
             android:id="@+id/title_imageright"
-            android:layout_width="12dp"
-            android:layout_height="21dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:src="@mipmap/xiangqingy_kefu"
-            android:layout_marginRight="20dp"/>
+            android:layout_marginRight="12dp"/>
         <ImageView
             android:id="@+id/title_imageRightFoucs"
-            android:layout_width="12dp"
-            android:layout_height="21dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_toLeftOf="@id/title_imageright"
             android:layout_centerVertical="true"
-            android:src="@mipmap/xiangqingye_fengxiang"
-            android:layout_marginRight="20dp"/>
+            android:src="@drawable/select_collect_icon"
+            android:layout_marginRight="12dp"/>
         <ImageView
             android:id="@+id/title_imageleft"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:onClick="onClick"

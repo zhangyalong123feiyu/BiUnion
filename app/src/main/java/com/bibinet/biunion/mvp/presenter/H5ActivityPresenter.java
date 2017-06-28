@@ -31,4 +31,19 @@ public class H5ActivityPresenter {
             }
         });
     }
+    public void cancelFoucs(int userId,String relatedCode){
+        h5ActivityModel.cancelFoucs(userId,relatedCode,new MyCallBack(){
+            @Override
+            public void onSuccess(String s) {
+                super.onSuccess(s);
+                h5ActivityView.onCancelFoucsSucess();
+            }
+
+            @Override
+            public void onError(Throwable throwable, boolean b) {
+                super.onError(throwable, b);
+                h5ActivityView.onCancelFoucsFailed();
+            }
+        });
+    }
 }

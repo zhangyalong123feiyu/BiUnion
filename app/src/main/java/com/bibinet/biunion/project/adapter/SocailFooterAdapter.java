@@ -52,9 +52,10 @@ public class SocailFooterAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     public static int Lastposition;
     private BannerUtils bannerUtils;
     private List<BannerBean.ItemBean> bannerInfo=new ArrayList<>();
-    public SocailFooterAdapter(Context context, List<ProjectInfoBean.ItemsBean> socailInfos) {
+    public SocailFooterAdapter(Context context, List<ProjectInfoBean.ItemsBean> socailInfos,List<BannerBean.ItemBean> bannerUrl) {
         this.context = context;
         this.socailInfos = socailInfos;
+        this.bannerInfo=bannerUrl;
         Lastposition = socailInfos.size();
         inflater = LayoutInflater.from(context);
     }
@@ -70,8 +71,8 @@ public class SocailFooterAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         }
     }
 
-    public void setBannerUrl(List<BannerBean.ItemBean> bannerInfo){
-        this.bannerInfo=bannerInfo;
+    public void setBannerUrl(List<BannerBean.ItemBean> bannerInfos){
+        this.bannerInfo=bannerInfos;
     }
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -131,19 +132,17 @@ public class SocailFooterAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                     break;
                 case LOADING_MORE:
                     progressHolder.textshow.setText("正在加载...");
-                    progressHolder.progressBar.setVisibility(View.VISIBLE);
+                    progressHolder.progressBar.setVisibility(View.GONE);
                     break;
                 case LOAD_NODATA:
-                    Log.i("TAG","noData------------------------");
                     progressHolder.textshow.setVisibility(View.GONE);
                     progressHolder.progressBar.setVisibility(View.GONE);
                     break;
             }
         } else if (holder instanceof HeaderViewHolder) {
             if (bannerUtils==null) {
-              Log.i("TAG",  bannerInfo.size()+"  bannerInfo.size()-----------------------");
-//                bannerUtils = new BannerUtils(context, ((HeaderViewHolder)holder).viewpager,((HeaderViewHolder)holder).groupContain, bannerInfo);
-//                bannerUtils.startPlayBanner();
+                bannerUtils = new BannerUtils(context, ((HeaderViewHolder)holder).viewpager,((HeaderViewHolder)holder).groupContain, bannerInfo);
+                bannerUtils.startPlayBanner();
             		}else {
                 return;
             }
@@ -225,15 +224,23 @@ public class SocailFooterAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
         @Override
         public void onClick(View v) {
+            Intent intent=new Intent(context, PlatFormActivity.class);
             switch (v.getId()) {
                 case R.id.bibiPlatform:
-                    context.startActivity(new Intent(context, PlatFormActivity.class));
+                    intent.putExtra("Type","1");
+                    context.startActivity(intent);
                     break;
                 case R.id.finacePlatform:
+                    intent.putExtra("Type","2");
+                    context.startActivity(intent);
                     break;
                 case R.id.tenderPlatform:
+                    intent.putExtra("Type","3");
+                    context.startActivity(intent);
                     break;
                 case R.id.servicePlatform:
+                    intent.putExtra("Type","4");
+                    context.startActivity(intent);
                     break;
             }
         }

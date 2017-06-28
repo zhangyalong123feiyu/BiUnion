@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -125,8 +126,6 @@ public class ChatActivity extends Activity implements View.OnClickListener, EMMe
 
     }
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -135,6 +134,12 @@ public class ChatActivity extends Activity implements View.OnClickListener, EMMe
         editText = (EditText) findViewById(R.id.act_chat_input);
         listView = (ListView) findViewById(R.id.act_chat_main);
         name = (TextView) findViewById(R.id.act_chat_name);
+        findViewById(R.id.act_title_title_go_back).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         name.setText("客服小米");
 
