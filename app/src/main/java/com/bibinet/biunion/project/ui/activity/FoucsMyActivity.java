@@ -42,10 +42,11 @@ public class FoucsMyActivity extends BaseActivity implements FoucsActivityView {
     private FoucsActivityPresenter presenter;
     private LinearLayoutManager linearLayoutManager;
     private int lastvisibleitem;
-    private int pageNumb;
+    private int pageNumb=1;
     private List<FoucsedBean.ItemBean> projectList;
     private boolean isLoadMore;
     private FoucsMyAdapter adapter;
+    private String userId;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -57,12 +58,15 @@ public class FoucsMyActivity extends BaseActivity implements FoucsActivityView {
     }
 
     private void initView() {
-        String userId = Constants.loginresultInfo.getUser().getUserId();
         title.setText("我的关注");
         titleImageleft.setVisibility(View.VISIBLE);
         presenter = new FoucsActivityPresenter(this);
-
-        presenter.getFoucsData(Integer.parseInt(userId), 1);
+        userId = Constants.loginresultInfo.getUser().getUserId();
+        if (Constants.loginresultInfo!=null) {
+            presenter.getFoucsData(Integer.parseInt(userId),pageNumb,false);
+        }else {
+            Toast.makeText(this, "您还没有登录呢。。。", Toast.LENGTH_SHORT).show();
+        }
         foucsRecyclerView.setHasFixedSize(true);
         linearLayoutManager = new LinearLayoutManager(this);
         foucsRecyclerView.setLayoutManager(linearLayoutManager);
@@ -73,11 +77,9 @@ public class FoucsMyActivity extends BaseActivity implements FoucsActivityView {
                 if (adapter != null) {
                     if (newState == RecyclerView.SCROLL_STATE_IDLE && lastvisibleitem + 1 == adapter.getItemCount()) {
                         loadData(true);
-                        isLoadMore = true;
                     }
                 }
             }
-
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
@@ -93,10 +95,10 @@ public class FoucsMyActivity extends BaseActivity implements FoucsActivityView {
         if (isLoadMore) {
             adapter.changeMoreStatus(FoucsMyAdapter.LOADING_MORE);
             pageNumb++;
-            Log.i("pageNum", "moeragenumber________________________" + pageNumb);
         } else {
             pageNumb = 1;
         }
+        presenter.getFoucsData(Integer.parseInt(userId),pageNumb,isLoadMore);
     }
 
     @Override
@@ -110,7 +112,7 @@ public class FoucsMyActivity extends BaseActivity implements FoucsActivityView {
     }
 
     @Override
-    public void onLoadFoucsDataSucess(List<FoucsedBean.ItemBean> foucsInfo) {
+    public void onLoadFoucsDataSucess(List<FoucsedBean.ItemBean> foucsInfo,boolean isLoadMore) {
         if (foucsInfo.size() == 0) {
             Toast.makeText(this, "没有跟多数据了", Toast.LENGTH_SHORT).show();
             adapter.changeMoreStatus(FoucsMyAdapter.LOAD_NODATA);
@@ -124,6 +126,9 @@ public class FoucsMyActivity extends BaseActivity implements FoucsActivityView {
                 adapter.changeMoreStatus(FoucsMyAdapter.PULLUP_LOAD_MORE);
             }
         } else {
+            if (projectList!=null) {
+                projectList.clear();
+            }
             adapter = new FoucsMyAdapter(this, projectList);
             foucsRecyclerView.setAdapter(adapter);
         }

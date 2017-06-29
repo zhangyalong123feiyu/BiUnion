@@ -24,16 +24,17 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="20dp"
                 />
+
             <EditText
                 android:id="@+id/searchEdit"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:hint="@string/searchhint"
+                android:background="@null"
                 android:gravity="left|center_vertical"
+                android:hint="@string/searchhint"
                 android:paddingLeft="20dp"
                 android:textColor="#999999"
-                android:textSize="13sp"
-                android:background="@null"/>
+                android:textSize="13sp" />
         </LinearLayout>
         <TextView
             android:id="@+id/cancel_search"

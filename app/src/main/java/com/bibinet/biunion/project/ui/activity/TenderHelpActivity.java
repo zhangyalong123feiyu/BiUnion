@@ -1,5 +1,6 @@
 package com.bibinet.biunion.project.ui.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
@@ -14,6 +15,7 @@ import com.bibinet.biunion.R;
 import com.bibinet.biunion.mvp.presenter.TenderHelpPresenter;
 import com.bibinet.biunion.mvp.view.TenderHelpView;
 import com.bibinet.biunion.project.application.BaseActivity;
+import com.bibinet.biunion.project.application.Constants;
 import com.bibinet.biunion.project.utils.PhoneNumberUtils;
 
 import butterknife.BindView;
@@ -37,6 +39,8 @@ public class TenderHelpActivity extends BaseActivity implements TenderHelpView {
     EditText contactType;
     @BindView(R.id.postTenderhelp)
     Button postTenderhelp;
+    @BindView(R.id.title_imageright)
+    ImageView titleImageright;
     private TenderHelpPresenter tenderHelpPresenter;
 
     @Override
@@ -50,7 +54,9 @@ public class TenderHelpActivity extends BaseActivity implements TenderHelpView {
     private void initView() {
         title.setText("投标协助");
         titleImageleft.setVisibility(View.VISIBLE);
-        tenderHelpPresenter=new TenderHelpPresenter(this);
+        titleImageright.setVisibility(View.VISIBLE);
+        titleImageright.setImageResource(R.mipmap.daixiebiaoshu_lishijilv);
+        tenderHelpPresenter = new TenderHelpPresenter(this);
     }
 
     @Override
@@ -65,32 +71,39 @@ public class TenderHelpActivity extends BaseActivity implements TenderHelpView {
 
     @Override
     public void onUpLoadDataSucess() {
-        Toast.makeText(this,"提交成功了",Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "提交成功了", Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onUpLoadDataFailed(String msg) {
-        Toast.makeText(this,"很抱歉，提交失败",Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "很抱歉，提交失败", Toast.LENGTH_SHORT).show();
     }
 
-    @OnClick({R.id.title_imageleft, R.id.postTenderhelp})
+    @OnClick({R.id.title_imageleft, R.id.postTenderhelp,R.id.title_imageright})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.title_imageleft:
                 finish();
                 break;
+            case R.id.title_imageright:
+                startActivity(new Intent(this,HelpTenderHistoryActivity.class));
+                break;
             case R.id.postTenderhelp:
-                String content=writeBookInput.getText().toString().trim();
-                String contactPerson=contactPersonInput.getText().toString().trim();
-                String contactWay=contactType.getText().toString().trim();
+                String content = writeBookInput.getText().toString().trim();
+                String contactPerson = contactPersonInput.getText().toString().trim();
+                String contactWay = contactType.getText().toString().trim();
                 if (TextUtils.isEmpty(content)) {
-                    Toast.makeText(this,"请输入内容",Toast.LENGTH_SHORT).show();
-                		}else if (TextUtils.isEmpty(contactPerson)) {
-                    Toast.makeText(this,"请输入联系人",Toast.LENGTH_SHORT).show();
-            }else if (!PhoneNumberUtils.isMobileNumber(contactWay)) {
-                    Toast.makeText(this,"请输入正确的手机号",Toast.LENGTH_SHORT).show();
-            		}else {
-                    tenderHelpPresenter.upLoadData(contactPerson,contactWay,content);
+                    Toast.makeText(this, "请输入内容", Toast.LENGTH_SHORT).show();
+                } else if (TextUtils.isEmpty(contactPerson)) {
+                    Toast.makeText(this, "请输入联系人", Toast.LENGTH_SHORT).show();
+                } else if (!PhoneNumberUtils.isMobileNumber(contactWay)) {
+                    Toast.makeText(this, "请输入正确的手机号", Toast.LENGTH_SHORT).show();
+                } else {
+                    if (Constants.loginresultInfo != null) {
+                        tenderHelpPresenter.upLoadData(contactPerson, contactWay, content, Constants.loginresultInfo.getUser().getUserId());
+                    } else {
+                        Toast.makeText(this, "您还没有登录，请登录后再进行操作", Toast.LENGTH_SHORT).show();
+                    }
                 }
                 break;
         }

@@ -20,14 +20,14 @@ public class FoucsActivityPresenter {
         this.foucsActivityView = foucsActivityView;
         this.foucsActivityModel=new FoucsActivityModel();
     }
-    public void getFoucsData(final int userId, int index){
+    public void getFoucsData(final int userId, int index, final boolean isLoadMore){
         foucsActivityModel.getFoucsData(userId,index,new MyCallBack(){
             @Override
             public void onSuccess(String s) {
                 super.onSuccess(s);
                 Gson gson=new Gson();
                 FoucsedBean foucsInfo = gson.fromJson(s, FoucsedBean.class);
-                foucsActivityView.onLoadFoucsDataSucess(foucsInfo.getItem());
+                foucsActivityView.onLoadFoucsDataSucess(foucsInfo.getItem(),isLoadMore);
             }
 
             @Override

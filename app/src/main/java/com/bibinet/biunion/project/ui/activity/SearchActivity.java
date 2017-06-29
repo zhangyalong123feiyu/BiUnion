@@ -59,7 +59,6 @@ public class SearchActivity extends BaseActivity implements SearchActivityView, 
     private SearchActivityPresenter presenter;
     private List<SearchResultBean.ItemsBean> projectList = new ArrayList<>();
     private SearchActivityAdapter adapter;
-    private boolean isLoadMore;
     private int lastvisibleitem;
     private int pageNum;
     private String content;
@@ -85,9 +84,7 @@ public class SearchActivity extends BaseActivity implements SearchActivityView, 
                 super.onScrollStateChanged(recyclerView, newState);
                     if (newState == RecyclerView.SCROLL_STATE_IDLE && lastvisibleitem + 1 == adapter.getItemCount()) {
                         loadData(true);
-                        isLoadMore = true;
                 }
-
             }
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
@@ -104,15 +101,13 @@ public class SearchActivity extends BaseActivity implements SearchActivityView, 
         } else {
             pageNum = 1;
         }
-        presenter.getSearchData(pageNum, content);//搜索presenter
-
+        presenter.getSearchData(pageNum, content,isLoadMore);//搜索presenter
     }
 
     @OnClick(R.id.doSearch)
     public void onViewClicked() {
         content = searchEdit.getText().toString().trim();
         loadData(false);
-        isLoadMore=false;
     }
 
     @Override
@@ -124,15 +119,16 @@ public class SearchActivity extends BaseActivity implements SearchActivityView, 
     }
 
     @Override
-    public void onSearchSucess(List<SearchResultBean.ItemsBean> searchResult) {
+    public void onSearchSucess(List<SearchResultBean.ItemsBean> searchResult,boolean isLoadMore) {
 
         if (searchResult.size() == 0) {
             Toast.makeText(this, "没有跟多数据了", Toast.LENGTH_SHORT).show();
             adapter.changeMoreStatus(SocailFooterAdapter.LOAD_NODATA);
         }
-        projectList = searchResult;
+
         if (isLoadMore) {
             if (projectList.size() == 0) {
+                projectList = searchResult;
                 adapter.changeMoreStatus(SocailFooterAdapter.PULLUP_LOAD_MORE);
             } else {
                 adapter.addMoreItem(projectList);
@@ -140,6 +136,7 @@ public class SearchActivity extends BaseActivity implements SearchActivityView, 
             }
         } else {
             projectList.clear();
+            projectList = searchResult;
             adapter = new SearchActivityAdapter(this, projectList);
             histroyRecrodRecycler.setVisibility(View.VISIBLE);
             histroyRecrodRecycler.setAdapter(adapter);

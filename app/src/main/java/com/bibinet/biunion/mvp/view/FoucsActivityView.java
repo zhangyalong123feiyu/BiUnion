@@ -9,6 +9,6 @@ import java.util.List;
  */
 
 public interface FoucsActivityView extends BaseView {
-    void onLoadFoucsDataSucess(List<FoucsedBean.ItemBean> foucsInfo);
+    void onLoadFoucsDataSucess(List<FoucsedBean.ItemBean> foucsInfo,boolean isLoadMore);
     void onLoadFoucsDataFailed();
 }

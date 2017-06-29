@@ -16,8 +16,8 @@ public class WriteTenderBookPresenter {
         this.writeTenderBookView = writeTenderBookView;
         this.writeTenderBookModel=new WriteTenderBookModel();
     }
-    public void saveWriteTenderBook(String tenderSelection,String projectType,String tenderMode,String tenderType,String contact,String cellPhone,String email){
-        writeTenderBookModel.upLoadTenderBookData(tenderSelection,projectType,tenderMode,tenderType,contact,cellPhone,email,new MyCallBack(){
+    public void saveWriteTenderBook(String tenderSelection,String projectType,String tenderMode,String tenderType,String contact,String cellPhone,String email,String customerId){
+        writeTenderBookModel.upLoadTenderBookData(tenderSelection,projectType,tenderMode,tenderType,contact,cellPhone,email,customerId,new MyCallBack(){
             @Override
             public void onSuccess(String s) {
                 super.onSuccess(s);

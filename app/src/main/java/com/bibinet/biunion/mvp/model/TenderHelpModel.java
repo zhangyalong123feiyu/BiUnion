@@ -11,11 +11,12 @@ import org.xutils.x;
  */
 
 public class TenderHelpModel {
-    public void upLoadData(String contact, String cellPhone, String content, MyCallBack myCallBack){
+    public void upLoadData(String contact, String cellPhone, String content,String customerId, MyCallBack myCallBack){
         RequestParams requestParams=new RequestParams(Constants.baseUrl+"pis/appAssistance/apply.json");
         requestParams.addBodyParameter("contact",contact);
         requestParams.addBodyParameter("cellPhone",cellPhone);
         requestParams.addBodyParameter("content",content);
+        requestParams.addBodyParameter("customerId",customerId);
         x.http().post(requestParams,myCallBack);
     }
 }

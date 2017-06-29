@@ -20,7 +20,7 @@ public class SearchActivityPresenter {
         this.searchActivityView = searchActivityView;
         this.searchActivityModel=new SearchActivityModel();
     }
-    public void getSearchData(int pageNumb,String content){
+    public void getSearchData(int pageNumb, String content, final boolean isLoadMore){
         searchActivityView.showProgress();
         searchActivityModel.searProjectInfoModel(pageNumb,content,new MyCacheCallBack(){
             @Override
@@ -28,7 +28,7 @@ public class SearchActivityPresenter {
                 super.onSuccess(s);
                 Gson gson=new Gson();
                 SearchResultBean searchResultInfo = gson.fromJson(s, SearchResultBean.class);
-                searchActivityView.onSearchSucess(searchResultInfo.getItems());
+                searchActivityView.onSearchSucess(searchResultInfo.getItems(),isLoadMore);
                 searchActivityView.hideProgress();
             }
 
@@ -43,7 +43,7 @@ public class SearchActivityPresenter {
             public boolean onCache(String s) {
                 Gson gson=new Gson();
                 SearchResultBean searchResultInfo = gson.fromJson(s, SearchResultBean.class);
-                searchActivityView.onSearchSucess(searchResultInfo.getItems());
+                searchActivityView.onSearchSucess(searchResultInfo.getItems(),isLoadMore);
                 searchActivityView.hideProgress();
                 return super.onCache(s);
             }

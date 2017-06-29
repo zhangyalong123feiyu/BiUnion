@@ -40,12 +40,6 @@ public class DialogUtils {
         view = LayoutInflater.from(context).inflate(ResuoreceId, null);
         dialog.setView(view);
         dialog.show();
-        view.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialogListioner.onDialogClickListioner(v);
-            }
-        });
     }
 
     public void dialogDismiss() {

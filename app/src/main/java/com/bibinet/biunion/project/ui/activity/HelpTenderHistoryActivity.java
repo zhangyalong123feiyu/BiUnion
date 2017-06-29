@@ -1,25 +1,27 @@
 package com.bibinet.biunion.project.ui.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
+import android.widget.HeaderViewListAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bibinet.biunion.R;
-import com.bibinet.biunion.mvp.presenter.WriteTenderHistoryActivityPresenter;
-import com.bibinet.biunion.mvp.view.WriteTenderHistoryActivityView;
+import com.bibinet.biunion.mvp.presenter.HelpTenderHistoryPresenter;
+import com.bibinet.biunion.mvp.view.HelpTenderHistoryActivityView;
+import com.bibinet.biunion.project.adapter.SearchActivityAdapter;
+import com.bibinet.biunion.project.adapter.SocailFooterAdapter;
 import com.bibinet.biunion.project.adapter.TenderHistoryAdapter;
-import com.bibinet.biunion.project.adapter.WriteTenderBookHistoryAdapter;
-import com.bibinet.biunion.project.adapter.WriteTenderHistoryAdapter;
 import com.bibinet.biunion.project.application.BaseActivity;
 import com.bibinet.biunion.project.application.Constants;
-import com.bibinet.biunion.project.bean.WriteTenderBookHistoryBean;
+import com.bibinet.biunion.project.bean.HelpTenderHistoryReusltBean;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -27,43 +29,43 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
- * Created by bibinet on 2017-6-14.
+ * Created by bibinet on 2017-6-29.
  */
 
-public class WriteTenderHistoryActivity extends BaseActivity implements WriteTenderHistoryActivityView{
+public class HelpTenderHistoryActivity extends BaseActivity implements HelpTenderHistoryActivityView{
     @BindView(R.id.title)
     TextView title;
     @BindView(R.id.title_imageright)
     ImageView titleImageright;
     @BindView(R.id.title_imageleft)
     ImageView titleImageleft;
-    @BindView(R.id.tenderWriteHistroy)
-    RecyclerView tenderWriteHistroy;
-    private WriteTenderHistoryActivityPresenter presenter;
-    private List<WriteTenderBookHistoryBean.ItemBean> writeHistoryInfo=new ArrayList<>();
+    @BindView(R.id.tenderHistoryRecyl)
+    RecyclerView tenderHistoryRecyl;
+    private LinearLayoutManager linearLayoutManager;
     private int pageNumb=1;
-    private List<WriteTenderBookHistoryBean.ItemBean> projectList;
-    private WriteTenderHistoryAdapter adapter;
     private int lastvisibleitem;
+    private HelpTenderHistoryPresenter presenter;
+    private List<HelpTenderHistoryReusltBean.ItemBean> projectList;
+    private TenderHistoryAdapter adapter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_writetenderhistory);
+        setContentView(R.layout.activity_helptenderhistory);
         ButterKnife.bind(this);
         initView();
         loadData(false);
     }
 
     private void initView() {
-        title.setText("代写标书历史记录");
+        title.setText("投标协助历史记录");
         titleImageleft.setVisibility(View.VISIBLE);
-        final LinearLayoutManager linearLayoutManager=new LinearLayoutManager(this);
-        tenderWriteHistroy.setLayoutManager(linearLayoutManager);
-        tenderWriteHistroy.setHasFixedSize(true);
-        presenter=new WriteTenderHistoryActivityPresenter(this);
+        presenter=new HelpTenderHistoryPresenter(this);
 
-        tenderWriteHistroy.addOnScrollListener(new RecyclerView.OnScrollListener() {
+        tenderHistoryRecyl.setHasFixedSize(true);
+        linearLayoutManager=new LinearLayoutManager(this);
+        tenderHistoryRecyl.setLayoutManager(linearLayoutManager);
+        tenderHistoryRecyl.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
@@ -80,7 +82,6 @@ public class WriteTenderHistoryActivity extends BaseActivity implements WriteTen
             }
         });
     }
-
     private void loadData(boolean isLoadMore) {
         if (isLoadMore) {
             pageNumb++;
@@ -88,9 +89,9 @@ public class WriteTenderHistoryActivity extends BaseActivity implements WriteTen
             pageNumb = 1;
         }
         if (Constants.loginresultInfo!=null) {
-            presenter.getWriteHistoryData(Constants.loginresultInfo.getUser().getEnterprise().getContactCellphone(),Constants.loginresultInfo.getUser().getUserId(),String.valueOf(pageNumb),isLoadMore);
-        }else {
-            Toast.makeText(this,"您还没有代写标书历史了！",Toast.LENGTH_SHORT).show();
+            presenter.getHelpHistoryData(Constants.loginresultInfo.getUser().getUserId(),pageNumb,isLoadMore);
+        }else{
+            Toast.makeText(this,"投标协助历史记录",Toast.LENGTH_SHORT).show();
         }
     }
     @OnClick(R.id.title_imageleft)
@@ -99,22 +100,15 @@ public class WriteTenderHistoryActivity extends BaseActivity implements WriteTen
     }
 
     @Override
-    public void showProgress() {
+    public void onLoadHistorySucess(List<HelpTenderHistoryReusltBean.ItemBean> helpHistoryInfo,boolean isLoadMore) {
 
-    }
-    @Override
-    public void hideProgress() {
-
-    }
-    @Override
-    public void onLoadWriteHistroySucess(List<WriteTenderBookHistoryBean.ItemBean> historyInfo,boolean isLoadMore) {
-        if (historyInfo.size() == 0) {
+        if (helpHistoryInfo.size() == 0) {
             Toast.makeText(this, "没有跟多数据了", Toast.LENGTH_SHORT).show();
             adapter.changeMoreStatus(TenderHistoryAdapter.LOAD_NODATA);
         }
         if (isLoadMore) {
             if (projectList.size() == 0) {
-                projectList = historyInfo;
+                projectList = helpHistoryInfo;
                 adapter.changeMoreStatus(TenderHistoryAdapter.PULLUP_LOAD_MORE);
             } else {
                 adapter.addMoreItem(projectList);
@@ -123,15 +117,14 @@ public class WriteTenderHistoryActivity extends BaseActivity implements WriteTen
         } else {
             if (projectList!=null) {
                 projectList.clear();
-            }
-            projectList = historyInfo;
-            adapter = new WriteTenderHistoryAdapter(this, projectList);
-            tenderWriteHistroy.setAdapter(adapter);
+            		}
+            projectList = helpHistoryInfo;
+            adapter = new TenderHistoryAdapter(this, projectList);
+            tenderHistoryRecyl.setAdapter(adapter);
         }
     }
-
     @Override
-    public void onLoadWriteHistroyFailed() {
-        Toast.makeText(this, "您查询历史记录失败！", Toast.LENGTH_SHORT).show();
+    public void onLoadHistoryFailed(String msg) {
+        Log.i("TAG","投标协助历史记录++++"+msg);
     }
 }

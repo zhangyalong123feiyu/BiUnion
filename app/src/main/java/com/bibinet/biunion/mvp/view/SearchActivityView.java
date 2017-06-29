@@ -9,6 +9,6 @@ import java.util.List;
  */
 
 public interface SearchActivityView extends BaseView {
-    void onSearchSucess(List<SearchResultBean.ItemsBean> searchResult);
+    void onSearchSucess(List<SearchResultBean.ItemsBean> searchResult,boolean isLoadMore);
     void onSearchFailed(String msg);
 }

@@ -120,7 +120,6 @@ public class CompanyInfoActivity extends BaseActivity implements CompanyInfoView
         TextView picstorage = (TextView) itemview.findViewById(R.id.picstorage);
         camera.setOnClickListener(this);
         picstorage.setOnClickListener(this);
-
     }
 
     @Override

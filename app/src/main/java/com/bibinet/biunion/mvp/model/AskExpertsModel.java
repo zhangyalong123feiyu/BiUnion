@@ -11,13 +11,14 @@ import org.xutils.x;
  */
 
 public class AskExpertsModel {
-    public void postQuestionData(String userId,String CompanyId,int type,String expertsCode,String question,String questionContent,String code,MyCallBack myCacheCallBack){
-        RequestParams requestParams=new RequestParams(Constants.baseUrl+"iip/user/sendLoginSMS.json");
+    public void postQuestionData(String userId,String CompanyId,int type,String expertsCode,String question,String questionContent,MyCallBack myCacheCallBack){
+        RequestParams requestParams=new RequestParams(Constants.baseUrl+"iip/appQuestion/saveQuestion.json");
         requestParams.addBodyParameter("userId",userId);
-        requestParams.addBodyParameter("cellPhone",questionContent);
-        requestParams.addBodyParameter("cellPhone",code);
-        requestParams.addBodyParameter("cellPhone",code);
-        requestParams.addBodyParameter("cellPhone",code);
+        requestParams.addBodyParameter("enterpriseId",CompanyId);
+        requestParams.addBodyParameter("type",String.valueOf(type));
+        requestParams.addBodyParameter("expertCodeStr",expertsCode);
+        requestParams.addBodyParameter("title",question);
+        requestParams.addBodyParameter("content",questionContent);
         x.http().post(requestParams,myCacheCallBack);
     }
 }

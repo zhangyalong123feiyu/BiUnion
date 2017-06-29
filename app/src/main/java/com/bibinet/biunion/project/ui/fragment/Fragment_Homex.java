@@ -89,7 +89,6 @@ public class Fragment_Homex extends Fragment implements FragmentHomeView, View.O
     private int selectType = 6;
     private int lastvisibleitem;
     private LinearLayoutManager linearLayoutManager;
-    private boolean isLoadMore = false;
     private SocailFooterAdapter adapter;
     private HomePopWindowUtils popWindowUtils;
     private List<BannerBean.ItemBean> bannerInfoList = new ArrayList<>();

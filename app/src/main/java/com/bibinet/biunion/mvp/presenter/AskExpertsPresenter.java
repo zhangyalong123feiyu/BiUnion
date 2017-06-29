@@ -1,5 +1,7 @@
 package com.bibinet.biunion.mvp.presenter;
 
+import android.util.Log;
+
 import com.bibinet.biunion.mvp.model.AskExpertsModel;
 import com.bibinet.biunion.mvp.view.AskExpertsActivityView;
 import com.bibinet.biunion.project.builder.MyCallBack;
@@ -16,8 +18,8 @@ public class AskExpertsPresenter {
         this.askExpertsPresenterView = askExpertsPresenterView;
         this.askExpertsModel=new AskExpertsModel();
     }
-    public void psotAskExpertsData(String question,String questionContent,String code){
-        askExpertsModel.postQuestionData(question,questionContent,code,new MyCallBack(){
+    public void psotAskExpertsData(String userId,String CompanyId,int type,String expertsCode,String question,String questionContent){
+        askExpertsModel.postQuestionData(userId,CompanyId,type,expertsCode,question,questionContent,new MyCallBack(){
             @Override
             public void onSuccess(String s) {
                 super.onSuccess(s);
@@ -28,6 +30,7 @@ public class AskExpertsPresenter {
             public void onError(Throwable throwable, boolean b) {
                 super.onError(throwable, b);
                 askExpertsPresenterView.onPostQuestionDataFailed();
+                Log.i("TAG",throwable.getMessage()+"----------------------------------msg");
             }
         });
     }

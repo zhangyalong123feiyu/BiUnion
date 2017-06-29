@@ -20,15 +20,15 @@ public class WriteTenderHistoryActivityPresenter {
         this.writeTenderHistoryActivityView = writeTenderHistoryActivityView;
         this.writeTenderHistoryActivityModel=new WriteTenderHistoryActivityModel();
     }
-    public void getWriteHistoryData(String cellPhone){
-        writeTenderHistoryActivityModel.writeTenderHistory(cellPhone,new MyCallBack(){
+    public void getWriteHistoryData(String cellPhone, String customerId,String pageNum , final boolean isLoadMore){
+        writeTenderHistoryActivityModel.writeTenderHistory(cellPhone,customerId,pageNum ,new MyCallBack(){
             @Override
             public void onSuccess(String s) {
 
                 super.onSuccess(s);
                 Gson gson=new Gson();
                 WriteTenderBookHistoryBean writeTenderHistroyInfo = gson.fromJson(s, WriteTenderBookHistoryBean.class);
-                writeTenderHistoryActivityView.onLoadWriteHistroySucess(writeTenderHistroyInfo.getItem());
+                writeTenderHistoryActivityView.onLoadWriteHistroySucess(writeTenderHistroyInfo.getItem(),isLoadMore);
             }
 
             @Override

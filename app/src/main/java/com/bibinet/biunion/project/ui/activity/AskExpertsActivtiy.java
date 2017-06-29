@@ -15,6 +15,7 @@ import com.bibinet.biunion.R;
 import com.bibinet.biunion.mvp.presenter.AskExpertsPresenter;
 import com.bibinet.biunion.mvp.view.AskExpertsActivityView;
 import com.bibinet.biunion.project.application.BaseActivity;
+import com.bibinet.biunion.project.application.Constants;
 import com.bibinet.biunion.project.utils.DialogUtils;
 
 import butterknife.BindView;
@@ -34,8 +35,6 @@ public class AskExpertsActivtiy extends BaseActivity implements AskExpertsActivi
     ImageView titleImageleft;
     @BindView(R.id.userQuestion)
     EditText userQuestion;
-    @BindView(R.id.textView3)
-    TextView textView3;
     @BindView(R.id.questionContent)
     EditText questionContent;
     @BindView(R.id.isCallExperts)
@@ -53,7 +52,7 @@ public class AskExpertsActivtiy extends BaseActivity implements AskExpertsActivi
     private String expertsCode;
     private AskExpertsPresenter askExpertsPresenter;
     private DialogUtils dialogUtils;
-
+    private int expertsType=1;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,7 +62,7 @@ public class AskExpertsActivtiy extends BaseActivity implements AskExpertsActivi
     }
 
     private void initView() {
-        title.setText("我的提问");
+        title.setText("专家问答");
         titleImageleft.setVisibility(View.VISIBLE);
         askExpertsPresenter = new AskExpertsPresenter(this);
     }
@@ -100,20 +99,33 @@ public class AskExpertsActivtiy extends BaseActivity implements AskExpertsActivi
     }
 
     private void doPostData() {
-        String quetion = userQuestion.getText().toString().trim();
-        String questionC = questionContent.getText().toString().trim();
-        if (firstExperts.isSelected()) {
-            expertsCode = "1";
-        } else if (selectExperts.isSelected()) {
-            expertsCode = "2";
-        } else {
-            expertsCode = "3";
+        if (Constants.loginresultInfo!=null) {
+            String userId = Constants.loginresultInfo.getUser().getUserId();
+            String compnyId=Constants.loginresultInfo.getUser().getEnterprise().getEnterpriseId();
+            String quetion = userQuestion.getText().toString().trim();
+            String questionC = questionContent.getText().toString().trim();
+            if (firstExperts.isSelected()) {
+                expertsCode = "A";
+                expertsType=1;
+            } else if (selectExperts.isSelected()) {
+                expertsCode = "B";
+                expertsType=1;
+            } else {
+                expertsCode = "3";
+                expertsType=3;
+            }
+            if (TextUtils.isEmpty(quetion) && TextUtils.isEmpty(questionC)) {
+                Toast.makeText(this, "请确保您要提交的内容不为空", Toast.LENGTH_SHORT).show();
+            } else {
+                askExpertsPresenter.psotAskExpertsData(userId, compnyId, expertsType,expertsCode,quetion,questionC);
+            }
+          }else
+        		{
+            Toast.makeText(this,"您还没有登录，请登录后在进行提问!",Toast.LENGTH_SHORT).show();
         }
-        if (TextUtils.isEmpty(quetion) && TextUtils.isEmpty(questionC)) {
-            Toast.makeText(this, "请确保您要提交的内容不为空", Toast.LENGTH_SHORT).show();
-        } else {
-            askExpertsPresenter.psotAskExpertsData(quetion, questionC, expertsCode);
-        }
+
+
+
     }
 
     private void doCallExperts() {
@@ -145,16 +157,6 @@ public class AskExpertsActivtiy extends BaseActivity implements AskExpertsActivi
             default:
                 break;
         }
-    }
-
-    @Override
-    public void showProgress() {
-
-    }
-
-    @Override
-    public void hideProgress() {
-
     }
 
     @Override

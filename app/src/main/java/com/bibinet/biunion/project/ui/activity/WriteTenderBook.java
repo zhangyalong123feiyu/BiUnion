@@ -16,6 +16,7 @@ import com.bibinet.biunion.R;
 import com.bibinet.biunion.mvp.presenter.WriteTenderBookPresenter;
 import com.bibinet.biunion.mvp.view.WriteTenderBookView;
 import com.bibinet.biunion.project.application.BaseActivity;
+import com.bibinet.biunion.project.application.Constants;
 import com.bibinet.biunion.project.utils.DialogUtils;
 
 import butterknife.BindView;
@@ -134,12 +135,15 @@ public class WriteTenderBook extends BaseActivity implements View.OnClickListene
                     }else if(TextUtils.isEmpty(tenderInput)){
                         Toast.makeText(this,"标书类型为空",Toast.LENGTH_SHORT).show();
                     }else {
-                        writeTenderBookPresenter.saveWriteTenderBook(tenderBook,tenderPro,tenderSelect,tenderInput,person,contactWay,email);
+                        if (Constants.loginresultInfo!=null) {
+                            writeTenderBookPresenter.saveWriteTenderBook(tenderBook,tenderPro,tenderSelect,tenderInput,person,contactWay,email,Constants.loginresultInfo.getUser().getUserId());
+                        }else {
+                            Toast.makeText(this,"您还没有登录，请登录后再进行操作",Toast.LENGTH_SHORT).show();
+                        }
                     }
                 break;
         }
     }
-
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -190,7 +194,6 @@ public class WriteTenderBook extends BaseActivity implements View.OnClickListene
     public void showProgress() {
 
     }
-
     @Override
     public void hideProgress() {
 

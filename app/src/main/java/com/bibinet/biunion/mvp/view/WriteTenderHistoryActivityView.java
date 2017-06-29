@@ -9,6 +9,6 @@ import java.util.List;
  */
 
 public interface WriteTenderHistoryActivityView extends BaseView {
-    void onLoadWriteHistroySucess(List<WriteTenderBookHistoryBean.ItemBean> historyInfo);
+    void onLoadWriteHistroySucess(List<WriteTenderBookHistoryBean.ItemBean> historyInfo,boolean isLoadMore);
     void onLoadWriteHistroyFailed();
 }

@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -103,11 +104,13 @@ public class Fragment_My extends Fragment {
         } else {
             logined.setVisibility(View.VISIBLE);
             noLogin.setVisibility(View.GONE);
-            userPhotoLogin.setImageResource(R.mipmap.ic_launcher);
                 companyName.setText(Constants.loginresultInfo.getUser().getName());
-                Bitmap bitmap = Base64MapUtils.stringToBitmap(Constants.loginresultInfo.getUser().getImage());
-                userPhotoLogin.setImageBitmap(bitmap);
-
+                if (TextUtils.isEmpty(Constants.loginresultInfo.getUser().getImage())) {
+                		userPhotoLogin.setImageResource(R.mipmap.wode_toux);
+                		}else {
+                    Bitmap bitmap = Base64MapUtils.stringToBitmap(Constants.loginresultInfo.getUser().getImage());
+                    userPhotoLogin.setImageBitmap(bitmap);
+                }
         }
     }
 

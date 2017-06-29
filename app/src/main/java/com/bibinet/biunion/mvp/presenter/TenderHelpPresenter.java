@@ -16,8 +16,8 @@ public class TenderHelpPresenter {
         this.tenderHelpView = tenderHelpView;
         this.tenderHelpModel=new TenderHelpModel();
     }
-    public void upLoadData(String contact, String cellPhone, String content){
-        tenderHelpModel.upLoadData(contact,cellPhone,content,new MyCallBack(){
+    public void upLoadData(String contact, String cellPhone, String content,String customerId){
+        tenderHelpModel.upLoadData(contact,cellPhone,content,customerId,new MyCallBack(){
             @Override
             public void onSuccess(String s) {
                 super.onSuccess(s);

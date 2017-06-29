@@ -11,9 +11,11 @@ import org.xutils.x;
  */
 
 public class WriteTenderHistoryActivityModel {
-    public void writeTenderHistory(String cellPhone,MyCallBack myCallBack){
+    public void writeTenderHistory(String cellPhone,String customerId,String pageNum ,MyCallBack myCallBack){
         RequestParams requestParams=new RequestParams(Constants.baseUrl+"pis/appProxyTender/selectPage.json");
         requestParams.addBodyParameter("cellPhone",cellPhone);
+        requestParams.addBodyParameter("customerId",customerId);
+        requestParams.addBodyParameter("pageNum ",pageNum );
         x.http().post(requestParams,myCallBack);
     }
 }
