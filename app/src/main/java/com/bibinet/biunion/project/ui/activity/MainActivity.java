@@ -84,6 +84,7 @@ public class MainActivity extends BaseActivity {
             }else {
 
             }
+
         }
 
         SharedPresUtils sharedPresUtils=SharedPresUtils.getsSharedPresUtils(this);

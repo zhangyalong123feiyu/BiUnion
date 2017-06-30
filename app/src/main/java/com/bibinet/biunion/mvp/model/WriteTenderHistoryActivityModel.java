@@ -15,7 +15,7 @@ public class WriteTenderHistoryActivityModel {
         RequestParams requestParams=new RequestParams(Constants.baseUrl+"pis/appProxyTender/selectPage.json");
         requestParams.addBodyParameter("cellPhone",cellPhone);
         requestParams.addBodyParameter("customerId",customerId);
-        requestParams.addBodyParameter("pageNum ",pageNum );
+        requestParams.addBodyParameter("pageNum",pageNum );
         x.http().post(requestParams,myCallBack);
     }
 }

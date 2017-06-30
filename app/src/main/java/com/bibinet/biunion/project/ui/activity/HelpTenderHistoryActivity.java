@@ -18,6 +18,7 @@ import com.bibinet.biunion.mvp.view.HelpTenderHistoryActivityView;
 import com.bibinet.biunion.project.adapter.SearchActivityAdapter;
 import com.bibinet.biunion.project.adapter.SocailFooterAdapter;
 import com.bibinet.biunion.project.adapter.TenderHistoryAdapter;
+import com.bibinet.biunion.project.adapter.WriteTenderHistoryAdapter;
 import com.bibinet.biunion.project.application.BaseActivity;
 import com.bibinet.biunion.project.application.Constants;
 import com.bibinet.biunion.project.bean.HelpTenderHistoryReusltBean;
@@ -101,24 +102,16 @@ public class HelpTenderHistoryActivity extends BaseActivity implements HelpTende
 
     @Override
     public void onLoadHistorySucess(List<HelpTenderHistoryReusltBean.ItemBean> helpHistoryInfo,boolean isLoadMore) {
-
-        if (helpHistoryInfo.size() == 0) {
-            Toast.makeText(this, "没有跟多数据了", Toast.LENGTH_SHORT).show();
-            adapter.changeMoreStatus(TenderHistoryAdapter.LOAD_NODATA);
-        }
+        projectList = helpHistoryInfo;
         if (isLoadMore) {
-            if (projectList.size() == 0) {
-                projectList = helpHistoryInfo;
-                adapter.changeMoreStatus(TenderHistoryAdapter.PULLUP_LOAD_MORE);
+            if (helpHistoryInfo.size() == 0) {
+                Toast.makeText(this, "没有更多数据", Toast.LENGTH_SHORT).show();
+                adapter.changeMoreStatus(SocailFooterAdapter.PULLUP_LOAD_MORE);
             } else {
                 adapter.addMoreItem(projectList);
-                adapter.changeMoreStatus(TenderHistoryAdapter.PULLUP_LOAD_MORE);
+                adapter.changeMoreStatus(SocailFooterAdapter.PULLUP_LOAD_MORE);
             }
         } else {
-            if (projectList!=null) {
-                projectList.clear();
-            		}
-            projectList = helpHistoryInfo;
             adapter = new TenderHistoryAdapter(this, projectList);
             tenderHistoryRecyl.setAdapter(adapter);
         }

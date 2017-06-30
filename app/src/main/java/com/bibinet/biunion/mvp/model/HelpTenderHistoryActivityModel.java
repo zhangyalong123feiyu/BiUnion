@@ -14,7 +14,7 @@ public class HelpTenderHistoryActivityModel {
     public void helpTenderHistory(String customerId,int pageNumb,MyCallBack myCacheCallBack){
         RequestParams requestParams=new RequestParams(Constants.baseUrl+"pis/appAssistance/selectPage.json");
         requestParams.addBodyParameter("customerId",customerId);
-        requestParams.addBodyParameter("pageNum ",String.valueOf(pageNumb));
+        requestParams.addBodyParameter("pageNum",String.valueOf(pageNumb));
         x.http().post(requestParams,myCacheCallBack);
     }
 }

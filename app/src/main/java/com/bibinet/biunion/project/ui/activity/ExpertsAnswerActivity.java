@@ -40,7 +40,7 @@ public class ExpertsAnswerActivity extends BaseActivity {
     }
 
     private void initView() {
-        title.setText("我的提问");
+        title.setText("专家问答");
         titleImageleft.setVisibility(View.VISIBLE);
         titleImageright.setVisibility(View.VISIBLE);
         titleImageright.setImageResource(R.mipmap.tiwen);

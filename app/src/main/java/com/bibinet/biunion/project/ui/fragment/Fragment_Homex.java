@@ -293,32 +293,21 @@ public class Fragment_Homex extends Fragment implements FragmentHomeView, View.O
 
     @Override
     public void onLoadSucess(List<ProjectInfoBean.ItemsBean> projectinfoList,boolean isLoadMore) {
-        if (projectinfoList.size() == 0) {
-            Toast.makeText(getActivity(), "没有更多数据了", Toast.LENGTH_SHORT).show();
-            adapter.changeMoreStatus(SocailFooterAdapter.LOAD_NODATA);
-        }
+        projectList = projectinfoList;
         if (isLoadMore) {
-        			Log.i("TAG","isloadmore===========true");
-        		}else {
-            Log.i("TAG","islomore========false");
-        }
-        if (isLoadMore) {
-            projectList.addAll(projectinfoList);
+            swipeReresh.setRefreshing(false);
             if (projectList.size() == 0) {
-                swipeReresh.setRefreshing(false);
+                Toast.makeText(getActivity(), "没有更多数据", Toast.LENGTH_SHORT).show();
                 adapter.changeMoreStatus(SocailFooterAdapter.PULLUP_LOAD_MORE);
             } else {
                 adapter.addMoreItem(projectList);
                 adapter.changeMoreStatus(SocailFooterAdapter.PULLUP_LOAD_MORE);
             }
         } else {
-            projectList.clear();
-            projectList.addAll(projectinfoList);
             adapter = new SocailFooterAdapter(getActivity(), projectList, bannerInfoList);
             projectInfoRecycler.setAdapter(adapter);
             swipeReresh.setRefreshing(false);
         }
-
     }
 
     @Override

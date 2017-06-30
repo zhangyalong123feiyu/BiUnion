@@ -4,7 +4,6 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="com.bibinet.biunion.project.ui.fragment.Fragment_My">
-    <include layout="@layout/titlebar"/>
 
     <ScrollView
         android:layout_width="match_parent"
@@ -44,8 +43,7 @@
                 android:id="@+id/noLogin"
                 android:layout_width="match_parent"
                 android:layout_height="117dp"
-                android:background="#F9C432"
-                >
+                android:background="#F9C432">
 
                 <ImageView
                     android:id="@+id/uerPhoto_noLogin"
@@ -62,10 +60,9 @@
                     android:layout_height="29dp"
                     android:layout_centerInParent="true"
                     android:layout_marginLeft="14dp"
-                    android:background="@mipmap/gerenzhong_denglu"
                     android:layout_marginTop="20dp"
                     android:layout_toRightOf="@id/uerPhoto_noLogin"
-                     />
+                    android:background="@mipmap/gerenzhong_denglu" />
 
                 <Button
                     android:id="@+id/rigestBtn"
@@ -74,9 +71,8 @@
                     android:layout_centerInParent="true"
                     android:layout_marginLeft="15dp"
                     android:layout_marginTop="20dp"
-                    android:background="@mipmap/gerenzhong_zhuche"
                     android:layout_toRightOf="@id/loginBtn"
-                     />
+                    android:background="@mipmap/gerenzhong_zhuche" />
             </RelativeLayout>
 
             <LinearLayout
@@ -98,8 +94,8 @@
                     android:layout_height="match_parent"
                     android:gravity="center_vertical"
                     android:paddingLeft="18dp"
-                    android:textColor="#333333"
-                    android:text="@string/companyInfo" />
+                    android:text="@string/companyInfo"
+                    android:textColor="#333333" />
 
                 <View
                     android:layout_width="0dp"
@@ -138,8 +134,8 @@
                     android:layout_height="match_parent"
                     android:gravity="center_vertical"
                     android:paddingLeft="18dp"
-                    android:textColor="#333333"
-                    android:text="@string/privateOdering" />
+                    android:text="@string/privateOdering"
+                    android:textColor="#333333" />
 
                 <View
                     android:layout_width="0dp"
@@ -362,4 +358,7 @@
 
         </LinearLayout>
     </ScrollView>
+
+    <include layout="@layout/titlebar"/>
+
 </LinearLayout>

@@ -101,17 +101,19 @@ public class H5Activity extends BaseActivity implements H5ActivityView{
 
        			case R.id.title_imageRightFoucs:/*关注*/
                     Log.i("TAG","点击关注");
-                    if (titleImageRightFoucs.isSelected()) {
-                    			titleImageRightFoucs.setSelected(false);
-                            h5ActivityPresenter.cancelFoucs(100761,projectCode);
-                    		}else
-                    		    {
-                    titleImageRightFoucs.setSelected(true);
-                    h5ActivityPresenter.collctionData(100761,projectCode,1);
-                }
-
+                    if (Constants.loginresultInfo!=null) {
+                        if (titleImageRightFoucs.isSelected()) {
+                            titleImageRightFoucs.setSelected(false);
+                            h5ActivityPresenter.cancelFoucs(Integer.parseInt(Constants.loginresultInfo.getUser().getUserId()),projectCode);
+                        }else
+                        {
+                            titleImageRightFoucs.setSelected(true);
+                            h5ActivityPresenter.collctionData(Integer.parseInt(Constants.loginresultInfo.getUser().getUserId()),projectCode,1);
+                        }
+                    		}else {
+                        Toast.makeText(this,"您还没有登录呢!",Toast.LENGTH_SHORT).show();
+                    }
        				break;
-
        			default:
        				break;
        			}

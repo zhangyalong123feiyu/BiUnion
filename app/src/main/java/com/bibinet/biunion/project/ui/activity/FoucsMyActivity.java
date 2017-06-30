@@ -14,6 +14,8 @@ import com.bibinet.biunion.R;
 import com.bibinet.biunion.mvp.presenter.FoucsActivityPresenter;
 import com.bibinet.biunion.mvp.view.FoucsActivityView;
 import com.bibinet.biunion.project.adapter.FoucsMyAdapter;
+import com.bibinet.biunion.project.adapter.SocailFooterAdapter;
+import com.bibinet.biunion.project.adapter.TenderHistoryAdapter;
 import com.bibinet.biunion.project.application.BaseActivity;
 import com.bibinet.biunion.project.application.Constants;
 import com.bibinet.biunion.project.bean.FoucsedBean;
@@ -113,22 +115,35 @@ public class FoucsMyActivity extends BaseActivity implements FoucsActivityView {
 
     @Override
     public void onLoadFoucsDataSucess(List<FoucsedBean.ItemBean> foucsInfo,boolean isLoadMore) {
-        if (foucsInfo.size() == 0) {
-            Toast.makeText(this, "没有跟多数据了", Toast.LENGTH_SHORT).show();
-            adapter.changeMoreStatus(FoucsMyAdapter.LOAD_NODATA);
-        }
+//        if (foucsInfo.size() == 0) {
+//            Toast.makeText(this, "没有跟多数据了", Toast.LENGTH_SHORT).show();
+//            adapter.changeMoreStatus(FoucsMyAdapter.LOAD_NODATA);
+//        }
+//        projectList = foucsInfo;
+//        if (isLoadMore) {
+//            if (foucsInfo.size() == 0) {
+//                adapter.changeMoreStatus(FoucsMyAdapter.PULLUP_LOAD_MORE);
+//            } else {
+//                adapter.addMoreItem(projectList);
+//                adapter.changeMoreStatus(FoucsMyAdapter.PULLUP_LOAD_MORE);
+//            }
+//        } else {
+//            if (projectList!=null) {
+//                projectList.clear();
+//            }
+//            adapter = new FoucsMyAdapter(this, projectList);
+//            foucsRecyclerView.setAdapter(adapter);
+//        }
         projectList = foucsInfo;
         if (isLoadMore) {
             if (foucsInfo.size() == 0) {
+                Toast.makeText(this, "没有更多数据", Toast.LENGTH_SHORT).show();
                 adapter.changeMoreStatus(FoucsMyAdapter.PULLUP_LOAD_MORE);
             } else {
                 adapter.addMoreItem(projectList);
                 adapter.changeMoreStatus(FoucsMyAdapter.PULLUP_LOAD_MORE);
             }
         } else {
-            if (projectList!=null) {
-                projectList.clear();
-            }
             adapter = new FoucsMyAdapter(this, projectList);
             foucsRecyclerView.setAdapter(adapter);
         }

@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -12,6 +13,7 @@ import android.widget.Toast;
 import com.bibinet.biunion.R;
 import com.bibinet.biunion.mvp.presenter.WriteTenderHistoryActivityPresenter;
 import com.bibinet.biunion.mvp.view.WriteTenderHistoryActivityView;
+import com.bibinet.biunion.project.adapter.SocailFooterAdapter;
 import com.bibinet.biunion.project.adapter.TenderHistoryAdapter;
 import com.bibinet.biunion.project.adapter.WriteTenderBookHistoryAdapter;
 import com.bibinet.biunion.project.adapter.WriteTenderHistoryAdapter;
@@ -85,7 +87,7 @@ public class WriteTenderHistoryActivity extends BaseActivity implements WriteTen
         if (isLoadMore) {
             pageNumb++;
         } else {
-            pageNumb = 1;
+            pageNumb= 1;
         }
         if (Constants.loginresultInfo!=null) {
             presenter.getWriteHistoryData(Constants.loginresultInfo.getUser().getEnterprise().getContactCellphone(),Constants.loginresultInfo.getUser().getUserId(),String.valueOf(pageNumb),isLoadMore);
@@ -108,23 +110,20 @@ public class WriteTenderHistoryActivity extends BaseActivity implements WriteTen
     }
     @Override
     public void onLoadWriteHistroySucess(List<WriteTenderBookHistoryBean.ItemBean> historyInfo,boolean isLoadMore) {
-        if (historyInfo.size() == 0) {
-            Toast.makeText(this, "没有跟多数据了", Toast.LENGTH_SHORT).show();
-            adapter.changeMoreStatus(TenderHistoryAdapter.LOAD_NODATA);
-        }
+        projectList = historyInfo;
         if (isLoadMore) {
-            if (projectList.size() == 0) {
-                projectList = historyInfo;
-                adapter.changeMoreStatus(TenderHistoryAdapter.PULLUP_LOAD_MORE);
+            Log.i("TAG", "44444");
+            Log.i("TAG", "pageNumber"+pageNumb);
+            if (historyInfo.size() == 0) {
+                Toast.makeText(this, "没有更多数据", Toast.LENGTH_SHORT).show();
+                adapter.changeMoreStatus(SocailFooterAdapter.PULLUP_LOAD_MORE);
             } else {
+                Log.i("TAG", "55555555555");
                 adapter.addMoreItem(projectList);
-                adapter.changeMoreStatus(TenderHistoryAdapter.PULLUP_LOAD_MORE);
+                adapter.changeMoreStatus(SocailFooterAdapter.PULLUP_LOAD_MORE);
             }
         } else {
-            if (projectList!=null) {
-                projectList.clear();
-            }
-            projectList = historyInfo;
+            Log.i("TAG", "66666");
             adapter = new WriteTenderHistoryAdapter(this, projectList);
             tenderWriteHistroy.setAdapter(adapter);
         }

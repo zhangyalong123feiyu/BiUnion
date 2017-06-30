@@ -15,13 +15,15 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@android:color/holo_orange_dark"/>
+
     <TextView
         android:id="@+id/selectExperts"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:text="是"
         android:gravity="center"
+        android:text="是"
         android:textSize="15sp" />
+
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
