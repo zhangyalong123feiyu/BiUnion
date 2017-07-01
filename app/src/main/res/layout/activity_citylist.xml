@@ -13,11 +13,10 @@
         android:orientation="vertical">
 
         <RelativeLayout
+            android:id="@+id/rl_head"
             android:layout_width="match_parent"
             android:layout_height="48dp"
-            android:background="#F9C432"
-            android:id="@+id/rl_head"
-            >
+            android:background="#F9C432">
 
             <ImageView
                 android:id="@+id/back"

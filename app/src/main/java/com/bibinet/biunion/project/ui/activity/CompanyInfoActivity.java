@@ -33,6 +33,7 @@ import com.bibinet.biunion.project.utils.DialogUtils;
 import com.bumptech.glide.Glide;
 
 import org.xutils.http.RequestParams;
+import org.xutils.image.ImageOptions;
 import org.xutils.x;
 
 import java.io.File;
@@ -92,9 +93,10 @@ public class CompanyInfoActivity extends BaseActivity implements CompanyInfoView
         initView();
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
+    private void initView() {
+        title.setText("企业资料");
+        titleImageleft.setVisibility(View.VISIBLE);
+        companyInfoPresenter=new CompanyInfoPresenter(this);
         if (Constants.loginresultInfo != null) {
             inputCompanyName.setText(Constants.loginresultInfo.getUser().getEnterprise().getEnterpriseName());
             inputArea.setText(Constants.loginresultInfo.getUser().getEnterprise().getAddr());
@@ -103,16 +105,11 @@ public class CompanyInfoActivity extends BaseActivity implements CompanyInfoView
             inputArea.setText(Constants.loginresultInfo.getUser().getEnterprise().getRegion());
             inputDetailAddress.setText(Constants.loginresultInfo.getUser().getEnterprise().getRegion());
             inputContactPerson.setText(Constants.loginresultInfo.getUser().getEnterprise().getContactCellphone());
-            Glide.with(this).load(Constants.loginresultInfo.getUser().getEnterprise().getTradingCertificateURL()).error(R.mipmap.banner_nowifi).into(businessImage);
+            ImageOptions imageOptions=new ImageOptions.Builder().setFailureDrawableId(R.mipmap.banner_nowifi).build();
+            x.image().bind(businessImage,Constants.loginresultInfo.getUser().getEnterprise().getTradingCertificateURL(),imageOptions);
         } else {
             return;
         }
-    }
-
-    private void initView() {
-        title.setText("企业资料");
-        titleImageleft.setVisibility(View.VISIBLE);
-        companyInfoPresenter=new CompanyInfoPresenter(this);
     }
 
     @OnClick({R.id.title_imageleft, R.id.businessImage,R.id.saveTenderBook})
@@ -140,12 +137,17 @@ public class CompanyInfoActivity extends BaseActivity implements CompanyInfoView
         String detailAddress = inputDetailAddress.getText().toString().trim();
         String contactName = inputContactPerson.getText().toString().trim();
         String contactPhone= inputPhoneNumber.getText().toString().trim();
-       if (TextUtils.isEmpty(companyName)&&TextUtils.isEmpty(creditCode)&&TextUtils.isEmpty(legalName)&&TextUtils.isEmpty(leagalidentityCode)&&TextUtils.isEmpty(industry)
-               &&TextUtils.isEmpty(area)&&TextUtils.isEmpty(detailAddress)&&TextUtils.isEmpty(contactName)&&TextUtils.isEmpty(contactPhone)) {
-       			Toast.makeText(this,"请确保您要提交的内容不为空",Toast.LENGTH_SHORT).show();
-       		}else {
-            companyInfoPresenter.upLoadData(companyName,creditCode,legalName,leagalidentityCode,industry,area,detailAddress,contactName,contactPhone,orignalId,thumbnailFileInfoId);
+        if (Constants.loginresultInfo!=null) {
+            if (TextUtils.isEmpty(companyName)||TextUtils.isEmpty(creditCode)||TextUtils.isEmpty(legalName)||TextUtils.isEmpty(leagalidentityCode)||TextUtils.isEmpty(industry)
+                    ||TextUtils.isEmpty(area)||TextUtils.isEmpty(detailAddress)||TextUtils.isEmpty(contactName)||TextUtils.isEmpty(contactPhone)) {
+                Toast.makeText(this,"请确保您要提交的内容不为空",Toast.LENGTH_SHORT).show();
+            }else {
+                companyInfoPresenter.upLoadData(companyName,creditCode,legalName,leagalidentityCode,industry,area,detailAddress,contactName,contactPhone,orignalId,thumbnailFileInfoId);
+            }
+        		}else {
+            Toast.makeText(this,"您还没有登录呢",Toast.LENGTH_SHORT).show();
         }
+
 
     }
 
@@ -220,7 +222,9 @@ public class CompanyInfoActivity extends BaseActivity implements CompanyInfoView
                 if (data != null) {
                     Bundle extras = data.getExtras();
                     if (extras != null) {
+                        Log.i("TAG","相片裁剪");
                         Bitmap photo = extras.getParcelable("data");
+                        Log.i("TAG",photo.toString()+"phto");
                         businessImage.setImageBitmap(photo);
                     }
                 }

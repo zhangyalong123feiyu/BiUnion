@@ -32,6 +32,7 @@ import com.bibinet.biunion.project.ui.activity.MoreProjectActivity;
 import com.bibinet.biunion.project.ui.activity.PrivatePersonDesignActivity;
 import com.bibinet.biunion.project.ui.activity.SearchActivity;
 import com.bibinet.biunion.project.ui.activity.SelectCityActivity;
+import com.bibinet.biunion.project.utils.ConvertUtils;
 import com.bibinet.biunion.project.utils.HomePopWindowUtils;
 import com.bibinet.biunion.project.utils.LoactionUtils;
 
@@ -92,7 +93,7 @@ public class Fragment_Homex extends Fragment implements FragmentHomeView, View.O
     private SocailFooterAdapter adapter;
     private HomePopWindowUtils popWindowUtils;
     private List<BannerBean.ItemBean> bannerInfoList = new ArrayList<>();
-
+    private ConvertUtils convertUtils=new ConvertUtils();
     public Fragment_Homex() {
         // Required empty public constructor
     }
@@ -120,25 +121,27 @@ public class Fragment_Homex extends Fragment implements FragmentHomeView, View.O
     }
 
     public void doRefresh() {
+
+        final int nowLocation = convertUtils.areaConvert(location.getText().toString().trim());
         presenter.getBannerData();
         swipeReresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 switch (selectType) {
                     case 5:
-                        presenter.LoadHomeDataProjcetInfo(1, detailType,false);
+                        presenter.LoadHomeDataProjcetInfo(1, detailType,nowLocation,false);
                         break;
                     case 6:
-                        presenter.LoadHomeDataTenderInfo(1, detailType,false);
+                        presenter.LoadHomeDataTenderInfo(1, detailType,nowLocation,false);
                         break;
                     case 7:
-                        presenter.LoadHomeDataBuyInfo(1, detailType,false);
+                        presenter.LoadHomeDataBuyInfo(1, detailType,nowLocation,false);
                         break;
                     case 8:
-                        presenter.LoadHomeDataPProjectInfo(1, detailType,false);
+                        presenter.LoadHomeDataPProjectInfo(1, detailType,nowLocation,false);
                         break;
                     case 9:
-                        presenter.LoadHomeDataApplayProjectInfo(1, detailType,false);
+                        presenter.LoadHomeDataApplayProjectInfo(1, detailType,nowLocation,false);
                         break;
 
                     default:
@@ -161,21 +164,22 @@ public class Fragment_Homex extends Fragment implements FragmentHomeView, View.O
 
     //选择加载不同的数据类型
     private void selectDataSource(boolean isLoadMore) {
+        final int nowLocation = convertUtils.areaConvert(location.getText().toString().trim());
         switch (selectType) {
             case projectInfoType:
-                presenter.LoadHomeDataProjcetInfo(pageNum, detailType,isLoadMore);
+                presenter.LoadHomeDataProjcetInfo(pageNum, detailType,nowLocation,isLoadMore);
                 break;
             case tenderProjectInfoType:
-                presenter.LoadHomeDataTenderInfo(pageNum, detailType,isLoadMore);
+                presenter.LoadHomeDataTenderInfo(pageNum, detailType,nowLocation,isLoadMore);
                 break;
             case buyProjectInfoType:
-                presenter.LoadHomeDataBuyInfo(pageNum, detailType,isLoadMore);
+                presenter.LoadHomeDataBuyInfo(pageNum, detailType,nowLocation,isLoadMore);
                 break;
             case pProjectInfoType:
-                presenter.LoadHomeDataPProjectInfo(pageNum, detailType,isLoadMore);
+                presenter.LoadHomeDataPProjectInfo(pageNum, detailType,nowLocation,isLoadMore);
                 break;
             case applayProjectInfoType:
-                presenter.LoadHomeDataApplayProjectInfo(pageNum, detailType,isLoadMore);
+                presenter.LoadHomeDataApplayProjectInfo(pageNum, detailType,nowLocation,isLoadMore);
                 break;
             default:
                 break;
@@ -186,7 +190,8 @@ public class Fragment_Homex extends Fragment implements FragmentHomeView, View.O
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.location:
-                startActivity(new Intent(getActivity(), SelectCityActivity.class));
+                Intent intentCityName=new Intent(getActivity(), SelectCityActivity.class);
+                startActivityForResult(intentCityName,1);
                 break;
             case R.id.privateOderingImage:
                 startActivity(new Intent(getActivity(), PrivatePersonDesignActivity.class));
@@ -222,6 +227,18 @@ public class Fragment_Homex extends Fragment implements FragmentHomeView, View.O
                 startActivity(new Intent(getActivity(), SearchActivity.class));
                 break;
         }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode==1) {
+            if (data!=null) {
+                String cityName = data.getStringExtra("resultCityNameHot");
+                location.setText(cityName);
+                loadData(false);
+            		}
+        		}
     }
 
     //弹出选着项目类型对话框

@@ -90,7 +90,7 @@ public class SelectCityActivity extends BaseActivity {
     private RelativeLayout mRlHead;
 
     private List<String> recentCitysList;
-
+private  Intent intent = new Intent();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -108,6 +108,9 @@ public class SelectCityActivity extends BaseActivity {
 //                String city = mBodyDatas.get(position).getCityName();
 //                setIntent(city);
 //                pickCity(city);
+                intent.putExtra("resultCityNameHot",mBodyDatas.get(position).getCityName());
+                setResult(3,intent);
+                finish();
             }
 
             @Override
@@ -132,7 +135,10 @@ public class SelectCityActivity extends BaseActivity {
                                             @Override
                                             public void onClick(View v) {
 
-                                                setIntent(cityName);
+                                                intent.putExtra("resultCityNameHot",cityName);
+                                                setResult(2,intent);
+                                                finish();
+//                                                setIntent(cityName);
 //                                                pickCity(cityName);
                                             }
                                         });

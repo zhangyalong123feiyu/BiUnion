@@ -18,10 +18,11 @@ import java.io.File;
 public class FragmentHomeModel {
     private String cacheName="ProjectInfoCache";
     private File cacheFile=new File(Environment.getExternalStorageDirectory(),"cachefile");
-    public void LoadHomeDataProjectInfo(int pageNum,int _type,MyCacheCallBack myCacheCallBack){
+    public void LoadHomeDataProjectInfo(int pageNum,int _type,int provinceId,MyCacheCallBack myCacheCallBack){
         RequestParams requestParams=new RequestParams(Constants.baseUrl+"pis/generalProjects/selectPage.json");
         requestParams.addBodyParameter("pageNum",String.valueOf(pageNum));
         requestParams.addBodyParameter("_type",String.valueOf(_type));
+        requestParams.addBodyParameter("provinceId",String.valueOf(provinceId));
         requestParams.setCacheMaxAge(60*60*24*15);
         requestParams.setCacheDirName(cacheName);
         requestParams.setCacheSize(1024*1024*30);
@@ -29,38 +30,43 @@ public class FragmentHomeModel {
         x.http().post(requestParams,myCacheCallBack);
     }
 
-    public void LoadHomeDataTenderInfo(int pageNum,int _type,MyCacheCallBack myCacheCallBack){
+    public void LoadHomeDataTenderInfo(int pageNum,int _type,int provinceId,MyCacheCallBack myCacheCallBack){
         RequestParams requestParams=new RequestParams(Constants.baseUrl+"pis/biddingInfos/selectPage.json");
         requestParams.addBodyParameter("pageNum",String.valueOf(pageNum));
         requestParams.addBodyParameter("_type",String.valueOf(_type));
+        requestParams.addBodyParameter("provinceId",String.valueOf(provinceId));
         requestParams.setCacheMaxAge(60*60*24*15);
         requestParams.setCacheDirName(cacheName);
         requestParams.setCacheSize(1024*1024*30);
         requestParams.setMaxRetryCount(2);
         x.http().post(requestParams,myCacheCallBack);
     }
-    public void LoadHomeDataBuyInfo(int pageNum,int _type,MyCacheCallBack myCacheCallBack){
+    public void LoadHomeDataBuyInfo(int pageNum,int _type,int provinceId,MyCacheCallBack myCacheCallBack){
         RequestParams requestParams=new RequestParams(Constants.baseUrl+"pis/purchaseInfos/selectPage.json");
         requestParams.addBodyParameter("pageNum",String.valueOf(pageNum));
         requestParams.addBodyParameter("_type",String.valueOf(_type));
+        requestParams.addBodyParameter("provinceId",String.valueOf(provinceId));
         requestParams.setCacheMaxAge(60*60*24*15);
         requestParams.setCacheDirName(cacheName);
         requestParams.setCacheSize(1024*1024*30);
         requestParams.setMaxRetryCount(2);
         x.http().post(requestParams,myCacheCallBack);
     }
-    public void LoadHomeDataPpProjectInfo(int pageNum,int _type,MyCacheCallBack myCacheCallBack){
+    public void LoadHomeDataPpProjectInfo(int pageNum,int _type,int provinceId,MyCacheCallBack myCacheCallBack){
         RequestParams requestParams=new RequestParams(Constants.baseUrl+"pis/pppProjects/selectPage.json");
         requestParams.addBodyParameter("pageNum",String.valueOf(pageNum));
+        requestParams.addBodyParameter("provinceId",String.valueOf(provinceId));
         requestParams.setCacheMaxAge(60*60*24*15);
         requestParams.setCacheDirName(cacheName);
         requestParams.setCacheSize(1024*1024*30);
         requestParams.setMaxRetryCount(2);
         x.http().post(requestParams,myCacheCallBack);
     }
-    public void LoadHomeDataApplayProjectInfo(int pageNum,int _type,MyCacheCallBack myCacheCallBack){
+    public void LoadHomeDataApplayProjectInfo(int pageNum,int _type,int provinceId,MyCacheCallBack myCacheCallBack){
         RequestParams requestParams=new RequestParams(Constants.baseUrl+"pis/portalUsers/selectPage.json");
         requestParams.addBodyParameter("pageNum",String.valueOf(pageNum));
+        requestParams.addBodyParameter("_type",String.valueOf(_type));
+        requestParams.addBodyParameter("provinceId",String.valueOf(provinceId));
         requestParams.setCacheMaxAge(60*60*24*15);
         requestParams.setCacheDirName(cacheName);
         requestParams.setCacheSize(1024*1024*30);
