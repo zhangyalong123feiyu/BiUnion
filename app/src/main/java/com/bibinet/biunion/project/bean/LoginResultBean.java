@@ -102,7 +102,6 @@ public class LoginResultBean implements Serializable{
              * enterpriseName : jfjdj
              * tradingCertificateURL :
              */
-
             private String businessLicenseCardNo;
             private String USCCode;
             private String businessLicenseName;

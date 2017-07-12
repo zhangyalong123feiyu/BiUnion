@@ -91,9 +91,9 @@ public class MainActivity extends BaseActivity {
         String loginString = sharedPresUtils.getString("loginResultData", null);
         Gson gson=new Gson();
         Constants.loginresultInfo=gson.fromJson(loginString, LoginResultBean.class);
-        framentHome = new Fragment_Homex();
-        fragment_Ask = new Fragment_Ask();
-        fragment_My = new Fragment_My();
+            framentHome = new Fragment_Homex();
+            fragment_Ask = new Fragment_Ask();
+            fragment_My = new Fragment_My();
         fragments = new Fragment[]{framentHome,fragment_Ask, fragment_My};
         mTabs = new RelativeLayout[]{bottomhome,bottomask, bottomy};
         mTabs[0].setSelected(true);
@@ -101,6 +101,12 @@ public class MainActivity extends BaseActivity {
                 add(R.id.fragementcontainer, fragment_Ask).hide(fragment_Ask).add(R.id.fragementcontainer, fragment_My).hide(fragment_My)
                 .commit();
     }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+//        super.onSaveInstanceState(outState);
+    }
+
     public void registerMessageReceiver() {
         setStyleBasic();
         JPushReciver jPushReciver = new JPushReciver(texthome);
@@ -155,7 +161,8 @@ public class MainActivity extends BaseActivity {
             mPressedTime = mNowTime;
         } else {//退出程序
             this.finish();
-            android.os.Process.killProcess(android.os.Process.myPid());
+//            android.os.Process.killProcess(android.os.Process.myPid());
+            System.exit(0);
         }
     }
 }

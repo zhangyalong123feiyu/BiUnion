@@ -23,7 +23,7 @@ public class MoreProjectPresenter{
         this.moreProjectView = fragmentHomeView;
         this.moreProjectModel=new MoreProjectModel();
     }
-    public void LoadHomeDataMoreProjcetInfo(int pageNum,int type,int dateRange,String trad,int provinceId){
+    public void LoadHomeDataMoreProjcetInfo(int pageNum, int type, int dateRange, String trad, int provinceId, final boolean isLoadMore){
         moreProjectView.showProgress();
         moreProjectModel.LoadHomeDataMoreProjectInfo(pageNum,type, dateRange, trad,provinceId,new MyCacheCallBack(){
             @Override
@@ -32,11 +32,13 @@ public class MoreProjectPresenter{
                 Gson gson=new Gson();
                 ProjectInfoBean projectInfo = gson.fromJson(s, ProjectInfoBean.class);
                 List<ProjectInfoBean.ItemsBean> projectinfo_list = projectInfo.getItems();
-                moreProjectView.onLoadSucess(projectinfo_list);
+                moreProjectView.hideProgress();
+                moreProjectView.onLoadSucess(projectinfo_list,isLoadMore);
             }
             @Override
             public void onError(Throwable throwable, boolean b) {
                 super.onError(throwable, b);
+                moreProjectView.hideProgress();
                 moreProjectView.onLoadFailed(throwable.getMessage());
             }
             @Override
@@ -44,12 +46,13 @@ public class MoreProjectPresenter{
                 Gson gson=new Gson();
                 ProjectInfoBean projectInfo = gson.fromJson(s, ProjectInfoBean.class);
                 List<ProjectInfoBean.ItemsBean> projectinfo_list = projectInfo.getItems();
-                moreProjectView.onLoadSucess(projectinfo_list);
+                moreProjectView.onLoadSucess(projectinfo_list,isLoadMore);
+                moreProjectView.hideProgress();
                 return super.onCache(s);
             }
         });
     }
-    public void LoadHomeDataMoreTenderInfo(int pageNum,int type,int dateRange,String trad,int provinceId){
+    public void LoadHomeDataMoreTenderInfo(int pageNum, int type, int dateRange, String trad, int provinceId, final boolean isLoadMore){
         moreProjectView.showProgress();
         moreProjectModel.LoadHomeDataMoreTenderInfo(pageNum,type, dateRange, trad,provinceId,new MyCacheCallBack(){
             @Override
@@ -58,7 +61,7 @@ public class MoreProjectPresenter{
                 Gson gson=new Gson();
                 ProjectInfoBean projectInfo = gson.fromJson(s, ProjectInfoBean.class);
                 List<ProjectInfoBean.ItemsBean> projectinfo_list = projectInfo.getItems();
-                moreProjectView.onLoadSucess(projectinfo_list);
+                moreProjectView.onLoadSucess(projectinfo_list,isLoadMore);
                 moreProjectView.hideProgress();
                 Log.i("TAG","fragementhomedata--------"+projectinfo_list.size());
             }
@@ -75,14 +78,14 @@ public class MoreProjectPresenter{
                 Gson gson=new Gson();
                 ProjectInfoBean projectInfo = gson.fromJson(s, ProjectInfoBean.class);
                 List<ProjectInfoBean.ItemsBean> projectinfo_list = projectInfo.getItems();
-                moreProjectView.onLoadSucess(projectinfo_list);
+                moreProjectView.onLoadSucess(projectinfo_list,isLoadMore);
                 moreProjectView.hideProgress();
                 return super.onCache(s);
 
             }
         });
     }
-    public void LoadHomeDataMoreBuyInfo(int pageNum,int type,int dateRange,String trad,int provinceId){
+    public void LoadHomeDataMoreBuyInfo(int pageNum, int type, int dateRange, String trad, int provinceId, final boolean isLoadMore){
         moreProjectView.showProgress();
         moreProjectModel.LoadHomeDataMoreBuyInfo(pageNum,type, dateRange, trad,provinceId,new MyCacheCallBack(){
             @Override
@@ -91,7 +94,8 @@ public class MoreProjectPresenter{
                 Gson gson=new Gson();
                 ProjectInfoBean projectInfo = gson.fromJson(s, ProjectInfoBean.class);
                 List<ProjectInfoBean.ItemsBean> projectinfo_list = projectInfo.getItems();
-                moreProjectView.onLoadSucess(projectinfo_list);
+                moreProjectView.onLoadSucess(projectinfo_list,isLoadMore);
+                moreProjectView.hideProgress();
                 Log.i("TAG","fragementhomedata--------"+projectinfo_list.size());
             }
             @Override
@@ -107,13 +111,13 @@ public class MoreProjectPresenter{
                 Gson gson=new Gson();
                 ProjectInfoBean projectInfo = gson.fromJson(s, ProjectInfoBean.class);
                 List<ProjectInfoBean.ItemsBean> projectinfo_list = projectInfo.getItems();
-                moreProjectView.onLoadSucess(projectinfo_list);
+                moreProjectView.onLoadSucess(projectinfo_list,isLoadMore);
                 moreProjectView.hideProgress();
                 return super.onCache(s);
             }
         });
     }
-    public void LoadHomeDataMorePProjectInfo(int pageNum,int type,int dateRange,String trad,int provinceId){
+    public void LoadHomeDataMorePProjectInfo(int pageNum, int type, int dateRange, String trad, int provinceId, final boolean isLoadMore){
         moreProjectView.showProgress();
         moreProjectModel.LoadHomeDataMorePpProjectInfo(pageNum,type, dateRange, trad,provinceId,new MyCacheCallBack(){
             @Override
@@ -122,7 +126,7 @@ public class MoreProjectPresenter{
                 Gson gson=new Gson();
                 ProjectInfoBean projectInfo = gson.fromJson(s, ProjectInfoBean.class);
                 List<ProjectInfoBean.ItemsBean> projectinfo_list = projectInfo.getItems();
-                moreProjectView.onLoadSucess(projectinfo_list);
+                moreProjectView.onLoadSucess(projectinfo_list,isLoadMore);
                 moreProjectView.hideProgress();
                 Log.i("TAG","fragementhomedata--------"+projectinfo_list.size());
             }
@@ -139,13 +143,13 @@ public class MoreProjectPresenter{
                 Gson gson=new Gson();
                 ProjectInfoBean projectInfo = gson.fromJson(s, ProjectInfoBean.class);
                 List<ProjectInfoBean.ItemsBean> projectinfo_list = projectInfo.getItems();
-                moreProjectView.onLoadSucess(projectinfo_list);
+                moreProjectView.onLoadSucess(projectinfo_list,isLoadMore);
                 moreProjectView.hideProgress();
                 return super.onCache(s);
             }
         });
     }
-    public void LoadHomeDataMoreApplayProjectInfo(int pageNum,int type,int dateRange,String trad,int provinceId){
+    public void LoadHomeDataMoreApplayProjectInfo(int pageNum, int type, int dateRange, String trad, int provinceId, final boolean isLoadMore){
         moreProjectView.showProgress();
         moreProjectModel.LoadHomeDataMoreApplayProjectInfo(pageNum,type, dateRange, trad,provinceId,new MyCacheCallBack(){
             @Override
@@ -154,7 +158,8 @@ public class MoreProjectPresenter{
                 Gson gson=new Gson();
                 ProjectInfoBean projectInfo = gson.fromJson(s, ProjectInfoBean.class);
                 List<ProjectInfoBean.ItemsBean> projectinfo_list = projectInfo.getItems();
-                moreProjectView.onLoadSucess(projectinfo_list);
+                moreProjectView.onLoadSucess(projectinfo_list,isLoadMore);
+                moreProjectView.hideProgress();
                 Log.i("TAG","fragementhomedata--------"+projectinfo_list.size());
             }
             @Override
@@ -170,7 +175,7 @@ public class MoreProjectPresenter{
                 Gson gson=new Gson();
                 ProjectInfoBean projectInfo = gson.fromJson(s, ProjectInfoBean.class);
                 List<ProjectInfoBean.ItemsBean> projectinfo_list = projectInfo.getItems();
-                moreProjectView.onLoadSucess(projectinfo_list);
+                moreProjectView.onLoadSucess(projectinfo_list,isLoadMore);
                 moreProjectView.hideProgress();
                 return super.onCache(s);
             }

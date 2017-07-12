@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="com.bibinet.biunion.project.ui.fragment.Fragment_My">
-
+<include layout="@layout/titlebar"/>
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">

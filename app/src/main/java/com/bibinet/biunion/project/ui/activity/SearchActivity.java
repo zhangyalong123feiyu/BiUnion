@@ -20,7 +20,11 @@ import com.bibinet.biunion.mvp.view.SearchActivityView;
 import com.bibinet.biunion.project.adapter.SearchActivityAdapter;
 import com.bibinet.biunion.project.adapter.SocailFooterAdapter;
 import com.bibinet.biunion.project.application.BaseActivity;
+import com.bibinet.biunion.project.bean.HotWordsBean;
 import com.bibinet.biunion.project.bean.SearchResultBean;
+import com.bibinet.biunion.project.utils.ACache;
+
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -63,6 +67,7 @@ public class SearchActivity extends BaseActivity implements SearchActivityView, 
     private int pageNum;
     private String content;
     private HotWordsPresenter hotpresenter;
+    private ACache aCache;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -73,6 +78,7 @@ public class SearchActivity extends BaseActivity implements SearchActivityView, 
     }
 
     private void initView() {
+        aCache=ACache.get(this);
         final LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false);
         histroyRecrodRecycler.setLayoutManager(linearLayoutManager);
         presenter = new SearchActivityPresenter(this);
@@ -101,6 +107,7 @@ public class SearchActivity extends BaseActivity implements SearchActivityView, 
         } else {
             pageNum = 1;
         }
+        Log.i("TAG","content"+content);
         presenter.getSearchData(pageNum, content,isLoadMore);//搜索presenter
     }
 
@@ -149,18 +156,26 @@ public class SearchActivity extends BaseActivity implements SearchActivityView, 
     }
 
     @Override//加载热词
-    public void onLoadHotWordsSucess(List<String> hotWords) {
-        hotOne.setText(hotWords.get(0));
-        hotTwo.setText(hotWords.get(1));
-        hotThree.setText(hotWords.get(2));
-        hotFour.setText(hotWords.get(3));
-        hotFive.setText(hotWords.get(4));
-        hotSix.setText(hotWords.get(5));
+    public void onLoadHotWordsSucess(HotWordsBean hotWords) {
+        aCache.put("hotwords",hotWords,2*ACache.TIME_DAY);
+
+        hotOne.setText(hotWords.getItems().get(0));
+        hotTwo.setText(hotWords.getItems().get(1));
+        hotThree.setText(hotWords.getItems().get(2));
+        hotFour.setText(hotWords.getItems().get(3));
+        hotFive.setText(hotWords.getItems().get(4));
+        hotSix.setText(hotWords.getItems().get(5));
     }
 
     @Override
-    public void onLoadHotWordsFailed() {
-
+    public void onLoadHotWordsFailed(String msg) {
+        HotWordsBean hotwordsInfo =(HotWordsBean) aCache.getAsObject("hotwords");
+        hotOne.setText(hotwordsInfo.getItems().get(0));
+        hotTwo.setText(hotwordsInfo.getItems().get(1));
+        hotThree.setText(hotwordsInfo.getItems().get(2));
+        hotFour.setText(hotwordsInfo.getItems().get(3));
+        hotFive.setText(hotwordsInfo.getItems().get(4));
+        hotSix.setText(hotwordsInfo.getItems().get(5));
     }
 
     @OnClick({R.id.hotOne, R.id.hotTwo, R.id.hotThree, R.id.hotFour, R.id.hotFive, R.id.hotSix})

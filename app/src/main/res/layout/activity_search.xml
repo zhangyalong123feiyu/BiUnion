@@ -28,7 +28,7 @@
             android:paddingLeft="8dp"
             android:paddingRight="8dp"
             android:scaleType="center"
-            android:src="@mipmap/ic_launcher"
+            android:src="@mipmap/search"
             tools:ignore="ContentDescription" />
 
         <EditText

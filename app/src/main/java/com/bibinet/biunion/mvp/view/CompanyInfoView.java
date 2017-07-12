@@ -7,7 +7,7 @@ import com.bibinet.biunion.project.bean.CompanyUpImageBean;
  */
 
 public interface CompanyInfoView extends BaseView {
-    void onUpLoadDataSucess();
+    void onUpLoadDataSucess(String reslutcode);
     void onUpLoadDataFailed();
     void onUpCompanyPicViewSucess(CompanyUpImageBean upImageInfo);
     void onUpCompanyPicViewFailed();

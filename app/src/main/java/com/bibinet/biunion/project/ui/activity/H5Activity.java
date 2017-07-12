@@ -45,6 +45,8 @@ public class H5Activity extends BaseActivity implements H5ActivityView{
     private H5ActivityPresenter h5ActivityPresenter;
     private String type;
     private String projectCode;
+    private String selcType;
+    private String detaiType;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -59,7 +61,72 @@ public class H5Activity extends BaseActivity implements H5ActivityView{
         Intent intent = getIntent();
         String detailUrl = intent.getStringExtra("detailUrl");
          type = intent.getStringExtra("type");
-         projectCode = intent.getStringExtra("projectCode");
+         type = intent.getStringExtra("type");
+         type = intent.getStringExtra("type");
+         selcType = intent.getStringExtra("selectType");
+         detaiType = intent.getStringExtra("detailType");
+        	switch (Integer.parseInt(selcType)) {
+        			case 5:
+        			    	switch (Integer.parseInt(detaiType)) {
+        			    			case 1:
+        			    		title.setText("拟在建项目");
+        			    				break;
+        			    			case 2:
+                                        title.setText("业主委托项目");
+                                        break;
+        			    			default:
+        			    				break;
+        			    			}
+        				break;
+        			case 6:
+                        switch (Integer.parseInt(detaiType)) {
+                            case 1:
+                                title.setText("招标公告信息");
+                                break;
+                            case 2:
+                                title.setText("中标候选人公示信息");
+                                break;
+                            case 3:
+                                title.setText("中标公告信息");
+                                break;
+                            default:
+                                break;
+                        }
+        				break;
+        			case 7:
+                        switch (Integer.parseInt(detaiType)) {
+                            case 1:
+                                title.setText("政府采购信息");
+                                break;
+                            case 2:
+                                title.setText("业主采购信息");
+                                break;
+                            default:
+                                break;
+                        }
+        				break;
+        			case 8:
+                        title.setText("ppp项目信息");
+        				break;
+        			case 9:
+                        switch (Integer.parseInt(detaiType)) {
+                            case 1:
+                                title.setText("供应商信息");
+                                break;
+                            case 2:
+                                title.setText("采购业主信息");
+                                break;
+                            case 3:
+                                title.setText("招标机构信息");
+                                break;
+                            default:
+                                break;
+                        }
+        				break;
+
+        			default:
+        				break;
+        			}
         webview.loadUrl(Constants.baseUrl + detailUrl);
         titleImageleft.setVisibility(View.VISIBLE);
         webview.setWebViewClient(new WebViewClient() {

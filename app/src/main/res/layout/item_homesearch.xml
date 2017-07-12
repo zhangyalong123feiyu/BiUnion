@@ -65,10 +65,11 @@
 
         <ImageView
             android:id="@+id/privateOderingImage"
-            android:layout_width="10dp"
-            android:layout_height="20dp"
+            android:layout_width="15dp"
+            android:layout_height="25dp"
             android:src="@mipmap/privatedesing"
-            android:visibility="invisible"
+            android:visibility="visible"
+            android:layout_marginLeft="12dp"
             android:layout_gravity="center_vertical"
             android:layout_marginRight="12dp"
             />

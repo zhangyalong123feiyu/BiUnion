@@ -9,6 +9,6 @@ import java.util.List;
  */
 
 public interface HotWordsView {
-    void onLoadHotWordsSucess(List<String> items);
-    void onLoadHotWordsFailed();
+    void onLoadHotWordsSucess(HotWordsBean hotWordsBean);
+    void onLoadHotWordsFailed(String msg);
 }

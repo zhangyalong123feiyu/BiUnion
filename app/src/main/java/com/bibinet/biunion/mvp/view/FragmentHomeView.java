@@ -12,6 +12,6 @@ import java.util.List;
 public interface FragmentHomeView extends BaseView {
    void onLoadSucess(List<ProjectInfoBean.ItemsBean> projectinfolist,boolean isLoadMore);
    void onLoadFaield(String msg);
-   void onLoadBannerSucess(List<BannerBean.ItemBean> bannerInfo);
+   void onLoadBannerSucess(BannerBean bannerInfo);
    void onLoadBannerFailed();
 }

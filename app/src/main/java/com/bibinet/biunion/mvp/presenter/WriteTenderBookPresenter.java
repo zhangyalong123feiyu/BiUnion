@@ -1,5 +1,7 @@
 package com.bibinet.biunion.mvp.presenter;
 
+import android.util.Log;
+
 import com.bibinet.biunion.mvp.model.WriteTenderBookModel;
 import com.bibinet.biunion.mvp.view.WriteTenderBookView;
 import com.bibinet.biunion.project.builder.MyCallBack;
@@ -16,7 +18,7 @@ public class WriteTenderBookPresenter {
         this.writeTenderBookView = writeTenderBookView;
         this.writeTenderBookModel=new WriteTenderBookModel();
     }
-    public void saveWriteTenderBook(String tenderSelection,String projectType,String tenderMode,String tenderType,String contact,String cellPhone,String email,String customerId){
+    public void saveWriteTenderBook(int tenderSelection,int projectType,int tenderMode,int tenderType,String contact,String cellPhone,String email,String customerId){
         writeTenderBookModel.upLoadTenderBookData(tenderSelection,projectType,tenderMode,tenderType,contact,cellPhone,email,customerId,new MyCallBack(){
             @Override
             public void onSuccess(String s) {
@@ -28,6 +30,7 @@ public class WriteTenderBookPresenter {
             public void onError(Throwable throwable, boolean b) {
                 super.onError(throwable, b);
                 writeTenderBookView.saveTenderBookFailed();
+                Log.i("TAG",throwable.getMessage()+"带写标书-----------------error");
             }
         });
     }

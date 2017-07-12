@@ -153,8 +153,8 @@ private  Intent intent = new Intent();
                             @Override
                             public void onFocusChange(View view, boolean b) {
                                 if (b) {
-//                                    Intent intent = new Intent(SelectCityActivity.this, SearchResultActivity.class);
-//                                    startActivityForResult(intent, Constance.REQUEST_CITY_LIST);
+                                    Intent intent = new Intent(SelectCityActivity.this, SearchResultActivity.class);
+                                    startActivityForResult(intent, Constance.REQUEST_CITY_LIST);
                                 }
                             }
                         });

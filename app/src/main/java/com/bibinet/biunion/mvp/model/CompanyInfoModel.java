@@ -13,8 +13,9 @@ import java.io.File;
  */
 
 public class CompanyInfoModel {
-    public void upLoadData(String enterpriseName,String USCCode,String businessLicenseName,String businessLicenseCardNo,String industry,String region,String addr,String contactName,String contactCellphone,int originalFileInfoId,int thumbnailFileInfoId,MyCallBack myCallBack){
-            RequestParams requestParams=new RequestParams(Constants.baseUrl+"iip/user/updateEnterpriseData.json");
+    public void upLoadData(String enterpriseCode,String enterpriseName,String USCCode,String businessLicenseName,String businessLicenseCardNo,String industry,String region,String addr,String contactName,String contactCellphone,int originalFileInfoId,int thumbnailFileInfoId,MyCallBack myCallBack){
+            RequestParams requestParams=new RequestParams(Constants.baseUrl+"iip/user/enterprise.json");
+            requestParams.addBodyParameter("enterpriseCode",enterpriseCode);
             requestParams.addBodyParameter("enterpriseName",enterpriseName);
             requestParams.addBodyParameter("USCCode",USCCode);
             requestParams.addBodyParameter("businessLicenseName",businessLicenseName);
@@ -22,6 +23,7 @@ public class CompanyInfoModel {
             requestParams.addBodyParameter("industry",industry);
             requestParams.addBodyParameter("region",region);
             requestParams.addBodyParameter("addr",addr);
+            requestParams.addBodyParameter("operateType","1");
             requestParams.addBodyParameter("contactName",contactName);
             requestParams.addBodyParameter("contactCellphone",contactCellphone);
             requestParams.addBodyParameter("originalFileInfoId",String.valueOf(originalFileInfoId));
@@ -29,7 +31,7 @@ public class CompanyInfoModel {
             x.http().post(requestParams,myCallBack);
     }
     public void upLoadCompanyImage(File file,MyCallBack myCallBack){
-            RequestParams requestParams=new RequestParams(Constants.baseUrl+"iip/file/uploadCertificateFile.json");
+            RequestParams requestParams=new RequestParams(Constants.baseUrl+"file/uploadCertificateFile.json");
             requestParams.addBodyParameter("type","1");
             requestParams.addBodyParameter("file",file);
             x.http().post(requestParams,myCallBack);

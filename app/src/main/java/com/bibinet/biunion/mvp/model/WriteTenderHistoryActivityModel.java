@@ -18,4 +18,9 @@ public class WriteTenderHistoryActivityModel {
         requestParams.addBodyParameter("pageNum",pageNum );
         x.http().post(requestParams,myCallBack);
     }
+    public void writeTenderHistoryDelete(int objectId,MyCallBack myCallBack){
+        RequestParams requestParams=new RequestParams(Constants.baseUrl+"pis/appProxyTender/delete.json");
+        requestParams.addBodyParameter("objectId",String.valueOf(objectId));
+        x.http().post(requestParams,myCallBack);
+    }
 }

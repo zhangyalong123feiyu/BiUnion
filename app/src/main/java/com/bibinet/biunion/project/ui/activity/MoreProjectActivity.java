@@ -8,7 +8,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -19,17 +18,14 @@ import com.bibinet.biunion.mvp.presenter.MoreProjectPresenter;
 import com.bibinet.biunion.mvp.view.MoreProjectView;
 import com.bibinet.biunion.project.adapter.MoreItemAdapter;
 import com.bibinet.biunion.project.adapter.MoreProjectAdapter;
-import com.bibinet.biunion.project.adapter.SocailFooterAdapter;
 import com.bibinet.biunion.project.application.BaseActivity;
 import com.bibinet.biunion.project.bean.ProjectInfoBean;
 import com.bibinet.biunion.project.utils.ConvertUtils;
 import com.bibinet.biunion.project.utils.PublicPopWindowUtils;
-import com.bibinet.biunion.project.utils.cityselectutil.ConversionMap;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -42,8 +38,6 @@ import butterknife.OnClick;
 public class MoreProjectActivity extends BaseActivity implements MoreProjectView {
     @BindView(R.id.backImage)
     ImageView backImage;
-    @BindView(R.id.searchProject)
-    TextView searchProject;
     @BindView(R.id.projectIndustry)
     LinearLayout projectIndustry;
     @BindView(R.id.projectAeara)
@@ -60,7 +54,11 @@ public class MoreProjectActivity extends BaseActivity implements MoreProjectView
     TextView timeTextView;
     @BindView(R.id.moreSwipeRefrsh)
     SwipeRefreshLayout moreSwipeRefrsh;
+    @BindView(R.id.moreTitle)
+    TextView moreTitle;
+    private PublicPopWindowUtils publicPopWindowUtils = new PublicPopWindowUtils(this);
     private MoreProjectPresenter projectPresenter;
+    private int select_type=1;
     private List<String> projectDatas = new ArrayList<>();
     private String[] time = new String[]{"全部", "近一周", "近一个月", "近三个月"};
     private String[] industry = new String[]{"全部", "农、林、牧、渔业", "采矿业", "制造业", "电力、热力、燃气及水生产和供应业", "建筑业",
@@ -71,14 +69,13 @@ public class MoreProjectActivity extends BaseActivity implements MoreProjectView
             "台湾省", "香港特别行政区", "澳门特别行政区"};
     private String selectText;
     private int pageNumb = 1;
-    private String selectType;
+    private String selectType = "6";
     private String detailType;
     private MoreProjectAdapter adapter;
-    private boolean isLoadMore;
     private List<ProjectInfoBean.ItemsBean> projectList;
-    private int lastvisibleitem=1;
+    private int lastvisibleitem = 1;
     private LinearLayoutManager linearLayoutManager;
-    private ConvertUtils convert=new ConvertUtils();
+    private ConvertUtils convert = new ConvertUtils();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -90,21 +87,22 @@ public class MoreProjectActivity extends BaseActivity implements MoreProjectView
     }
 
     private void initView() {
+        setTitl();
         projectPresenter = new MoreProjectPresenter(this);
         projectRecyler.setHasFixedSize(true);
-        linearLayoutManager=new LinearLayoutManager(this);
+        linearLayoutManager = new LinearLayoutManager(this);
         projectRecyler.setLayoutManager(linearLayoutManager);
         projectRecyler.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
-                if (adapter!=null) {
+                if (adapter != null) {
                     if (newState == RecyclerView.SCROLL_STATE_IDLE && lastvisibleitem + 1 == adapter.getItemCount()) {
                         loadData(true);
-                        isLoadMore=true;
                     }
-                		}
+                }
             }
+
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
@@ -114,75 +112,119 @@ public class MoreProjectActivity extends BaseActivity implements MoreProjectView
         moreSwipeRefrsh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-             switchSelect();
+                switchSelect(selectType, true);
             }
         });
     }
+
+    private void setTitl() {
+        Intent intent = getIntent();
+        selectType = intent.getStringExtra("selectType");
+        switch (Integer.parseInt(selectType)) {
+            case 5:
+                moreTitle.setText("项目信息");
+                break;
+            case 6:
+                moreTitle.setText("招标信息");
+                break;
+        case 7:
+                 moreTitle.setText("采购信息");
+        break;
+        case 9:
+                moreTitle.setText("供应商信息");
+        break;
+    }
+
+}
 
     //首页过来之后进行数据加载
     private void loadData(boolean isLoadMore) {
         if (isLoadMore) {
             adapter.changeMoreStatus(MoreProjectAdapter.LOADING_MORE);
             pageNumb++;
-            Log.i("pageNum","moeragenumber________________________"+pageNumb);
         } else {
             pageNumb = 1;
         }
         Intent intent = getIntent();
         selectType = intent.getStringExtra("selectType");
         detailType = intent.getStringExtra("detailType");
-        switchSelect();
+//        switchSelect(selectType,isLoadMore);
+        doSelect(String.valueOf(convert.timeConvert(timeTextView.getText().toString())), String.valueOf(convert.industryConvert(industryTextView.getText().toString())), String.valueOf(convert.areaConvert(areaTextView.getText().toString())), false);
     }
 
-    private void switchSelect() {
+    private void switchSelect(String selectType, boolean isLoadMore) {
         switch (Integer.parseInt(selectType)) {
-            case 5:
-                projectPresenter.LoadHomeDataMoreTenderInfo(pageNumb, Integer.parseInt(detailType), 1, "", 140000);
-                break;
             case 6:
-                projectPresenter.LoadHomeDataMoreProjcetInfo(pageNumb, Integer.parseInt(detailType), 1, "", 140000);
+                projectPresenter.LoadHomeDataMoreTenderInfo(pageNumb, Integer.parseInt(detailType), 0, "z", 140000, isLoadMore);
+                break;
+            case 5:
+                Log.i("TAG", "projectinfo-----------------------------");
+                projectPresenter.LoadHomeDataMoreProjcetInfo(pageNumb, Integer.parseInt(detailType), 0, "z", 140000, isLoadMore);
                 break;
             case 7:
-                projectPresenter.LoadHomeDataMoreBuyInfo(pageNumb, Integer.parseInt(detailType), 1, "", 140000);
+                projectPresenter.LoadHomeDataMoreBuyInfo(pageNumb, Integer.parseInt(detailType), 0, "z", 140000, isLoadMore);
                 break;
             case 8:
-                projectPresenter.LoadHomeDataMoreApplayProjectInfo(pageNumb, Integer.parseInt(detailType), 1, "", 140000);
+                projectPresenter.LoadHomeDataMorePProjectInfo(pageNumb, Integer.parseInt(detailType), 0, "z", 140000, isLoadMore);
                 break;
             case 9:
-                projectPresenter.LoadHomeDataMoreProjcetInfo(pageNumb, Integer.parseInt(detailType), 1, "", 140000);
+                projectPresenter.LoadHomeDataMoreApplayProjectInfo(pageNumb, Integer.parseInt(detailType), 0, "z", 140000, isLoadMore);
                 break;
             default:
                 break;
         }
     }
 
-    @OnClick({R.id.searchProject,R.id.backImage, R.id.projectIndustry, R.id.projectAeara, R.id.projectTime})
+    @OnClick({R.id.backImage, R.id.projectIndustry, R.id.projectAeara, R.id.projectTime})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.searchProject:
-                startActivity(new Intent(this,SearchActivity.class));
-                break;
             case R.id.backImage:
                 finish();
                 break;
             case R.id.projectIndustry:
                 projectDatas = Arrays.asList(industry);
-                initPopView(projectDatas,industryTextView);
+                select_type=1;
+                if (projectIndustry.isSelected()) {
+                    projectIndustry.setSelected(false);
+                    publicPopWindowUtils.dissMisPopWindow();
+                }else {
+                    projectIndustry.setSelected(true);
+                    projectAeara.setSelected(false);
+                    projectTime.setSelected(false);
+                    initPopView(projectDatas, industryTextView);
+                }
                 break;
             case R.id.projectAeara:
                 projectDatas = Arrays.asList(area);
-                initPopView(projectDatas, areaTextView);
+                select_type=2;
+                if (projectAeara.isSelected()) {
+                    projectAeara.setSelected(false);
+                    publicPopWindowUtils.dissMisPopWindow();
+                }else {
+                    projectAeara.setSelected(true);
+                    projectIndustry.setSelected(false);
+                    projectTime.setSelected(false);
+                    initPopView(projectDatas, areaTextView);
+                }
                 break;
             case R.id.projectTime:
                 projectDatas = Arrays.asList(time);
-                initPopView(projectDatas, timeTextView);
+                select_type=3;
+                if (projectTime.isSelected()) {
+                    projectTime.setSelected(false);
+                    publicPopWindowUtils.dissMisPopWindow();
+                }else {
+                    projectTime.setSelected(true);
+                    projectIndustry.setSelected(false);
+                    projectAeara.setSelected(false);
+                    initPopView(projectDatas, timeTextView);
+                }
                 break;
         }
     }
 
     //开始进行查询
     private void initPopView(List<String> projectDatas, final TextView textView) {
-        final PublicPopWindowUtils publicPopWindowUtils = new PublicPopWindowUtils(this);
         publicPopWindowUtils.showPopWindow(R.layout.item_popwindow);
         View view = publicPopWindowUtils.getPopview();
         RecyclerView popViewRecyclerView = (RecyclerView) view.findViewById(R.id.popRecyclerView);
@@ -194,37 +236,56 @@ public class MoreProjectActivity extends BaseActivity implements MoreProjectView
             public void onProjectTextClickLitioner(View view) {
                 selectText = ((TextView) view).getText().toString();
                 publicPopWindowUtils.dissMisPopWindow();
+                	switch (select_type) {
+                			case 1:
+                				projectIndustry.setSelected(false);
+                				break;
+                			case 2:
+                				projectAeara.setSelected(false);
+                				break;
+                			case 3:
+                				projectTime.setSelected(false);
+                				break;
+
+                			default:
+                				break;
+                			}
                 textView.setText(selectText);
-                Log.i("TAG",""+industryTextView.getText().toString());
-                doSelect(String.valueOf(convert.timeConvert(timeTextView.getText().toString())),String.valueOf(convert.industryConvert(industryTextView.getText().toString())),String.valueOf(convert.areaConvert(areaTextView.getText().toString())));
+                Log.i("TAG", "" + industryTextView.getText().toString());
+                Log.i("TAG", "String.valueOf(convert.industryConvert(industryTextView.getText().toString()))" + String.valueOf(convert.industryConvert(industryTextView.getText().toString())));
+                Log.i("TAG", "convert.timeConvert(timeTextView.getText().toString()" + String.valueOf(convert.timeConvert(timeTextView.getText().toString())));
+                Log.i("TAG", "String.valueOf(convert.areaConvert(areaTextView.getText().toString()))" + String.valueOf(convert.areaConvert(areaTextView.getText().toString())));
+                Log.i("TAG", "detailType" + detailType.toString());
+
+                doSelect(String.valueOf(convert.timeConvert(timeTextView.getText().toString())), String.valueOf(convert.industryConvert(industryTextView.getText().toString())), String.valueOf(convert.areaConvert(areaTextView.getText().toString())), false);
             }
         });
         publicPopWindowUtils.showPopWindow(textView);
     }
 
-    private void doSelect(String time, String industry, String ar) {
+    private void doSelect(String time, String industry, String ar, boolean isLoadMore) {
         switch (Integer.parseInt(selectType)) {
             case 5:
-                    projectPresenter.LoadHomeDataMoreTenderInfo(pageNumb, Integer.parseInt(detailType), Integer.parseInt(time), industry, Integer.parseInt(ar));
-                        break;
-                case 6:
-                    projectPresenter.LoadHomeDataMoreTenderInfo(pageNumb, Integer.parseInt(detailType), Integer.parseInt(time), industry, Integer.parseInt(ar));
-                    break;
-                case 7:
-                    projectPresenter.LoadHomeDataMoreBuyInfo(pageNumb, Integer.parseInt(detailType), Integer.parseInt(time), industry, Integer.parseInt(ar));
-                    break;
-                case 8:
-                    projectPresenter.LoadHomeDataMorePProjectInfo(pageNumb, Integer.parseInt(detailType), Integer.parseInt(time), industry, Integer.parseInt(ar));
-                    break;
-                case 9:
-                    projectPresenter.LoadHomeDataMoreApplayProjectInfo(pageNumb, Integer.parseInt(detailType), Integer.parseInt(time), industry, Integer.parseInt(ar));
-                    break;
+                projectPresenter.LoadHomeDataMoreTenderInfo(pageNumb, Integer.parseInt(detailType), Integer.parseInt(time), industry, Integer.parseInt(ar), isLoadMore);
+                break;
+            case 6:
+                projectPresenter.LoadHomeDataMoreTenderInfo(pageNumb, Integer.parseInt(detailType), Integer.parseInt(time), industry, Integer.parseInt(ar), isLoadMore);
+                break;
+            case 7:
+                projectPresenter.LoadHomeDataMoreBuyInfo(pageNumb, Integer.parseInt(detailType), Integer.parseInt(time), industry, Integer.parseInt(ar), isLoadMore);
+                break;
+            case 8:
+                projectPresenter.LoadHomeDataMorePProjectInfo(pageNumb, Integer.parseInt(detailType), Integer.parseInt(time), industry, Integer.parseInt(ar), isLoadMore);
+                break;
+            case 9:
+                projectPresenter.LoadHomeDataMoreApplayProjectInfo(pageNumb, Integer.parseInt(detailType), Integer.parseInt(time), industry, Integer.parseInt(ar), isLoadMore);
+                break;
         }
     }
 
     @Override
     public void showProgress() {
-       moreSwipeRefrsh.setRefreshing(true);
+        moreSwipeRefrsh.setRefreshing(true);
     }
 
     @Override
@@ -233,15 +294,11 @@ public class MoreProjectActivity extends BaseActivity implements MoreProjectView
     }
 
     @Override
-    public void onLoadSucess(List<ProjectInfoBean.ItemsBean> projectInfos) {
-        if (projectInfos.size() == 0) {
-            Toast.makeText(this, "没有跟多数据了", Toast.LENGTH_SHORT).show();
-            adapter.changeMoreStatus(MoreProjectAdapter.LOAD_NODATA);
-        }
+    public void onLoadSucess(List<ProjectInfoBean.ItemsBean> projectInfos, boolean isLoadMore) {
         projectList = projectInfos;
         if (isLoadMore) {
             if (projectInfos.size() == 0) {
-                moreSwipeRefrsh.setRefreshing(false);
+                Toast.makeText(this, "没有更多数据", Toast.LENGTH_SHORT).show();
                 adapter.changeMoreStatus(MoreProjectAdapter.PULLUP_LOAD_MORE);
             } else {
                 adapter.addMoreItem(projectList);
@@ -250,11 +307,11 @@ public class MoreProjectActivity extends BaseActivity implements MoreProjectView
         } else {
             adapter = new MoreProjectAdapter(this, projectInfos);
             projectRecyler.setAdapter(adapter);
-            moreSwipeRefrsh.setRefreshing(false);
         }
     }
 
     @Override
     public void onLoadFailed(String msg) {
+        Log.i("TAG", "LoadFailed______________" + msg);
     }
 }

@@ -11,9 +11,11 @@ import org.xutils.x;
  */
 
 public class UpLoadUserPhotoModel {
-    public void upLoadUserPhoto(/*String phone,*/MyCallBack myCacheCallBack){
-//        RequestParams requestParams=new RequestParams(Constants.baseUrl+"iip/user/sendLoginSMS.json");
-//        requestParams.addBodyParameter("cellPhone",phone);
-//        x.http().post(requestParams,myCacheCallBack);
+    public void upLoadUserPhoto(String userId,String enterpriseId,String logofile,MyCallBack myCacheCallBack){
+        RequestParams requestParams=new RequestParams(Constants.baseUrl+"iip/user/updateLogoFile.json");
+        requestParams.addBodyParameter("userId",userId);
+        requestParams.addBodyParameter("enterpriseId",enterpriseId);
+        requestParams.addBodyParameter("logofile",logofile);
+        x.http().post(requestParams,myCacheCallBack);
     }
 }

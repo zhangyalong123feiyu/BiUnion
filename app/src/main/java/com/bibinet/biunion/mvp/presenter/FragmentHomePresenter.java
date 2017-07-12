@@ -1,6 +1,7 @@
 package com.bibinet.biunion.mvp.presenter;
 
 import android.util.Log;
+import android.widget.Toast;
 
 import com.bibinet.biunion.mvp.model.FragmentHomeModel;
 import com.bibinet.biunion.mvp.view.FragmentHomeView;
@@ -10,6 +11,8 @@ import com.bibinet.biunion.project.builder.MyCacheCallBack;
 import com.bibinet.biunion.project.builder.MyCallBack;
 import com.google.gson.Gson;
 
+import org.xutils.x;
+
 import java.util.List;
 
 /**
@@ -18,7 +21,8 @@ import java.util.List;
 public class FragmentHomePresenter {
     private FragmentHomeModel fragmentHomeModel;
     private FragmentHomeView fragmentHomeView;
-
+    private boolean hasError = false;
+    private String result = null;
     public FragmentHomePresenter(FragmentHomeView fragmentHomeView) {
         this.fragmentHomeView = fragmentHomeView;
         this.fragmentHomeModel=new FragmentHomeModel();
@@ -29,25 +33,31 @@ public class FragmentHomePresenter {
             @Override
             public void onSuccess(String s) {
                 super.onSuccess(s);
-                Gson gson=new Gson();
-                ProjectInfoBean projectInfo = gson.fromJson(s, ProjectInfoBean.class);
-                List<ProjectInfoBean.ItemsBean> projectinfo_list = projectInfo.getItems();
-                fragmentHomeView.onLoadSucess(projectinfo_list,isLoadMore);
-                fragmentHomeView.hideProgress();
+                if (s!=null) {
+                			result=s;
+                		}
             }
             @Override
             public void onError(Throwable throwable, boolean b) {
                 super.onError(throwable, b);
+                hasError=true;
                 fragmentHomeView.hideProgress();
                 fragmentHomeView.onLoadFaield(throwable.getMessage());
             }
             @Override
             public boolean onCache(String s) {
+                result=s;
+                return false;//如果使用false则表示不使用缓存，如果使用true则表示使用缓存
+            }
+
+            @Override
+            public void onFinished() {
+                super.onFinished();
                 Gson gson=new Gson();
-                ProjectInfoBean projectInfo = gson.fromJson(s, ProjectInfoBean.class);
+                ProjectInfoBean projectInfo = gson.fromJson(result, ProjectInfoBean.class);
                 List<ProjectInfoBean.ItemsBean> projectinfo_list = projectInfo.getItems();
                 fragmentHomeView.onLoadSucess(projectinfo_list,isLoadMore);
-                return super.onCache(s);
+                fragmentHomeView.hideProgress();
             }
         });
     }
@@ -57,12 +67,9 @@ public class FragmentHomePresenter {
             @Override
             public void onSuccess(String s) {
                 super.onSuccess(s);
-                Gson gson=new Gson();
-                ProjectInfoBean projectInfo = gson.fromJson(s, ProjectInfoBean.class);
-                List<ProjectInfoBean.ItemsBean> projectinfo_list = projectInfo.getItems();
-                fragmentHomeView.onLoadSucess(projectinfo_list,isLoadMore);
-                fragmentHomeView.hideProgress();
-                Log.i("TAG","fragementhomedata--------"+projectinfo_list.size());
+                if (s!=null) {
+                    result=s;
+                }
             }
             @Override
             public void onError(Throwable throwable, boolean b) {
@@ -73,11 +80,18 @@ public class FragmentHomePresenter {
 
             @Override
             public boolean onCache(String s) {
+                result=s;
+                return false;
+            }
+
+            @Override
+            public void onFinished() {
+                super.onFinished();
                 Gson gson=new Gson();
-                ProjectInfoBean projectInfo = gson.fromJson(s, ProjectInfoBean.class);
+                ProjectInfoBean projectInfo = gson.fromJson(result, ProjectInfoBean.class);
                 List<ProjectInfoBean.ItemsBean> projectinfo_list = projectInfo.getItems();
                 fragmentHomeView.onLoadSucess(projectinfo_list,isLoadMore);
-                return super.onCache(s);
+                fragmentHomeView.hideProgress();
             }
         });
     }
@@ -87,29 +101,34 @@ public class FragmentHomePresenter {
             @Override
             public void onSuccess(String s) {
                 super.onSuccess(s);
-                Gson gson=new Gson();
-                ProjectInfoBean projectInfo = gson.fromJson(s, ProjectInfoBean.class);
-                List<ProjectInfoBean.ItemsBean> projectinfo_list = projectInfo.getItems();
-                fragmentHomeView.onLoadSucess(projectinfo_list,isLoadMore);
-                fragmentHomeView.hideProgress();
-                Log.i("TAG","fragementhomedata--------"+projectinfo_list.size());
+                if (s!=null) {
+                    result=s;
+                }
             }
             @Override
             public void onError(Throwable throwable, boolean b) {
                 super.onError(throwable, b);
+                hasError=true;
                 fragmentHomeView.onLoadFaield(throwable.getMessage());
                 fragmentHomeView.hideProgress();
             }
 
             @Override
             public boolean onCache(String s) {
+                result=s;
+                return false;
+            }
+
+            @Override
+            public void onFinished() {
+                super.onFinished();
                 Gson gson=new Gson();
-                ProjectInfoBean projectInfo = gson.fromJson(s, ProjectInfoBean.class);
+                ProjectInfoBean projectInfo = gson.fromJson(result, ProjectInfoBean.class);
                 List<ProjectInfoBean.ItemsBean> projectinfo_list = projectInfo.getItems();
                 fragmentHomeView.onLoadSucess(projectinfo_list,isLoadMore);
-                return super.onCache(s);
             }
         });
+
     }
     public void LoadHomeDataPProjectInfo(int pageNum, int type,int provinceId, final boolean isLoadMore){
         fragmentHomeView.showProgress();
@@ -117,12 +136,9 @@ public class FragmentHomePresenter {
             @Override
             public void onSuccess(String s) {
                 super.onSuccess(s);
-                Gson gson=new Gson();
-                ProjectInfoBean projectInfo = gson.fromJson(s, ProjectInfoBean.class);
-                List<ProjectInfoBean.ItemsBean> projectinfo_list = projectInfo.getItems();
-                fragmentHomeView.onLoadSucess(projectinfo_list,isLoadMore);
-                fragmentHomeView.hideProgress();
-                Log.i("TAG","fragementhomedata--------"+projectinfo_list.size());
+                if (s!=null) {
+                    result=s;
+                }
             }
             @Override
             public void onError(Throwable throwable, boolean b) {
@@ -134,11 +150,17 @@ public class FragmentHomePresenter {
 
             @Override
             public boolean onCache(String s) {
+                result=s;
+                return false;
+            }
+
+            @Override
+            public void onFinished() {
+                super.onFinished();
                 Gson gson=new Gson();
-                ProjectInfoBean projectInfo = gson.fromJson(s, ProjectInfoBean.class);
+                ProjectInfoBean projectInfo = gson.fromJson(result, ProjectInfoBean.class);
                 List<ProjectInfoBean.ItemsBean> projectinfo_list = projectInfo.getItems();
                 fragmentHomeView.onLoadSucess(projectinfo_list,isLoadMore);
-                return super.onCache(s);
             }
         });
     }
@@ -148,12 +170,9 @@ public class FragmentHomePresenter {
             @Override
             public void onSuccess(String s) {
                 super.onSuccess(s);
-                Gson gson=new Gson();
-                ProjectInfoBean projectInfo = gson.fromJson(s, ProjectInfoBean.class);
-                List<ProjectInfoBean.ItemsBean> projectinfo_list = projectInfo.getItems();
-                fragmentHomeView.onLoadSucess(projectinfo_list,isLoadmore);
-                fragmentHomeView.hideProgress();
-                Log.i("TAG","fragementhomedata--------"+projectinfo_list.size());
+                if (s!=null) {
+                    result=s;
+                }
             }
             @Override
             public void onError(Throwable throwable, boolean b) {
@@ -165,28 +184,52 @@ public class FragmentHomePresenter {
 
             @Override
             public boolean onCache(String s) {
+                result=s;
+                return false;
+            }
+
+            @Override
+            public void onFinished() {
+                super.onFinished();
                 Gson gson=new Gson();
-                ProjectInfoBean projectInfo = gson.fromJson(s, ProjectInfoBean.class);
+                ProjectInfoBean projectInfo = gson.fromJson(result, ProjectInfoBean.class);
                 List<ProjectInfoBean.ItemsBean> projectinfo_list = projectInfo.getItems();
                 fragmentHomeView.onLoadSucess(projectinfo_list,isLoadmore);
-                return super.onCache(s);
             }
         });
     }
     public void getBannerData(){
-        fragmentHomeModel.getBannerUrl(new MyCallBack(){
+        fragmentHomeModel.getBannerUrl(new MyCacheCallBack(){
+            @Override
+            public boolean onCache(String s) {
+                result=s;
+                return false;
+            }
+
             @Override
             public void onSuccess(String s) {
                 super.onSuccess(s);
-                Gson gson=new Gson();
-                BannerBean bannerInfo = gson.fromJson(s, BannerBean.class);
-                fragmentHomeView.onLoadBannerSucess(bannerInfo.getItem());
+                if (s!=null) {
+                    result=s;
+                }
             }
 
             @Override
             public void onError(Throwable throwable, boolean b) {
                 super.onError(throwable, b);
+                hasError=true;
                 fragmentHomeView.onLoadBannerFailed();
+            }
+
+            @Override
+            public void onFinished() {
+                super.onFinished();
+                if (!hasError && result != null) {
+                    Gson gson=new Gson();
+                    BannerBean bannerInfo = gson.fromJson(result, BannerBean.class);
+                    fragmentHomeView.onLoadBannerSucess(bannerInfo);
+                }
+
             }
         });
     }

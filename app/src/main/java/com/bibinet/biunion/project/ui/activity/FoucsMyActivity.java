@@ -64,10 +64,11 @@ public class FoucsMyActivity extends BaseActivity implements FoucsActivityView {
         titleImageleft.setVisibility(View.VISIBLE);
         presenter = new FoucsActivityPresenter(this);
         userId = Constants.loginresultInfo.getUser().getUserId();
-        if (Constants.loginresultInfo!=null) {
+        if (userId!=null) {
             presenter.getFoucsData(Integer.parseInt(userId),pageNumb,false);
         }else {
             Toast.makeText(this, "您还没有登录呢。。。", Toast.LENGTH_SHORT).show();
+            return;
         }
         foucsRecyclerView.setHasFixedSize(true);
         linearLayoutManager = new LinearLayoutManager(this);

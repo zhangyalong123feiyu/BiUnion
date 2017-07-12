@@ -14,7 +14,7 @@ public class FoucsActivityModel {
     public void getFoucsData(int userid,int index,MyCallBack myCacheCallBack){
         RequestParams requestParams=new RequestParams(Constants.baseUrl+"pis/appCollection/selectPage.json");
         requestParams.addBodyParameter("userId",String.valueOf(userid));
-        requestParams.addBodyParameter("index",String.valueOf(index));
+        requestParams.addBodyParameter("pageNum",String.valueOf(index));
         x.http().post(requestParams,myCacheCallBack);
     }
 }

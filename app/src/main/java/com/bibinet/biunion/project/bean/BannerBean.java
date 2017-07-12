@@ -43,7 +43,7 @@ public class BannerBean implements Serializable {
         this.item = item;
     }
 
-    public static class ItemBean {
+    public static class ItemBean implements Serializable{
         /**
          * imgUrl : http://www.bibenet.com/iip-portlet/review?filePath=20175/6/14/34c885a0-e279-46f1-a6d7-cbd89a5e55a8.png
          * pageUrl : http://www.bibenet.com/information_detail?code=6f3dac075444445e8da5ee3e67ae0be8&infoType=2

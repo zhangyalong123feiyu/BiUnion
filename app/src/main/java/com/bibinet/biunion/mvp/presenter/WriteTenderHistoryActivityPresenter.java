@@ -24,7 +24,6 @@ public class WriteTenderHistoryActivityPresenter {
         writeTenderHistoryActivityModel.writeTenderHistory(cellPhone,customerId,pageNum ,new MyCallBack(){
             @Override
             public void onSuccess(String s) {
-
                 super.onSuccess(s);
                 Gson gson=new Gson();
                 WriteTenderBookHistoryBean writeTenderHistroyInfo = gson.fromJson(s, WriteTenderBookHistoryBean.class);
@@ -35,6 +34,22 @@ public class WriteTenderHistoryActivityPresenter {
             public void onError(Throwable throwable, boolean b) {
                 super.onError(throwable, b);
                 writeTenderHistoryActivityView.onLoadWriteHistroyFailed();
+                Log.i("TAG",throwable.getMessage()+"-------------历史记录查询失败原因---------------");
+            }
+        });
+
+    }
+    public void delteWriteTender(int projectId){
+        writeTenderHistoryActivityModel.writeTenderHistoryDelete(projectId,new MyCallBack(){
+            @Override
+            public void onSuccess(String s) {
+                super.onSuccess(s);
+            }
+
+            @Override
+            public void onError(Throwable throwable, boolean b) {
+                super.onError(throwable, b);
+                Log.i("TAG","删除失败---------"+throwable.getMessage());
             }
         });
     }

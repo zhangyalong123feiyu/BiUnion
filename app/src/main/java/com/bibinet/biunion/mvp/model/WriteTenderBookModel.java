@@ -11,12 +11,12 @@ import org.xutils.x;
  */
 
 public class WriteTenderBookModel {
-    public void upLoadTenderBookData(String tenderSelection, String projectType, String tenderMode, String tenderType, String contact, String cellPhone, String email,String customerId,MyCallBack myCallBack){
+    public void upLoadTenderBookData(int tenderSelection, int projectType, int tenderMode, int tenderType, String contact, String cellPhone, String email,String customerId,MyCallBack myCallBack){
         RequestParams requestParams=new RequestParams(Constants.baseUrl+"pis/appProxyTender/apply.json");
-        requestParams.addBodyParameter("tenderSelection",tenderSelection);
-        requestParams.addBodyParameter("projectType",projectType);
-        requestParams.addBodyParameter("tenderMode",tenderMode);
-        requestParams.addBodyParameter("tenderType",tenderType);
+        requestParams.addBodyParameter("tenderSelection",String.valueOf(tenderSelection));
+        requestParams.addBodyParameter("projectType",String.valueOf(projectType));
+        requestParams.addBodyParameter("tenderMode",String.valueOf(tenderMode));
+        requestParams.addBodyParameter("tenderType",String.valueOf(tenderType));
         requestParams.addBodyParameter("contact",contact);
         requestParams.addBodyParameter("cellPhone",cellPhone);
         requestParams.addBodyParameter("email",email);

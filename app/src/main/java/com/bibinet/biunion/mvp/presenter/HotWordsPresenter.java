@@ -28,13 +28,13 @@ public class HotWordsPresenter {
                 Log.i("TAG","热词-------------------------"+s);
                 Gson gson=new Gson();
                 HotWordsBean hotWordsInfo = gson.fromJson(s, HotWordsBean.class);
-                hotWordsView.onLoadHotWordsSucess(hotWordsInfo.getItems());
+                hotWordsView.onLoadHotWordsSucess(hotWordsInfo);
             }
 
             @Override
             public void onError(Throwable throwable, boolean b) {
                 super.onError(throwable, b);
-                hotWordsView.onLoadHotWordsFailed();
+                hotWordsView.onLoadHotWordsFailed(throwable.getMessage());
                 Log.i("TAG","热词失败-------------------------"+throwable.getMessage());
             }
         });

@@ -58,6 +58,10 @@ public class WriteTenderBook extends BaseActivity implements View.OnClickListene
     TextView text1;
     private DialogUtils dialogUtils = new DialogUtils();
     private WriteTenderBookPresenter writeTenderBookPresenter;
+    private int tenderbookselect;
+    private int tenderbookProjectType;
+    private int tenderbookTenderType;
+    private int tenderbookType;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -85,32 +89,32 @@ public class WriteTenderBook extends BaseActivity implements View.OnClickListene
                 finish();
                 break;
             case R.id.writeBookInput:
-                dialogUtils.showBottomDiaglog(this, R.layout.item_bottomtenderbookselectdialog);
-                View bottomView = dialogUtils.getBottomView();
+                dialogUtils.diloagShow(this, R.layout.item_bottomtenderbookselectdialog);
+                View bottomView = dialogUtils.getView();
                 TextView tenderbook = (TextView) bottomView.findViewById(R.id.TenderBook);
                 TextView bidDoucments = (TextView) bottomView.findViewById(R.id.bidDoucments);
                 tenderbook.setOnClickListener(this);
                 bidDoucments.setOnClickListener(this);
                 break;
             case R.id.projectTypeInput:
-                dialogUtils.showBottomDiaglog(this, R.layout.item_bottomprojecttypedialog);
-                View bottomViewProjectType = dialogUtils.getBottomView();
+                dialogUtils.diloagShow(this, R.layout.item_bottomprojecttypedialog);
+                View bottomViewProjectType = dialogUtils.getView();
                 TextView governmentText = (TextView) bottomViewProjectType.findViewById(R.id.governmentBuy);
                 TextView noGovernmentText = (TextView) bottomViewProjectType.findViewById(R.id.noGovernmentBuy);
                 governmentText.setOnClickListener(this);
                 noGovernmentText.setOnClickListener(this);
                 break;
             case R.id.selectTenderType:
-                dialogUtils.showBottomDiaglog(this, R.layout.item_bottomtenderbooktypedialog);
-                View bottomViewTenderBook = dialogUtils.getBottomView();
+                dialogUtils.diloagShow(this, R.layout.item_bottomtenderbooktypedialog);
+                View bottomViewTenderBook = dialogUtils.getView();
                 TextView projectText = (TextView) bottomViewTenderBook.findViewById(R.id.project);
                 TextView goodsText = (TextView) bottomViewTenderBook.findViewById(R.id.goods);
                 projectText.setOnClickListener(this);
                 goodsText.setOnClickListener(this);
                 break;
             case R.id.tenderTypeInput:
-                dialogUtils.showBottomDiaglog(this, R.layout.item_bottomtendertypedialog);
-                View bottomViewTenderType= dialogUtils.getBottomView();
+                dialogUtils.diloagShow(this, R.layout.item_bottomtendertypedialog);
+                View bottomViewTenderType= dialogUtils.getView();
                 TextView publiseTenderText = (TextView) bottomViewTenderType.findViewById(R.id.publishTender);
                 TextView useLegalTenderText = (TextView) bottomViewTenderType.findViewById(R.id.useLegalTender);
                 TextView askTenderText = (TextView) bottomViewTenderType.findViewById(R.id.askTender);
@@ -135,8 +139,8 @@ public class WriteTenderBook extends BaseActivity implements View.OnClickListene
                     }else if(TextUtils.isEmpty(tenderInput)){
                         Toast.makeText(this,"标书类型为空",Toast.LENGTH_SHORT).show();
                     }else {
-                        if (Constants.loginresultInfo!=null) {
-                            writeTenderBookPresenter.saveWriteTenderBook(tenderBook,tenderPro,tenderSelect,tenderInput,person,contactWay,email,Constants.loginresultInfo.getUser().getUserId());
+                        if (Constants.loginresultInfo.getUser().getUserId()!=null) {
+                            writeTenderBookPresenter.saveWriteTenderBook(tenderbookselect,tenderbookProjectType,tenderbookType,tenderbookTenderType,person,contactWay,email,Constants.loginresultInfo.getUser().getUserId());
                         }else {
                             Toast.makeText(this,"您还没有登录，请登录后再进行操作",Toast.LENGTH_SHORT).show();
                         }
@@ -150,39 +154,48 @@ public class WriteTenderBook extends BaseActivity implements View.OnClickListene
             case R.id.TenderBook://招标文件
                 Log.i("TAG", "tenderbook点击");
                 writeBookInput.setText("招标文件");
-                dialogUtils.disBottomDiaglog();
+                dialogUtils.dialogDismiss();
+                tenderbookselect=0;
                 break;
             case R.id.bidDoucments://投标文件
                 writeBookInput.setText("投标文件");
-                dialogUtils.disBottomDiaglog();
+                dialogUtils.dialogDismiss();
+                tenderbookselect=1;
                 break;
             case R.id.governmentBuy://政府采购
                 projectTypeInput.setText("政府采购");
-                dialogUtils.disBottomDiaglog();
+                dialogUtils.dialogDismiss();
+                tenderbookProjectType=0;
                 break;
             case R.id.noGovernmentBuy://非政府采购
                 projectTypeInput.setText("非政府采购");
-                dialogUtils.disBottomDiaglog();
+                dialogUtils.dialogDismiss();
+                tenderbookProjectType=1;
                 break;
             case R.id.project://工程
                 selectTenderType.setText("工程");
-                dialogUtils.disBottomDiaglog();
+                dialogUtils.dialogDismiss();
+                tenderbookType=0;
                 break;
             case R.id.goods://货物
                 selectTenderType.setText("货物");
-                dialogUtils.disBottomDiaglog();
+                dialogUtils.dialogDismiss();
+                tenderbookType=1;
                 break;
             case R.id.publishTender://公开招标
                 tenderTypeInput.setText("公开招标");
-                dialogUtils.disBottomDiaglog();
+                dialogUtils.dialogDismiss();
+                tenderbookTenderType=0;
                 break;
             case R.id.useLegalTender://依法招标
                 tenderTypeInput.setText("依法招标");
-                dialogUtils.disBottomDiaglog();
+                tenderbookTenderType=1;
+                dialogUtils.dialogDismiss();
                 break;
             case R.id.askTender://邀请招标
                 tenderTypeInput.setText("邀请招标");
-                dialogUtils.disBottomDiaglog();
+                dialogUtils.dialogDismiss();
+                tenderbookTenderType=2;
                 break;
 
             default:

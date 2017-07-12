@@ -73,8 +73,12 @@ public class FragmentHomeModel {
         requestParams.setMaxRetryCount(2);
         x.http().post(requestParams,myCacheCallBack);
     }
-    public void getBannerUrl(MyCallBack myCacheCallBack){
-        RequestParams requestParams=new RequestParams(Constants.baseUrl+"/pis/appData/getHomeImg.json");
+    public void getBannerUrl(MyCacheCallBack myCacheCallBack){
+        RequestParams requestParams=new RequestParams(Constants.baseUrl+"pis/appData/getHomeImg.json");
+        requestParams.setCacheMaxAge(60*60*24*15);
+        requestParams.setCacheDirName(cacheName);
+        requestParams.setCacheSize(1024*1024*30);
+        requestParams.setMaxRetryCount(2);
         x.http().get(requestParams,myCacheCallBack);
     }
 }

@@ -106,12 +106,12 @@ public class MoreProjectAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             ProgressViewHolder progressHolder = (ProgressViewHolder) holder;
             switch (load_more_status) {
                 case PULLUP_LOAD_MORE:
-                    progressHolder.textshow.setText("上拉加载更多...");
-                    progressHolder.progressBar.setVisibility(View.INVISIBLE);
+                    progressHolder.textshow.setVisibility(View.GONE);
+                    progressHolder.progressBar.setVisibility(View.GONE);
                     break;
                 case LOADING_MORE:
-                    progressHolder.textshow.setText("正在加载...");
-                    progressHolder.progressBar.setVisibility(View.VISIBLE);
+                    progressHolder.textshow.setVisibility(View.GONE);
+                    progressHolder.progressBar.setVisibility(View.GONE);
                     break;
                 case LOAD_NODATA:
                     progressHolder.textshow.setVisibility(View.GONE);

@@ -2,6 +2,7 @@ package com.bibinet.biunion.project.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,7 +35,7 @@ public class WriteTenderHistoryAdapter extends RecyclerView.Adapter<RecyclerView
     public static final int LOADING_MORE = 1;
     public static final int LOAD_NODATA = 2;
     public static int Lastposition;
-
+    public OnItemClickListioner onItemClickListioner;
     public WriteTenderHistoryAdapter(Context context, List<WriteTenderBookHistoryBean.ItemBean> historyInfo) {
         this.context = context;
         this.historyInfo = historyInfo;
@@ -72,20 +73,33 @@ public class WriteTenderHistoryAdapter extends RecyclerView.Adapter<RecyclerView
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
-
         if (holder instanceof ItemHolder) {
-            ((ItemHolder) holder).historyTenderBook.setText(String.valueOf(historyInfo.get(position).getTenderSelection()));
-            ((ItemHolder) holder).historyTenderType.setText(String.valueOf(historyInfo.get(position).getProjectType()));
-            ((ItemHolder) holder).tenderType.setText(String.valueOf(historyInfo.get(position).getTenderMode()));
-            ((ItemHolder) holder).tenderBookType.setText(String.valueOf(historyInfo.get(position).getTenderType()));
-            ((ItemHolder) holder).contactPerson.setText(String.valueOf(historyInfo.get(position).getContact()));
-            ((ItemHolder) holder).contactType.setText(String.valueOf(historyInfo.get(position).getCellPhone()));
-            ((ItemHolder) holder).contactEmail.setText(String.valueOf(historyInfo.get(position).getEmail()));
-            if (historyInfo.get(position).getIsEnd()==2) {
+            ((ItemHolder) holder).historyTenderBook.setText(historyInfo.get(position).getTenderSelection());
+            ((ItemHolder) holder).historyTenderType.setText(historyInfo.get(position).getProjectType());
+            ((ItemHolder) holder).tenderType.setText(historyInfo.get(position).getTenderMode());
+            ((ItemHolder) holder).tenderBookType.setText(historyInfo.get(position).getTenderType());
+            ((ItemHolder) holder).contactPerson.setText(historyInfo.get(position).getContact());
+            ((ItemHolder) holder).contactType.setText(historyInfo.get(position).getCellPhone());
+            ((ItemHolder) holder).contactEmail.setText(historyInfo.get(position).getEmail());
+                ((ItemHolder) holder).itemView.setOnClickListener(
+                        new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+//                            historyInfo.remove(position);
+//                            notifyDataSetChanged();
+                                Log.i("TAG","adapterview----null----点击-------");
+                                if (onItemClickListioner!=null) {
+                                    onItemClickListioner.ItemClickListioner(position,historyInfo.get(position).getObjectId());
+                                }
+                            }
+                        }
+                );
+            if (historyInfo.get(position).getIsEnd().equals("2")) {
                 ((ItemHolder) holder).tenderBookHistory.setImageResource(R.mipmap.biaoshudaixie_wangchang);
             }else {
                 ((ItemHolder) holder).tenderBookHistory.setImageResource(R.mipmap.biaoshudaixie_tijiao);
             }
+
         } else if (holder instanceof ProgressViewHolder) {
             ProgressViewHolder progressHolder = (ProgressViewHolder) holder;
             switch (load_more_status) {
@@ -103,6 +117,7 @@ public class WriteTenderHistoryAdapter extends RecyclerView.Adapter<RecyclerView
                     break;
             }
         }
+
     }
 
 
@@ -155,6 +170,12 @@ public class WriteTenderHistoryAdapter extends RecyclerView.Adapter<RecyclerView
             progressBar = (ProgressBar) itemView.findViewById(R.id.loadMore);
             textshow = (TextView) itemView.findViewById(R.id.textshow);
         }
+    }
+    public void setOnItemClickListioner(OnItemClickListioner itemClickListioner){
+        this.onItemClickListioner=itemClickListioner;
+    }
+    public interface OnItemClickListioner{
+        void ItemClickListioner(int position,int objectId);
     }
 
     class ItemHolder extends RecyclerView.ViewHolder {

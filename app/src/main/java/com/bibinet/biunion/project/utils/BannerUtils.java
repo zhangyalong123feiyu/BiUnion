@@ -4,15 +4,20 @@ import android.content.Context;
 import android.os.Handler;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.bibinet.biunion.R;
+import com.bibinet.biunion.project.application.Constants;
 import com.bibinet.biunion.project.bean.BannerBean;
 import com.bibinet.biunion.project.builder.MyViewPager;
 import com.bumptech.glide.Glide;
+
+import org.xutils.image.ImageOptions;
+import org.xutils.x;
 
 import java.util.List;
 
@@ -62,7 +67,7 @@ public class BannerUtils {
            }
            @Override
            public void onPageSelected(int position) {
-               if (urls.size()==0) {
+               if (urls==null||urls.size()==0) {
                    return;
                		}else {
                    position = position % (urls.size());
@@ -87,6 +92,9 @@ public class BannerUtils {
     };
     private void addPoint() {
         groupContain.removeAllViews();
+        if (urls==null||urls.size()==0) {
+        		return;
+        		}
         for(int i=0;i<urls.size();i++){
             ImageView iv=new ImageView(context);
             iv.setBackgroundResource(R.drawable.point_bg);
@@ -118,10 +126,15 @@ public class BannerUtils {
             // TODO Auto-generated method stub
             ImageView iv=new ImageView(context);
             iv.setScaleType(ImageView.ScaleType.FIT_XY);
-            if (urls.size()==0) {
+            ImageOptions imageOptions=new ImageOptions.Builder().setUseMemCache(true).setFailureDrawableId(R.mipmap.banner_nowifi).build();
+            if (urls==null||urls.size()==0) {
+//                x.image().bind(iv,"",imageOptions);
                 Glide.with(context).load("").error(R.mipmap.banner_nowifi).into(iv);
             		}else {
-                Glide.with(context).load(urls.get(position%(urls.size())).getImgUrl()).error(R.mipmap.banner_nowifi).into(iv);
+                Log.i("TAG",urls.get(position%(urls.size())).getImgUrl()+"bannerurl------------------------------------");
+                Glide.with(context).load(Constants.baseUrl+urls.get(position%(urls.size())).getImgUrl()).error(R.mipmap.banner_nowifi).into(iv);
+//                x.image().bind(iv,urls.get(position%(urls.size())).getImgUrl());
+
             }
 
             container.addView(iv);

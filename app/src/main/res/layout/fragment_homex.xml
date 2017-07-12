@@ -3,8 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.bibinet.biunion.project.ui.fragment.Fragment_Home">
-
+    tools:context="com.bibinet.biunion.project.ui.fragment.Fragment_Homex">
 
 
     <include layout="@layout/item_homesearch" />
@@ -38,7 +37,7 @@
                 android:layout_height="7dp"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="7dp"
-                android:src="@mipmap/img_spring_down" />
+                android:src="@drawable/deriction_selector" />
         </LinearLayout>
         <LinearLayout
             android:layout_width="0dp"
@@ -67,7 +66,7 @@
                     android:id="@+id/projectNameTwo"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
+                    android:layout_weight="1.2"
                     android:button="@null"
                     android:text="@string/projecNameTwo"
                     android:gravity="center"

@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="45dp"
         android:background="#F9C432"
@@ -12,51 +12,37 @@
                 android:layout_width="11dp"
                 android:layout_height="11dp"
                 android:src="@mipmap/denglu_fanhui"
-                android:layout_gravity="center_vertical"
+                android:layout_centerVertical="true"
                 android:layout_marginLeft="10dp"
                 />
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="26dp"
-            android:layout_weight="1"
-            android:orientation="horizontal"
-            android:layout_marginLeft="10dp"
-            android:background="@drawable/search_shape"
-            android:layout_gravity="center_vertical">
-            <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:src="@mipmap/search"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="20dp"
-                />
-            <TextView
-                android:id="@+id/searchProject"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:hint="@string/searchhint"
-                android:gravity="center"
-                android:textColor="#999999"
-                android:textSize="12sp"
-                android:background="@null"/>
-        </LinearLayout>
-
 
         <TextView
-            android:layout_width="60dp"
+            android:id="@+id/moreTitle"
+            android:layout_width="80dp"
             android:layout_height="30dp"
             android:layout_gravity="center_vertical"
             android:layout_marginRight="15dp"
             android:textColor="@color/white"
             android:layout_marginLeft="10dp"
             android:gravity="center"
+            android:textSize="19sp"
+            android:layout_centerInParent="true"
             android:text="项目信息"
             />
-    </LinearLayout>
+    </RelativeLayout>
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/moreSwipeRefrsh"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="45dp"
-        android:background="#F4F4F4">
+        android:background="#F4F4F4"
+        android:orientation="horizontal">
         <LinearLayout
             android:id="@+id/projectIndustry"
             android:layout_width="0dp"
@@ -72,11 +58,13 @@
                 android:ellipsize="end"
                 android:layout_height="match_parent"
                 android:text="行业"/>
+
             <ImageView
+                android:id="@+id/imageView5"
                 android:layout_width="15dp"
                 android:layout_height="12dp"
                 android:layout_marginLeft="8dp"
-                android:src="@mipmap/shangjian"/>
+                android:src="@drawable/deriction_selector" />
         </LinearLayout>
         <LinearLayout
             android:id="@+id/projectAeara"
@@ -98,7 +86,7 @@
                 android:layout_height="12dp"
                 android:layout_marginLeft="8dp"
                 android:layout_gravity="center"
-                android:src="@mipmap/shangjian"/>
+                android:src="@drawable/deriction_selector"/>
         </LinearLayout>
         <LinearLayout
             android:id="@+id/projectTime"
@@ -120,18 +108,16 @@
                 android:layout_height="12dp"
                 android:layout_marginLeft="8dp"
                 android:layout_gravity="center"
-                android:src="@mipmap/shangjian"/>
+                android:src="@drawable/deriction_selector"/>
         </LinearLayout>
 
     </LinearLayout>
-<android.support.v4.widget.SwipeRefreshLayout
-    android:id="@+id/moreSwipeRefrsh"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/projectRecyler"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-</android.support.v4.widget.SwipeRefreshLayout>
 
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/projectRecyler"
+                android:layout_width="match_parent"
+                android:layout_height="571dp" />
+        </LinearLayout>
+</android.support.v4.widget.SwipeRefreshLayout>
 </LinearLayout>

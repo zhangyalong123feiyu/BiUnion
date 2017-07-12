@@ -110,6 +110,7 @@
         <activity android:name=".project.ui.activity.ChatActivity" android:screenOrientation="portrait"/>
         <activity android:name=".project.ui.activity.AskExpertsActivtiy" android:screenOrientation="portrait"/>
         <activity android:name=".project.ui.activity.HelpTenderHistoryActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".project.ui.activity.SearchResultActivity" android:screenOrientation="portrait"/>
 
 
 

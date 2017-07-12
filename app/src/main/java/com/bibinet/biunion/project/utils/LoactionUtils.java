@@ -98,7 +98,9 @@ public class LoactionUtils {
                 textView.setText("太原市");
                 Toast.makeText(context,"获取定位失败",Toast.LENGTH_SHORT).show();
             }
+            textView.setText("太原市");
         }
+
     };
     /**
      * 销毁定位

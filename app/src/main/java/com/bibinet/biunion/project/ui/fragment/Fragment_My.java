@@ -94,6 +94,9 @@ public class Fragment_My extends Fragment implements UpLoadUserPhotoView{
     private static final int REQUESTCODE_PICK = 1;//图库
     private static final int PHOTO_REQUEST_CAMERA = 3;//相机
     private static final int REQUESTCODE_CUTTING = 2;
+    private File businesspic;
+    private Uri uriPic;
+
     public Fragment_My() {
         // Required empty public constructor
     }
@@ -112,6 +115,20 @@ public class Fragment_My extends Fragment implements UpLoadUserPhotoView{
     private void initView() {
         title.setText("个人中心");
         upLoadUserPhotoPresenter=new UpLoadUserPhotoPresenter(this);
+//        if (Constants.loginresultInfo == null) {
+//            logined.setVisibility(View.GONE);
+//            noLogin.setVisibility(View.VISIBLE);
+//        } else {
+//            logined.setVisibility(View.VISIBLE);
+//            noLogin.setVisibility(View.GONE);
+//            companyName.setText(Constants.loginresultInfo.getUser().getName());
+//            if (TextUtils.isEmpty(Constants.loginresultInfo.getUser().getImage())) {
+//                userPhotoLogin.setImageResource(R.mipmap.wode_toux);
+//            }else {
+//                Bitmap bitmap = Base64MapUtils.stringToBitmap(Constants.loginresultInfo.getUser().getImage());
+//                userPhotoLogin.setImageBitmap(bitmap);
+//            }
+//        }
     }
 
     @Override
@@ -195,9 +212,9 @@ public class Fragment_My extends Fragment implements UpLoadUserPhotoView{
 
     private void selectFromCamera() {
         Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
-        File businesspic = new File(Environment.getExternalStorageDirectory() + "/BiUnion",PHOTO_USERPHOTO);
-        intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(businesspic));
-        startActivity(intent);
+        businesspic = new File(Environment.getExternalStorageDirectory() + "/BiUnion",PHOTO_USERPHOTO);
+        intent.putExtra(MediaStore.EXTRA_OUTPUT,Uri.fromFile(businesspic));
+        startActivityForResult(intent,PHOTO_REQUEST_CAMERA);
         dialogUtils.dialogDismiss();
     }
 
@@ -209,65 +226,75 @@ public class Fragment_My extends Fragment implements UpLoadUserPhotoView{
             return false;
         }
     }
-//    @Override
-//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        switch (requestCode) {
-//            //从图库选择
-//            case REQUESTCODE_PICK:
-//                if (data == null || data.getData() == null) {
-//                    return;
-//                }
-//                Uri uri = data.getData();
-//                startPhotoZoom(uri);
-//                // 查询选择图片
-//                Cursor cursor = getContentResolver().query(uri,
-//                        new String[]{MediaStore.Images.Media.DATA}, null,
-//                        null, null);
-//                // 光标移动至开头 获取图片路径
-//                cursor.moveToFirst();
-//                String pathImage = cursor.getString(cursor
-//                        .getColumnIndex(MediaStore.Images.Media.DATA));
-//                File file = new File(pathImage);
-//                RequestParams requestParams = new RequestParams(Constants.baseUrl + "iip/user/uploadFile.json");
-//                requestParams.addBodyParameter("file", file);
-//                x.http().post(requestParams, new MyCallBack() {
-//                    @Override
-//                    public void onSuccess(String s) {
-//                        super.onSuccess(s);
-//                        Toast.makeText(getActivity(), "上传成功", Toast.LENGTH_SHORT).show();
-//                    }
-//
-//                    @Override
-//                    public void onError(Throwable throwable, boolean b) {
-//                        super.onError(throwable, b);
-//                        Log.i("TAG", throwable.getMessage() + "999999999999999999999999");
-//                    }
-//                });
-//                break;
-//            //拍照
-//            case PHOTO_REQUEST_CAMERA:
-//                if (hasSdcard()) {
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (requestCode) {
+            //从图库选择
+            case REQUESTCODE_PICK:
+                if (data == null || data.getData() == null) {
+                    return;
+                }
+                Uri uri = data.getData();
+                startPhotoZoom(uri);
+                // 查询选择图片
+                Cursor cursor = getActivity().getContentResolver().query(uri,
+                        new String[]{MediaStore.Images.Media.DATA}, null,
+                        null, null);
+                // 光标移动至开头 获取图片路径
+                cursor.moveToFirst();
+                String pathImage = cursor.getString(cursor
+                        .getColumnIndex(MediaStore.Images.Media.DATA));
+                File file = new File(pathImage);
+                RequestParams requestParams = new RequestParams(Constants.baseUrl + "iip/user/uploadFile.json");
+                requestParams.addBodyParameter("file", file);
+                x.http().post(requestParams, new MyCallBack() {
+                    @Override
+                    public void onSuccess(String s) {
+                        super.onSuccess(s);
+                        Toast.makeText(getActivity(), "上传成功", Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onError(Throwable throwable, boolean b) {
+                        super.onError(throwable, b);
+                        Log.i("TAG", throwable.getMessage() + "999999999999999999999999");
+                    }
+        });
+                break;
+            //拍照
+            case PHOTO_REQUEST_CAMERA:
+           /*     if (data == null || data.getData() == null) {
+                    Log.i("TAG","data为空了-------------------");
+                    return;
+                }*/
+                if (hasSdcard()) {
 //                    Uri urid = data.getData();
-//                    startPhotoZoom(urid);
-//                } else {
-//                    Toast.makeText(getActivity(), "未找到存储卡，无法存储照片！", Toast.LENGTH_SHORT).show();
-//                }
-//                break;
-//            //裁剪图片
-//            case REQUESTCODE_CUTTING:
-//                if (data != null) {
-//                    Bundle extras = data.getExtras();
-//                    if (extras != null) {
-//                        Bitmap photo = extras.getParcelable("data");
-//                    }
-//                }
-//                break;
-//
-//            default:
-//                break;
-//        }
-//        super.onActivityResult(requestCode, resultCode, data);
-//    }
+                    uriPic=Uri.fromFile(businesspic);
+                    startPhotoZoom(uriPic);
+                } else {
+                    Toast.makeText(getActivity(), "未找到存储卡，无法存储照片！", Toast.LENGTH_SHORT).show();
+                }
+                break;
+            //裁剪图片
+            case REQUESTCODE_CUTTING:
+                if (data != null) {
+                    Bundle extras = data.getExtras();
+                    if (extras != null) {
+                        Log.i("TAG","裁剪图片-------------------");
+                        Bitmap photo = extras.getParcelable("data");
+                        upLoadUserPhotoPresenter.upLoadUserPhoto(Constants.loginresultInfo.getUser().getUserId(),Constants.loginresultInfo.getUser().getEnterprise().getEnterpriseId(), Base64MapUtils.bitmapToBase64(photo));
+                        Log.i("TAG","photosize-------------------"+photo.toString());
+                        userPhotoLogin.setImageBitmap(photo);
+
+                    }
+                }
+                break;
+
+            default:
+                break;
+        }
+        super.onActivityResult(requestCode, resultCode, data);
+    }
     // 开始裁剪相片
     public void startPhotoZoom(Uri uri) {
         Intent intent = new Intent("com.android.camera.action.CROP");

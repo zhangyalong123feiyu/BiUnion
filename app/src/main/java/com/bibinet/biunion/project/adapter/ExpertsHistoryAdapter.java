@@ -1,19 +1,15 @@
 package com.bibinet.biunion.project.adapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.bibinet.biunion.R;
-import com.bibinet.biunion.project.bean.FoucsedBean;
-import com.bibinet.biunion.project.ui.activity.H5Activity;
+import com.bibinet.biunion.project.bean.ExpertsAskAnswerResultBean;
 
 import java.util.List;
 
@@ -21,14 +17,12 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * Created by bibinet on 2017-6-23.
+ * Created by bibinet on 2017-1-6.
  */
-
-public class FoucsMyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class ExpertsHistoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {//专家回答历史记录
     private final LayoutInflater inflater;
     private Context context;
-    private List<FoucsedBean.ItemBean> socailInfos;
-    private static final int TYPE_HEADER = 2;
+    private List<ExpertsAskAnswerResultBean.ItemsBean> historyInfo;
     private static final int TYPE_ITEM = 0;  //普通Item View
     private static final int TYPE_FOOTER = 1;  //底部FootView
     //上拉加载更多状态-默认为0
@@ -37,17 +31,14 @@ public class FoucsMyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     public static final int PULLUP_LOAD_MORE = 0;
     //正在加载中
     public static final int LOADING_MORE = 1;
-    //没有数据时
     public static final int LOAD_NODATA = 2;
-
     public static int Lastposition;
 
-    public FoucsMyAdapter(Context context, List<FoucsedBean.ItemBean> socailInfos) {
+    public ExpertsHistoryAdapter(Context context, List<ExpertsAskAnswerResultBean.ItemsBean> historyInfo) {
         this.context = context;
-        this.socailInfos = socailInfos;
-        Lastposition = socailInfos.size();
+        this.historyInfo = historyInfo;
+        Lastposition = historyInfo.size();
         inflater = LayoutInflater.from(context);
-        Log.i("TAG", socailInfos.size() + "-------foucs---------");
     }
 
     @Override
@@ -63,14 +54,15 @@ public class FoucsMyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         //进行判断显示类型，来创建返回不同的View
         if (viewType == TYPE_ITEM) {
-            View view = inflater.inflate(R.layout.item_focus, parent, false);
+            View view = inflater.inflate(R.layout.item_expertsanserhistory, parent, false);
             //这边可以做一些属性设置，甚至事件监听绑定
             //view.setBackgroundColor(Color.RED);
-            FoucsItemHolder itemViewHolder = new FoucsItemHolder(view);
+            ItemHolder itemViewHolder = new ItemHolder(view);
             return itemViewHolder;
         } else if (viewType == TYPE_FOOTER) {
             View foot_view = inflater.inflate(R.layout.progressbar_item, parent, false);
             //这边可以做一些属性设置，甚至事件监听绑定
+            //view.setBackgroundColor(Color.RED);
             ProgressViewHolder footViewHolder = new ProgressViewHolder(foot_view);
             return footViewHolder;
         }
@@ -80,31 +72,16 @@ public class FoucsMyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
 
-        if (holder instanceof FoucsItemHolder) {
-            ((FoucsItemHolder) holder).projectTitle.setText(socailInfos.get(position).getProjectTitle());
-            ((FoucsItemHolder) holder).projcetName.setText(socailInfos.get(position).getProjectName());
-            ((FoucsItemHolder) holder).projcetOffer.setText(socailInfos.get(position).getProjectAmount());
-            ((FoucsItemHolder) holder).projcetDescrp.setText(socailInfos.get(position).getProjectDescrp());
-            ((FoucsItemHolder) holder).projectType.setText(socailInfos.get(position).getProjectType());
-            ((FoucsItemHolder) holder).projectLocation.setText(socailInfos.get(position).getProjectLocation());
-            ((FoucsItemHolder) holder).publishTime.setText(socailInfos.get(position).getProjectPublishTime());
-
-            if (socailInfos.get(position).getProjectType().equals("A")) {
-                ((FoucsItemHolder) holder).projectImage.setImageResource(R.mipmap.shouye_gongcheng);
-            } else if (socailInfos.get(position).getProjectType().equals("B")) {
-                ((FoucsItemHolder) holder).projectImage.setImageResource(R.mipmap.shouye_huowu);
+        if (holder instanceof ItemHolder) {
+            ((ItemHolder) holder).answerTitle.setText(historyInfo.get(position).getTitle());
+            ((ItemHolder) holder).content.setText(historyInfo.get(position).getContent());
+            ((ItemHolder) holder).createTime.setText(String.valueOf(historyInfo.get(position).getCreateDate()));
+            if (historyInfo.get(position).getIsSolved() == 2) {
+                ((ItemHolder) holder).isAnsewerEnd.setText("专家已解答");
             } else {
-                ((FoucsItemHolder) holder).projectImage.setImageResource(R.mipmap.shouye_fuw);
+                ((ItemHolder) holder).isAnsewerEnd.setText("已提交");
             }
-            holder.itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(context, H5Activity.class);
-                    intent.putExtra("detailUrl", socailInfos.get(position).getProjectUrl());
-                    context.startActivity(intent);
-                }
-            });
-        } else if (holder instanceof SearchActivityAdapter.ProgressViewHolder) {
+        } else if (holder instanceof ProgressViewHolder) {
             ProgressViewHolder progressHolder = (ProgressViewHolder) holder;
             switch (load_more_status) {
                 case PULLUP_LOAD_MORE:
@@ -123,6 +100,7 @@ public class FoucsMyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         }
     }
 
+
     public class FootViewHolder extends RecyclerView.ViewHolder {
         private ProgressBar loadMore;
         private TextView textshow;
@@ -134,12 +112,12 @@ public class FoucsMyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         }
     }
 
-    public void addMoreItem(List<FoucsedBean.ItemBean> newDatas) {
-        System.out.print(this.socailInfos.size() + "原有数据");
+    public void addMoreItem(List<ExpertsAskAnswerResultBean.ItemsBean> newDatas) {
+        System.out.print(this.historyInfo.size() + "原有数据");
         System.out.print(newDatas.size() + "新增有数据");
-        this.socailInfos.addAll(newDatas);
-        Lastposition = this.socailInfos.size();
-        System.out.print(this.socailInfos.size() + "现有");
+        this.historyInfo.addAll(newDatas);
+        Lastposition = this.historyInfo.size();
+        System.out.print(this.historyInfo.size() + "现有");
         notifyDataSetChanged();
     }
 
@@ -160,7 +138,7 @@ public class FoucsMyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
     @Override
     public int getItemCount() {
-        return socailInfos.size() > 0 ? socailInfos.size() + 1 : 1;
+        return historyInfo.size() > 0 ? historyInfo.size() + 1 : 1;
     }
 
     class ProgressViewHolder extends RecyclerView.ViewHolder {
@@ -173,27 +151,19 @@ public class FoucsMyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             textshow = (TextView) itemView.findViewById(R.id.textshow);
         }
     }
-}
 
-class FoucsItemHolder extends RecyclerView.ViewHolder {
-    @BindView(R.id.projectTitle)
-    TextView projectTitle;
-    @BindView(R.id.projcetName)
-    TextView projcetName;
-    @BindView(R.id.projcetOffer)
-    TextView projcetOffer;
-    @BindView(R.id.projcetDescrp)
-    TextView projcetDescrp;
-    @BindView(R.id.projectImage)
-    ImageView projectImage;
-    @BindView(R.id.projectType)
-    TextView projectType;
-    @BindView(R.id.projectLocation)
-    TextView projectLocation;
-    @BindView(R.id.publishTime)
-    TextView publishTime;
-    public FoucsItemHolder(View itemView) {
-        super(itemView);
-        ButterKnife.bind(this, itemView);
+    class ItemHolder extends RecyclerView.ViewHolder {
+        @BindView(R.id.answerTitle)
+        TextView answerTitle;
+        @BindView(R.id.content)
+        TextView content;
+        @BindView(R.id.createTime)
+        TextView createTime;
+        @BindView(R.id.isAnsewerEnd)
+        TextView isAnsewerEnd;
+        public ItemHolder(View itemView) {
+            super(itemView);
+            ButterKnife.bind(this, itemView);
+        }
     }
 }

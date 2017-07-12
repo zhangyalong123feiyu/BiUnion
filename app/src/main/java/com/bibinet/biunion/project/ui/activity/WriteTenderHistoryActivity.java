@@ -15,7 +15,6 @@ import com.bibinet.biunion.mvp.presenter.WriteTenderHistoryActivityPresenter;
 import com.bibinet.biunion.mvp.view.WriteTenderHistoryActivityView;
 import com.bibinet.biunion.project.adapter.SocailFooterAdapter;
 import com.bibinet.biunion.project.adapter.TenderHistoryAdapter;
-import com.bibinet.biunion.project.adapter.WriteTenderBookHistoryAdapter;
 import com.bibinet.biunion.project.adapter.WriteTenderHistoryAdapter;
 import com.bibinet.biunion.project.application.BaseActivity;
 import com.bibinet.biunion.project.application.Constants;
@@ -111,21 +110,28 @@ public class WriteTenderHistoryActivity extends BaseActivity implements WriteTen
     @Override
     public void onLoadWriteHistroySucess(List<WriteTenderBookHistoryBean.ItemBean> historyInfo,boolean isLoadMore) {
         projectList = historyInfo;
+        Log.i("TAG","--------------------"+historyInfo.size());
         if (isLoadMore) {
-            Log.i("TAG", "44444");
-            Log.i("TAG", "pageNumber"+pageNumb);
             if (historyInfo.size() == 0) {
                 Toast.makeText(this, "没有更多数据", Toast.LENGTH_SHORT).show();
                 adapter.changeMoreStatus(SocailFooterAdapter.PULLUP_LOAD_MORE);
             } else {
-                Log.i("TAG", "55555555555");
                 adapter.addMoreItem(projectList);
                 adapter.changeMoreStatus(SocailFooterAdapter.PULLUP_LOAD_MORE);
             }
         } else {
-            Log.i("TAG", "66666");
             adapter = new WriteTenderHistoryAdapter(this, projectList);
             tenderWriteHistroy.setAdapter(adapter);
+            adapter.setOnItemClickListioner(new WriteTenderHistoryAdapter.OnItemClickListioner() {
+                @Override
+                public void ItemClickListioner(int position, int objectId) {
+                    presenter.delteWriteTender(objectId);
+                    Log.i("TAG","projectListSize--------------------"+projectList.size());
+                    Log.i("TAG","objectId----------position-------"+position+"objectid"+objectId);
+                    projectList.remove(position);
+                    adapter.notifyDataSetChanged();
+                }
+            });
         }
     }
 

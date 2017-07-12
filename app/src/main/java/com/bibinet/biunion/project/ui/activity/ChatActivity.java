@@ -5,6 +5,8 @@ import android.graphics.Rect;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewTreeObserver;
@@ -29,7 +31,7 @@ import java.util.List;
 import java.util.Map;
 
 
-public class ChatActivity extends Activity implements View.OnClickListener, EMMessageListener {
+public class ChatActivity extends Activity implements View.OnClickListener, EMMessageListener, TextWatcher {
     private EditText editText;
     private EMMessageListener msgListener;
 
@@ -37,6 +39,7 @@ public class ChatActivity extends Activity implements View.OnClickListener, EMMe
 
     private ListView listView;
 
+    private View sendV;
     private TextView name;
     private EMChatManager emChatManager;
     private EMGroupManager emGroupManager;
@@ -134,6 +137,7 @@ public class ChatActivity extends Activity implements View.OnClickListener, EMMe
         editText = (EditText) findViewById(R.id.act_chat_input);
         listView = (ListView) findViewById(R.id.act_chat_main);
         name = (TextView) findViewById(R.id.act_chat_name);
+        sendV = findViewById(R.id.act_chat_send);
         findViewById(R.id.act_title_title_go_back).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -144,7 +148,7 @@ public class ChatActivity extends Activity implements View.OnClickListener, EMMe
         name.setText("客服小米");
 
         findViewById(R.id.act_chat_send).setOnClickListener(this);
-
+        editText.addTextChangedListener(this);
         dataList = new ArrayList<EMMessage>();
         chatAdapter = new ChatAdapter(dataList, this, listView);
         listView.setAdapter(chatAdapter);
@@ -210,6 +214,26 @@ public class ChatActivity extends Activity implements View.OnClickListener, EMMe
             listView.setSelection(dataList.size()-1);
         }
     };
+
+    @Override
+    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+    }
+
+    @Override
+    public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+    }
+
+    @Override
+    public void afterTextChanged(Editable s) {
+        String t = editText.getText().toString();
+        if(t.equals("")){
+            sendV.setSelected(false);
+        }else{
+            sendV.setSelected(true);
+        }
+    }
 
     interface IKeyBoardVisibleListener{
         void onSoftKeyBoardVisible(boolean visible, int windowBottom);

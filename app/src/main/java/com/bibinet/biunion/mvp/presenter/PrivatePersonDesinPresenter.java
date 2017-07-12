@@ -26,6 +26,7 @@ public class PrivatePersonDesinPresenter {
             public void onSuccess(String s) {
                 super.onSuccess(s);
                 privatePersonDesinView.hideProgress();
+                privatePersonDesinView.onDesinSucess();
                 Log.i("TAG","私人订制成功了");
             }
 
@@ -33,6 +34,7 @@ public class PrivatePersonDesinPresenter {
             public void onError(Throwable throwable, boolean b) {
                 super.onError(throwable, b);
                 privatePersonDesinView.hideProgress();
+                privatePersonDesinView.onDesinSucess();
                 Log.i("TAG","私人订失败了");
                 Log.i("TAG",throwable.getMessage()+"shirendinzhi------------------");
 

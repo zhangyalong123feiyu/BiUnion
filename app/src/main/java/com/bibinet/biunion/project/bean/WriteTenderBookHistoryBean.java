@@ -92,19 +92,19 @@ public class WriteTenderBookHistoryBean implements Serializable {
          */
         private int objectId;
         private String code;
-        private int tenderSelection;
-        private int projectType;
-        private int tenderMode;
-        private int tenderType;
+        private String tenderSelection;
+        private String projectType;
+        private String tenderMode;
+        private String tenderType;
         private String contact;
         private int customerId;
         private String cellPhone;
         private String email;
-        private long createDate;
-        private long updateDate;
-        private int isEnd;
-        private int customerServiceId;
-        private int isDelete;
+        private String createDate;
+        private String updateDate;
+        private String isEnd;
+        private String customerServiceId;
+        private String isDelete;
 
         public int getObjectId() {
             return objectId;
@@ -122,35 +122,35 @@ public class WriteTenderBookHistoryBean implements Serializable {
             this.code = code;
         }
 
-        public int getTenderSelection() {
+        public String getTenderSelection() {
             return tenderSelection;
         }
 
-        public void setTenderSelection(int tenderSelection) {
+        public void setTenderSelection(String tenderSelection) {
             this.tenderSelection = tenderSelection;
         }
 
-        public int getProjectType() {
+        public String getProjectType() {
             return projectType;
         }
 
-        public void setProjectType(int projectType) {
+        public void setProjectType(String projectType) {
             this.projectType = projectType;
         }
 
-        public int getTenderMode() {
+        public String getTenderMode() {
             return tenderMode;
         }
 
-        public void setTenderMode(int tenderMode) {
+        public void setTenderMode(String tenderMode) {
             this.tenderMode = tenderMode;
         }
 
-        public int getTenderType() {
+        public String getTenderType() {
             return tenderType;
         }
 
-        public void setTenderType(int tenderType) {
+        public void setTenderType(String tenderType) {
             this.tenderType = tenderType;
         }
 
@@ -186,43 +186,43 @@ public class WriteTenderBookHistoryBean implements Serializable {
             this.email = email;
         }
 
-        public long getCreateDate() {
+        public String getCreateDate() {
             return createDate;
         }
 
-        public void setCreateDate(long createDate) {
+        public void setCreateDate(String createDate) {
             this.createDate = createDate;
         }
 
-        public long getUpdateDate() {
+        public String getUpdateDate() {
             return updateDate;
         }
 
-        public void setUpdateDate(long updateDate) {
+        public void setUpdateDate(String updateDate) {
             this.updateDate = updateDate;
         }
 
-        public int getIsEnd() {
+        public String getIsEnd() {
             return isEnd;
         }
 
-        public void setIsEnd(int isEnd) {
+        public void setIsEnd(String isEnd) {
             this.isEnd = isEnd;
         }
 
-        public int getCustomerServiceId() {
+        public String getCustomerServiceId() {
             return customerServiceId;
         }
 
-        public void setCustomerServiceId(int customerServiceId) {
+        public void setCustomerServiceId(String customerServiceId) {
             this.customerServiceId = customerServiceId;
         }
 
-        public int getIsDelete() {
+        public String getIsDelete() {
             return isDelete;
         }
 
-        public void setIsDelete(int isDelete) {
+        public void setIsDelete(String isDelete) {
             this.isDelete = isDelete;
         }
     }

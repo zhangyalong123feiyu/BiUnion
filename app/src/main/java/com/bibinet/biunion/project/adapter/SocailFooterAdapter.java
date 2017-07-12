@@ -52,12 +52,16 @@ public class SocailFooterAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     public static int Lastposition;
     private BannerUtils bannerUtils;
     private List<BannerBean.ItemBean> bannerInfo=new ArrayList<>();
-    public SocailFooterAdapter(Context context, List<ProjectInfoBean.ItemsBean> socailInfos,List<BannerBean.ItemBean> bannerUrl) {
+    private int selectType;
+    private int detailType;
+    public SocailFooterAdapter(Context context, List<ProjectInfoBean.ItemsBean> socailInfos,List<BannerBean.ItemBean> bannerUrl,int selectType,int detailType) {
         this.context = context;
         this.socailInfos = socailInfos;
         this.bannerInfo=bannerUrl;
         Lastposition = socailInfos.size();
         inflater = LayoutInflater.from(context);
+        this.selectType=selectType;
+        this.detailType=detailType;
     }
 
     @Override
@@ -119,6 +123,8 @@ public class SocailFooterAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                     intent.putExtra("detailUrl", socailInfos.get(position).getProjectUrl());
                     intent.putExtra("type",socailInfos.get(position).getProjectType());
                     intent.putExtra("projectCode",socailInfos.get(position).getProjectCode());
+                    intent.putExtra("selectType",String.valueOf(selectType));
+                    intent.putExtra("detailType",String.valueOf(detailType));
                     context.startActivity(intent);
                 }
             });
@@ -141,7 +147,7 @@ public class SocailFooterAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             }
         } else if (holder instanceof HeaderViewHolder) {
             if (bannerUtils==null) {
-                bannerUtils = new BannerUtils(context, ((HeaderViewHolder)holder).viewpager,((HeaderViewHolder)holder).groupContain, bannerInfo);
+                bannerUtils = new BannerUtils(context,((HeaderViewHolder)holder).viewpager,((HeaderViewHolder)holder).groupContain, bannerInfo);
                 bannerUtils.startPlayBanner();
             		}else {
                 return;

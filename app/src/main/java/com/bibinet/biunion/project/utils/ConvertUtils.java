@@ -52,13 +52,13 @@ public class ConvertUtils {
 //			return "T";
 //		}
 //    }
-		String industryNew="";
+		String industryNew="z";
         	switch (industry) {
 				    case "行业":
-				    	industryNew="";
+				    	industryNew="z";
 					    break;
 				    case "全部":
-						industryNew="";
+						industryNew="z";
 						break;
         			case "农、林、牧、渔业":
 						industryNew="A";
@@ -127,10 +127,10 @@ public class ConvertUtils {
 		int areaNew=140000;
 			switch (area) {
 					case"地区":
-						areaNew=140000;
+						areaNew=100000;
 						break;
 					case "全部":
-						areaNew=Integer.parseInt("");
+						areaNew=100000;
 						break;
 					case "北京市":
 						areaNew=110000;

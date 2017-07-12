@@ -9,6 +9,6 @@ import java.util.List;
  */
 
 public interface MoreProjectView extends BaseView{
-    void onLoadSucess(List<ProjectInfoBean.ItemsBean> projectInfos);
+    void onLoadSucess(List<ProjectInfoBean.ItemsBean> projectInfos,boolean isLoadMore);
     void onLoadFailed(String msg);
 }

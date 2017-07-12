@@ -11,9 +11,10 @@ import org.xutils.x;
  */
 
 public class ExpertsAnswerHistoryModel {
-    public void getExpertsAnswerData(MyCallBack myCacheCallBack){
-//        RequestParams requestParams=new RequestParams(Constants.baseUrl+"iip/user/sendLoginSMS.json");
-//        requestParams.addBodyParameter("cellPhone",phone);
-//        x.http().post(requestParams,myCacheCallBack);
+    public void getExpertsAnswerData(String userId,int pageNum,MyCallBack myCacheCallBack){
+        RequestParams requestParams=new RequestParams(Constants.baseUrl+"iip/appQuestion/selectPage.json");
+        requestParams.addBodyParameter("creator",userId);
+        requestParams.addBodyParameter("pageNum",String.valueOf(pageNum));
+        x.http().post(requestParams,myCacheCallBack);
     }
 }

@@ -142,13 +142,12 @@ public class CompanyInfoActivity extends BaseActivity implements CompanyInfoView
                     ||TextUtils.isEmpty(area)||TextUtils.isEmpty(detailAddress)||TextUtils.isEmpty(contactName)||TextUtils.isEmpty(contactPhone)) {
                 Toast.makeText(this,"请确保您要提交的内容不为空",Toast.LENGTH_SHORT).show();
             }else {
-                companyInfoPresenter.upLoadData(companyName,creditCode,legalName,leagalidentityCode,industry,area,detailAddress,contactName,contactPhone,orignalId,thumbnailFileInfoId);
+                Log.i("TAG",Constants.loginresultInfo.getUser().getEnterprise().getEnterpriseId()+"企业吗");
+//                companyInfoPresenter.upLoadData(Constants.loginresultInfo.getUser().getEnterprise().,companyName,creditCode,legalName,leagalidentityCode,"A",String.valueOf(140000),detailAddress,contactName,contactPhone,orignalId,thumbnailFileInfoId);
             }
         		}else {
             Toast.makeText(this,"您还没有登录呢",Toast.LENGTH_SHORT).show();
         }
-
-
     }
 
     private void upLoadImage() {
@@ -289,8 +288,20 @@ public class CompanyInfoActivity extends BaseActivity implements CompanyInfoView
     }
 
     @Override
-    public void onUpLoadDataSucess() {
-        Toast.makeText(this,"上传数据成功",Toast.LENGTH_SHORT).show();
+    public void onUpLoadDataSucess(String reslutcode) {
+        	switch (Integer.parseInt(reslutcode)) {
+        			case 0000:
+                        Toast.makeText(this,"上传数据成功",Toast.LENGTH_SHORT).show();
+        				break;
+        			case 9999:
+                        Toast.makeText(this,"系统繁忙，请稍后再试",Toast.LENGTH_SHORT).show();
+        				break;
+        			case 1111:
+                        Toast.makeText(this,"数据异常，请稍后再试",Toast.LENGTH_SHORT).show();
+        				break;
+        			default:
+        				break;
+        			}
     }
 
     @Override

@@ -5,6 +5,7 @@ import android.util.Log;
 import com.bibinet.biunion.mvp.model.CompanyInfoModel;
 import com.bibinet.biunion.mvp.view.CompanyInfoView;
 import com.bibinet.biunion.project.bean.CompanyUpImageBean;
+import com.bibinet.biunion.project.bean.UpLoadDataResultBean;
 import com.bibinet.biunion.project.builder.MyCallBack;
 import com.google.gson.Gson;
 
@@ -22,13 +23,15 @@ public class CompanyInfoPresenter {
         this.companyInfoView = companyInfoView;
         this.companyInfoModel=new CompanyInfoModel();
     }
-    public void upLoadData(String enterpriseName,String USCCode,String businessLicenseName,String businessLicenseCardNo,String industry,String region,String addr,String contactName,String contactCellphone,int originalFileInfoId,int thumbnailFileInfoId){
-        companyInfoModel.upLoadData(enterpriseName,USCCode,businessLicenseName,businessLicenseCardNo,industry,region,addr,contactName,contactCellphone,originalFileInfoId,thumbnailFileInfoId,new MyCallBack(){
+    public void upLoadData(String enterpriseCode,String enterpriseName,String USCCode,String businessLicenseName,String businessLicenseCardNo,String industry,String region,String addr,String contactName,String contactCellphone,int originalFileInfoId,int thumbnailFileInfoId){
+        companyInfoModel.upLoadData(enterpriseCode,enterpriseName,USCCode,businessLicenseName,businessLicenseCardNo,industry,region,addr,contactName,contactCellphone,originalFileInfoId,thumbnailFileInfoId,new MyCallBack(){
             @Override
             public void onSuccess(String s) {
                 super.onSuccess(s);
                 Log.i("TAG","企业信息+++++++++++++++++++++++"+s);
-                companyInfoView.onUpLoadDataSucess();
+                Gson gson=new Gson();
+                UpLoadDataResultBean updataInfo = gson.fromJson(s, UpLoadDataResultBean.class);
+                companyInfoView.onUpLoadDataSucess(updataInfo.getResCode());
             }
 
             @Override
