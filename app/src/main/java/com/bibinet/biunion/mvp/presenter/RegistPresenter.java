@@ -1,9 +1,11 @@
 package com.bibinet.biunion.mvp.presenter;
 
 import android.util.Log;
+import android.widget.Toast;
 
 import com.bibinet.biunion.mvp.model.RegistModel;
 import com.bibinet.biunion.mvp.view.RegistView;
+import com.bibinet.biunion.project.bean.RegistResultBean;
 import com.bibinet.biunion.project.bean.VerifCodeBean;
 import com.bibinet.biunion.project.builder.MyCallBack;
 import com.google.gson.Gson;
@@ -27,14 +29,13 @@ public class RegistPresenter {
                 super.onSuccess(s);
                 Gson gson=new Gson();
                 VerifCodeBean verifInfo = gson.fromJson(s, VerifCodeBean.class);
-                if (verifInfo.getModelAndView().getModel().getResCode().equals("0000")) {
-                    registView.onVerifGetSucess();
-                		}
+                    registView.onVerifGetSucess(verifInfo);
             }
             @Override
             public void onError(Throwable throwable, boolean b) {
                 super.onError(throwable, b);
                 registView.onVerifGetFailed();
+                Log.i("TAG","验证码失败"+throwable.getMessage());
             }
         });
     }
@@ -44,15 +45,18 @@ public class RegistPresenter {
             public void onSuccess(String s) {
                 super.onSuccess(s);
                 Gson gson=new Gson();
-                registView.onRegistSucess();
+                RegistResultBean registResultInfo = gson.fromJson(s, RegistResultBean.class);
+                Log.i("TAG","注册返回json--------------------"+s);
+                registView.onRegistSucess(registResultInfo);
             }
 
             @Override
             public void onError(Throwable throwable, boolean b) {
                 super.onError(throwable, b);
-                registView.onRegistFailed();
+                registView.onRegistFailed(throwable.getMessage());
             }
         });
 
     }
+
 }

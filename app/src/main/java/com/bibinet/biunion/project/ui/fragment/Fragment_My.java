@@ -7,6 +7,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Parcelable;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
@@ -96,6 +97,7 @@ public class Fragment_My extends Fragment implements UpLoadUserPhotoView{
     private static final int REQUESTCODE_CUTTING = 2;
     private File businesspic;
     private Uri uriPic;
+    private Bitmap photo;
 
     public Fragment_My() {
         // Required empty public constructor
@@ -115,25 +117,26 @@ public class Fragment_My extends Fragment implements UpLoadUserPhotoView{
     private void initView() {
         title.setText("个人中心");
         upLoadUserPhotoPresenter=new UpLoadUserPhotoPresenter(this);
-//        if (Constants.loginresultInfo == null) {
-//            logined.setVisibility(View.GONE);
-//            noLogin.setVisibility(View.VISIBLE);
-//        } else {
-//            logined.setVisibility(View.VISIBLE);
-//            noLogin.setVisibility(View.GONE);
-//            companyName.setText(Constants.loginresultInfo.getUser().getName());
-//            if (TextUtils.isEmpty(Constants.loginresultInfo.getUser().getImage())) {
-//                userPhotoLogin.setImageResource(R.mipmap.wode_toux);
-//            }else {
-//                Bitmap bitmap = Base64MapUtils.stringToBitmap(Constants.loginresultInfo.getUser().getImage());
-//                userPhotoLogin.setImageBitmap(bitmap);
-//            }
-//        }
+        if (Constants.loginresultInfo == null) {
+            logined.setVisibility(View.GONE);
+            noLogin.setVisibility(View.VISIBLE);
+        } else {
+            logined.setVisibility(View.VISIBLE);
+            noLogin.setVisibility(View.GONE);
+            companyName.setText(Constants.loginresultInfo.getUser().getName());
+            if (TextUtils.isEmpty(Constants.loginresultInfo.getUser().getImage())) {
+                userPhotoLogin.setImageResource(R.mipmap.wode_toux);
+            }else {
+                Bitmap bitmap = Base64MapUtils.stringToBitmap(Constants.loginresultInfo.getUser().getImage());
+                userPhotoLogin.setImageBitmap(bitmap);
+            }
+        }
     }
 
+
     @Override
-    public void onStart() {
-        super.onStart();
+    public void onResume() {
+        super.onResume();
         if (Constants.loginresultInfo == null) {
             logined.setVisibility(View.GONE);
             noLogin.setVisibility(View.VISIBLE);
@@ -244,22 +247,6 @@ public class Fragment_My extends Fragment implements UpLoadUserPhotoView{
                 cursor.moveToFirst();
                 String pathImage = cursor.getString(cursor
                         .getColumnIndex(MediaStore.Images.Media.DATA));
-                File file = new File(pathImage);
-                RequestParams requestParams = new RequestParams(Constants.baseUrl + "iip/user/uploadFile.json");
-                requestParams.addBodyParameter("file", file);
-                x.http().post(requestParams, new MyCallBack() {
-                    @Override
-                    public void onSuccess(String s) {
-                        super.onSuccess(s);
-                        Toast.makeText(getActivity(), "上传成功", Toast.LENGTH_SHORT).show();
-                    }
-
-                    @Override
-                    public void onError(Throwable throwable, boolean b) {
-                        super.onError(throwable, b);
-                        Log.i("TAG", throwable.getMessage() + "999999999999999999999999");
-                    }
-        });
                 break;
             //拍照
             case PHOTO_REQUEST_CAMERA:
@@ -281,10 +268,10 @@ public class Fragment_My extends Fragment implements UpLoadUserPhotoView{
                     Bundle extras = data.getExtras();
                     if (extras != null) {
                         Log.i("TAG","裁剪图片-------------------");
-                        Bitmap photo = extras.getParcelable("data");
+                         photo = extras.getParcelable("data");
                         upLoadUserPhotoPresenter.upLoadUserPhoto(Constants.loginresultInfo.getUser().getUserId(),Constants.loginresultInfo.getUser().getEnterprise().getEnterpriseId(), Base64MapUtils.bitmapToBase64(photo));
                         Log.i("TAG","photosize-------------------"+photo.toString());
-                        userPhotoLogin.setImageBitmap(photo);
+//                        userPhotoLogin.setImageBitmap(photo);
 
                     }
                 }
@@ -323,7 +310,7 @@ public class Fragment_My extends Fragment implements UpLoadUserPhotoView{
 
     @Override
     public void onUpLoadPhotoSucess() {
-
+    userPhotoLogin.setImageBitmap(photo);
     }
 
     @Override

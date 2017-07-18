@@ -23,6 +23,8 @@ import com.bibinet.biunion.project.utils.DialogUtils;
 import com.bibinet.biunion.project.utils.PhoneNumberUtils;
 import com.bibinet.biunion.project.utils.SharedPresUtils;
 import com.google.gson.Gson;
+import com.hyphenate.chat.ChatClient;
+import com.hyphenate.helpdesk.callback.Callback;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -51,6 +53,8 @@ public class LoginActivity extends BaseActivity implements LoginView{
     Button fastLogin;
     private DialogUtils dialogUtils;
     private boolean ispasswordvisible;
+    private String huanXName;
+    private String huanXPassword;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -63,6 +67,11 @@ public class LoginActivity extends BaseActivity implements LoginView{
     private void initView() {
         title.setText("登录");
         dialogUtils=new DialogUtils();
+        Intent intent = getIntent();
+        huanXName=intent.getStringExtra("HuanxName");
+        huanXPassword=intent.getStringExtra("HuanxPassword");
+        Log.i("TAG","HuanxName-------------"+huanXName);
+        Log.i("TAG","HuanxPassword--------------"+huanXPassword);
     }
 
     @OnClick({R.id.title_imageleft, R.id.btn_login, R.id.fastLogin,R.id.seePasswrod})
@@ -103,6 +112,21 @@ public class LoginActivity extends BaseActivity implements LoginView{
         			Toast.makeText(this,"手机号或者密码为空",Toast.LENGTH_SHORT).show();
         		}else {
             presenter.getLoginInfo(phoneNumber,phonePassword);
+            ChatClient.getInstance().login(huanXName,huanXPassword, new Callback() {
+                @Override
+                public void onSuccess() {
+                    Toast.makeText(LoginActivity.this,"环信登录成功",Toast.LENGTH_SHORT).show();
+                }
+
+                @Override
+                public void onError(int i, String s) {
+                    Log.i("TAG","huanxdenglushibai+"+s);
+                }
+                @Override
+                public void onProgress(int i, String s) {
+
+                }
+            });
         }
     }
 

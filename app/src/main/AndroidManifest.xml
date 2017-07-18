@@ -111,6 +111,13 @@
         <activity android:name=".project.ui.activity.AskExpertsActivtiy" android:screenOrientation="portrait"/>
         <activity android:name=".project.ui.activity.HelpTenderHistoryActivity" android:screenOrientation="portrait"/>
         <activity android:name=".project.ui.activity.SearchResultActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".project.ui.activity.BaiduMapActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".project.ui.activity.ForwardWebViewActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".project.ui.activity.CallActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".project.ui.activity.ContextMenuActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".project.ui.activity.VideoCallActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".project.ui.activity.LeaveMessageActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".project.ui.activity.LoginActivityHuanX" android:screenOrientation="portrait"/>
 
 
 
@@ -244,6 +251,15 @@
         <meta-data android:name="JPUSH_CHANNEL" android:value="developer-default"/>
         <meta-data android:name="JPUSH_APPKEY" android:value="c4bc1e0a4999e0d503d86868" /> <!--  </>值来自开发者平台取得的AppKey-->
 
+        <!-- 百度地图所需的service -->
+        <service
+            android:name="com.baidu.location.f"
+            android:enabled="true"
+            android:process=":remote" >
+        </service>
+        <meta-data
+            android:name="com.baidu.lbsapi.API_KEY"
+            android:value="3ecea51f560650b1ed8a4b99808f52e8" />
     </application>
 
 </manifest>

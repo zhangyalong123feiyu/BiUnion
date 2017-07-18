@@ -4,7 +4,10 @@ import android.util.Log;
 
 import com.bibinet.biunion.mvp.model.UpLoadUserPhotoModel;
 import com.bibinet.biunion.mvp.view.UpLoadUserPhotoView;
+import com.bibinet.biunion.project.application.Constants;
+import com.bibinet.biunion.project.bean.LoginResultBean;
 import com.bibinet.biunion.project.builder.MyCallBack;
+import com.google.gson.Gson;
 
 /**
  * Created by bibinet on 2017-6-30.
@@ -24,7 +27,9 @@ public class UpLoadUserPhotoPresenter {
             public void onSuccess(String s) {
                 super.onSuccess(s);
                 upLoadUserPhotoView.onUpLoadPhotoSucess();
-                Log.i("TAG","phtoots-------------------------"+s);
+                Gson gson=new Gson();
+                LoginResultBean loginInfo = gson.fromJson(s, LoginResultBean.class);
+                Constants.loginresultInfo=loginInfo;
             }
 
             @Override

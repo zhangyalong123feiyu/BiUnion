@@ -131,8 +131,7 @@ public class BannerUtils {
 //                x.image().bind(iv,"",imageOptions);
                 Glide.with(context).load("").error(R.mipmap.banner_nowifi).into(iv);
             		}else {
-                Log.i("TAG",urls.get(position%(urls.size())).getImgUrl()+"bannerurl------------------------------------");
-                Glide.with(context).load(Constants.baseUrl+urls.get(position%(urls.size())).getImgUrl()).error(R.mipmap.banner_nowifi).into(iv);
+                Glide.with(context).load(urls.get(position%(urls.size())).getImgUrl()).error(R.mipmap.banner_nowifi).into(iv);
 //                x.image().bind(iv,urls.get(position%(urls.size())).getImgUrl());
 
             }

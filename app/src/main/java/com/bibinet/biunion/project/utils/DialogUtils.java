@@ -55,23 +55,6 @@ public class DialogUtils {
     }
 
     public void showBottomDiaglog(Context context, int layoutId) {
-//        AlertDialog.Builder dialogBuider=new AlertDialog.Builder(context);
-//        bottomDialog = dialogBuider.create();
-//        bottomView= LayoutInflater.from(context).inflate(layoutId,null);
-//        bottomDialog.show();
-//        bottomDialog.setContentView(bottomView);// 一定要放在dialog.show方法后面
-//        Window dialogwindow = bottomDialog.getWindow();
-//        WindowManager.LayoutParams params = dialogwindow.getAttributes();
-//        WindowManager m = ((Activity)context).getWindowManager();
-//        Display display = m.getDefaultDisplay();
-//        int widith = (int) (display.getWidth());
-//        int hight = (int) (WindowManager.LayoutParams.WRAP_CONTENT);
-//        params.width = widith;
-//        params.height = hight;
-//        dialogwindow.setAttributes(params);
-//        dialogwindow.getDecorView().setPadding(0,0,0,0);
-//        dialogwindow.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.BOTTOM);
-//        bottomDialog.getWindow().setAttributes(params);
         bottomDialog = new Dialog(context);
         bottomView = LayoutInflater.from(context).inflate(layoutId, null, false);
         bottomDialog.setContentView(bottomView);

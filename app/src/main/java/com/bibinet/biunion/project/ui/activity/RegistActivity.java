@@ -3,6 +3,7 @@ package com.bibinet.biunion.project.ui.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -16,8 +17,13 @@ import com.bibinet.biunion.R;
 import com.bibinet.biunion.mvp.presenter.RegistPresenter;
 import com.bibinet.biunion.mvp.view.RegistView;
 import com.bibinet.biunion.project.application.BaseActivity;
+import com.bibinet.biunion.project.application.Constants;
+import com.bibinet.biunion.project.bean.RegistResultBean;
+import com.bibinet.biunion.project.bean.VerifCodeBean;
 import com.bibinet.biunion.project.utils.DialogUtils;
 import com.bibinet.biunion.project.utils.PhoneNumberUtils;
+import com.bibinet.biunion.project.utils.Preferences;
+import com.bibinet.biunion.project.utils.SharedPresUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -90,6 +96,7 @@ public class RegistActivity extends BaseActivity implements RegistView{
                     Toast.makeText(this,"验证码为空",Toast.LENGTH_SHORT).show();
                 						}else {
                     registPresenter.doRegist(companyName,userName,phoneNumb,verifCode);
+
                     dialogUtils.showProgressDialog(this,"正在注册");
                 }
                 break;
@@ -109,8 +116,13 @@ public class RegistActivity extends BaseActivity implements RegistView{
     }
 
     @Override
-    public void onVerifGetSucess() {
-        Toast.makeText(this,"验证码获取成功",Toast.LENGTH_SHORT).show();
+    public void onVerifGetSucess(VerifCodeBean verifCodeBean) {
+        if (verifCodeBean.getResCode().equals("0000")) {
+            Toast.makeText(this,"验证码获取成功",Toast.LENGTH_SHORT).show();
+        }else {
+            Toast.makeText(this,"手机号已注册",Toast.LENGTH_SHORT).show();
+        }
+
     }
 
     @Override
@@ -119,14 +131,23 @@ public class RegistActivity extends BaseActivity implements RegistView{
     }
 
     @Override
-    public void onRegistSucess() {
-        dialogUtils.disProgressDialog();
-        finish();
-        startActivity(new Intent(this,LoginActivity.class));
+    public void onRegistSucess(RegistResultBean registResultBean) {
+        if (registResultBean.getResCode().equals("0000")) {
+            dialogUtils.disProgressDialog();
+            finish();
+            Intent intent = new Intent(this, LoginActivity.class);
+            intent.putExtra("HuanxName",registResultBean.getUser().getEmchatUserName());
+            intent.putExtra("HuanxPassword",registResultBean.getUser().getEmchatPassword());
+            startActivity(intent);
+        }else {
+            Toast.makeText(this,"手机号已注册",Toast.LENGTH_SHORT).show();
+        }
+
     }
 
     @Override
-    public void onRegistFailed() {
+    public void onRegistFailed(String msg) {
     dialogUtils.disProgressDialog();
+        Log.i("TAG","-------------完成注册失败原因-------------------------"+msg);
     }
 }
